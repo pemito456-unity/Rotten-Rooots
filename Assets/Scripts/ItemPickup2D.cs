@@ -10,6 +10,7 @@ public class ItemPickup2D : MonoBehaviour
     public ItemType itemType;
     public int amount = 1;
     public string itemName = "Munição";
+    public Sprite itemIcon; // Arraste a imagem/sprite do item aqui no Inspector!
 
     [Header("UI Pixel HUD")]
     public GameObject promptCanvas;
@@ -29,7 +30,6 @@ public class ItemPickup2D : MonoBehaviour
 
     private void Update()
     {
-        // Pressiona E para efetuar a coleta
         if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             CollectItem();
@@ -64,25 +64,23 @@ public class ItemPickup2D : MonoBehaviour
     {
         if (playerInventory != null)
         {
-            // Adiciona o recurso específico no inventário do Player
-            switch (itemType)
+            // Tenta adicionar ao inventário em ordem crescente de slots
+            bool success = playerInventory.AddItem(itemName, itemIcon, itemType, amount);
+
+            if (success)
             {
-                case ItemType.Ammo:
-                    playerInventory.AddAmmo(amount);
-                    break;
+                if (InventoryUIManager.Instance != null)
+                {
+                    InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
+                    InventoryUIManager.Instance.UpdateHotbarUI();
+                }
 
-                case ItemType.DecontamKit:
-                    playerInventory.AddDecontamKit(amount);
-                    break;
+                Destroy(gameObject);
             }
-
-            // Avisa a UI sobre o item coletado
-        if (InventoryUIManager.Instance != null)
-        {
-            InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
-            InventoryUIManager.Instance.UpdateGridData();
-        }
-            Destroy(gameObject);
+            else
+            {
+                Debug.Log("Inventário Cheio!");
+            }
         }
     }
 }

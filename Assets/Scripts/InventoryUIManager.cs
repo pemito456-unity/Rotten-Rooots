@@ -1,25 +1,30 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 
 public class InventoryUIManager : MonoBehaviour
 {
     public static InventoryUIManager Instance;
 
-    [Header("Painel Principal do Asset")]
-    public GameObject inventoryPanel;       // Arraste o InventoryPanel (com o Frame e a Grid Overlay)
-    public GameObject notificationBanner;   // Arraste o NotificationBanner
-    public TextMeshProUGUI notificationText;// Texto do banner de notificação
+    [System.Serializable]
+    public class UISlotReference
+    {
+        public Image iconImage;           // Referência do objeto ItemIcon (Image)
+        public TextMeshProUGUI countText; // Referência do texto de quantidade (opcional)
+    }
 
-    [Header("Textos dos Slots do Grid")]
-    public TextMeshProUGUI ammoSlotText;     // Texto dentro do slot de munição
-    public TextMeshProUGUI decontamSlotText; // Texto dentro do slot de kit eco
+    [Header("Hotbar Slots (Em Ordem Crescente 1 ao 5)")]
+    public List<UISlotReference> uiSlots = new List<UISlotReference>();
+
+    [Header("Notificação")]
+    public GameObject notificationBanner;   
+    public TextMeshProUGUI notificationText;
 
     [Header("Referência do Jogador")]
     public PlayerInventory playerInventory;
 
-    private bool isInventoryOpen = false;
     private Coroutine notificationCoroutine;
 
     private void Awake()
@@ -30,39 +35,47 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Start()
     {
-        if (inventoryPanel != null) inventoryPanel.SetActive(false);
         if (notificationBanner != null) notificationBanner.SetActive(false);
+        UpdateHotbarUI();
     }
 
-    private void Update()
-    {
-        // Tecla F para abrir/fechar o inventário
-        if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
-        {
-            ToggleInventory();
-        }
-    }
-
-    public void ToggleInventory()
-    {
-        isInventoryOpen = !isInventoryOpen;
-        
-        if (inventoryPanel != null)
-        {
-            inventoryPanel.SetActive(isInventoryOpen);
-            if (isInventoryOpen) UpdateGridData();
-        }
-    }
-
-    public void UpdateGridData()
+    public void UpdateHotbarUI()
     {
         if (playerInventory == null) return;
 
-        if (ammoSlotText != null) 
-            ammoSlotText.text = playerInventory.ammoCount > 0 ? $"x{playerInventory.ammoCount}" : "";
+        for (int i = 0; i < uiSlots.Count; i++)
+        {
+            if (i < playerInventory.slots.Count)
+            {
+                // Preenche o slot com as informações do item coletado
+                var slotData = playerInventory.slots[i];
+                
+                if (uiSlots[i].iconImage != null)
+                {
+                    uiSlots[i].iconImage.sprite = slotData.icon;
+                    uiSlots[i].iconImage.enabled = true; // Exibe o ícone
+                }
 
-        if (decontamSlotText != null) 
-            decontamSlotText.text = playerInventory.decontamKitsCount > 0 ? $"x{playerInventory.decontamKitsCount}" : "";
+                if (uiSlots[i].countText != null)
+                {
+                    uiSlots[i].countText.text = slotData.amount > 1 ? $"x{slotData.amount}" : "";
+                }
+            }
+            else
+            {
+                // Slot vazio: oculta imagem e texto
+                if (uiSlots[i].iconImage != null)
+                {
+                    uiSlots[i].iconImage.sprite = null;
+                    uiSlots[i].iconImage.enabled = false;
+                }
+
+                if (uiSlots[i].countText != null)
+                {
+                    uiSlots[i].countText.text = "";
+                }
+            }
+        }
     }
 
     public void ShowCollectionNotice(string itemName, int amount)
