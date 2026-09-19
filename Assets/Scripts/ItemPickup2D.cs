@@ -4,13 +4,14 @@ using TMPro;
 
 public class ItemPickup2D : MonoBehaviour
 {
-    public enum ItemType { Ammo, DecontamKit }
+    // Adicionado 'Gun' ao Enum de tipos de item
+    public enum ItemType { Ammo, DecontamKit, Gun }
     
     [Header("Configurações do Item")]
     public ItemType itemType;
     public int amount = 1;
     public string itemName = "Munição";
-    public Sprite itemIcon; // Arraste a imagem/sprite do item aqui no Inspector!
+    public Sprite itemIcon;
 
     [Header("UI Pixel HUD")]
     public GameObject promptCanvas;
@@ -64,7 +65,6 @@ public class ItemPickup2D : MonoBehaviour
     {
         if (playerInventory != null)
         {
-            // Tenta adicionar ao inventário em ordem crescente de slots
             bool success = playerInventory.AddItem(itemName, itemIcon, itemType, amount);
 
             if (success)

@@ -24,6 +24,10 @@ public class PlayerController2D : MonoBehaviour
     void FixedUpdate()
     {
         float currentSpeed = isRunning ? runSpeed : moveSpeed;
-        rb.MovePosition(rb.position + moveInput.normalized * currentSpeed * Time.fixedDeltaTime);
+        
+        // Aplica a velocidade diretamente na física do Rigidbody2D
+        // Isso impede totalmente o jogador de atravessar colisão de paredes
+        rb.linearVelocity = moveInput.normalized * currentSpeed; 
+        // Nota: Se usar versão mais antiga da Unity (anterior a 2023), use 'rb.velocity' no lugar de 'rb.linearVelocity'
     }
 }

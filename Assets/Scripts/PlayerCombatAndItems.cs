@@ -80,36 +80,40 @@ public class PlayerCombatAndItems : MonoBehaviour
     // --- LÓGICA DE TIRO ---
     private void TryShoot()
     {
+        // 1. Checa se o jogador já possui/coletou a arma
+        if (!inventory.hasGun)
+        {
+            Debug.Log("Você não possui uma arma! Encontre uma no mapa primeiro.");
+            return;
+        }
+
+        // 2. Checa se há munição no inventário
         var ammoSlot = inventory.slots.Find(s => s.type == ItemPickup2D.ItemType.Ammo);
 
         if (ammoSlot != null && ammoSlot.amount > 0)
         {
-            // Consome 1 munição
             ammoSlot.amount--;
             if (ammoSlot.amount <= 0)
             {
                 inventory.slots.Remove(ammoSlot);
             }
 
-            // Instancia o projétil com a rotação exata apontando para o mouse
             if (bulletPrefab != null && firePoint != null)
             {
                 Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             }
 
-            // Aumenta a Ira da Floresta
             if (ForestWrathManager.Instance != null)
             {
                 ForestWrathManager.Instance.AddWrath(wrathPerShot);
             }
 
-            // Atualiza a UI da Hotbar
             if (InventoryUIManager.Instance != null)
             {
                 InventoryUIManager.Instance.UpdateHotbarUI();
             }
 
-            Debug.Log("Tiro disparado na direção do cursor!");
+            Debug.Log("Tiro disparado!");
         }
         else
         {

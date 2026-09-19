@@ -16,22 +16,21 @@ public class PlayerInventory : MonoBehaviour
     public int maxSlots = 5;
     public List<InventorySlotData> slots = new List<InventorySlotData>();
 
-    // Variáveis de contagem mantidas para compatibilidade com outros scripts
-    public int ammoCount
-    {
-        get { return GetTotalAmount(ItemPickup2D.ItemType.Ammo); }
-    }
+    // A arma agora começa BLOQUEADA (false) até ser coletada no mapa
+    public bool hasGun = false;
 
-    public int decontamKitsCount
-    {
-        get { return GetTotalAmount(ItemPickup2D.ItemType.DecontamKit); }
-    }
-
-    public bool hasGun = true;
+    public int ammoCount => GetTotalAmount(ItemPickup2D.ItemType.Ammo);
+    public int decontamKitsCount => GetTotalAmount(ItemPickup2D.ItemType.DecontamKit);
 
     public bool AddItem(string name, Sprite icon, ItemPickup2D.ItemType type, int amount)
     {
-        // 1. Verifica se o item já existe na Hotbar para agrupar (stack)
+        // Se o item coletado for a Arma, habilita o uso das armas de fogo
+        if (type == ItemPickup2D.ItemType.Gun)
+        {
+            hasGun = true;
+        }
+
+        // 1. Agrupa se já existir no inventário
         foreach (var slot in slots)
         {
             if (slot.type == type)
@@ -41,7 +40,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        // 2. Se for um item novo, insere no próximo slot livre em ordem crescente
+        // 2. Adiciona em um slot livre
         if (slots.Count < maxSlots)
         {
             InventorySlotData newSlot = new InventorySlotData
@@ -55,7 +54,7 @@ public class PlayerInventory : MonoBehaviour
             return true;
         }
 
-        return false; // Inventário cheio
+        return false;
     }
 
     private int GetTotalAmount(ItemPickup2D.ItemType type)
