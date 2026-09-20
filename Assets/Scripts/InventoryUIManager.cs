@@ -11,8 +11,8 @@ public class InventoryUIManager : MonoBehaviour
     [System.Serializable]
     public class UISlotReference
     {
-        public Image iconImage;           // Referência do objeto ItemIcon (Image)
-        public TextMeshProUGUI countText; // Referência do texto de quantidade (opcional)
+        public Image iconImage;           
+        public TextMeshProUGUI countText; 
     }
 
     [Header("Hotbar Slots (Em Ordem Crescente 1 ao 5)")]
@@ -29,13 +29,25 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // Garante que o Singleton se reatribua na nova cena
+        Instance = this;
     }
 
     private void Start()
     {
         if (notificationBanner != null) notificationBanner.SetActive(false);
+
+        // Busca o Player da nova cena se a referência estiver vazia no Inspector
+        if (playerInventory == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                playerInventory = playerObj.GetComponent<PlayerInventory>();
+            }
+        }
+
+        // Desenha os itens salvos na Hotbar assim que a cena inicia
         UpdateHotbarUI();
     }
 
@@ -47,13 +59,12 @@ public class InventoryUIManager : MonoBehaviour
         {
             if (i < playerInventory.slots.Count)
             {
-                // Preenche o slot com as informações do item coletado
                 var slotData = playerInventory.slots[i];
                 
                 if (uiSlots[i].iconImage != null)
                 {
                     uiSlots[i].iconImage.sprite = slotData.icon;
-                    uiSlots[i].iconImage.enabled = true; // Exibe o ícone
+                    uiSlots[i].iconImage.enabled = true;
                 }
 
                 if (uiSlots[i].countText != null)
@@ -63,7 +74,6 @@ public class InventoryUIManager : MonoBehaviour
             }
             else
             {
-                // Slot vazio: oculta imagem e texto
                 if (uiSlots[i].iconImage != null)
                 {
                     uiSlots[i].iconImage.sprite = null;

@@ -14,24 +14,52 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("Configurações da Hotbar")]
     public int maxSlots = 5;
-    public List<InventorySlotData> slots = new List<InventorySlotData>();
 
-    // A arma agora começa BLOQUEADA (false) até ser coletada no mapa
-    public bool hasGun = false;
+    // --- DADOS PERSISTENTES (Permanecem entre trocas de cena) ---
+    private static List<InventorySlotData> persistentSlots = new List<InventorySlotData>();
+    private static bool persistentHasGun = false;
+    private static bool hasSavedData = false;
+
+    // Esse comando faz a Unity zerar as variáveis estáticas TODA VEZ que você apertar o botão de Play no Editor!
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void ResetInventoryOnPlay()
+    {
+        persistentSlots = new List<InventorySlotData>();
+        persistentHasGun = false;
+        hasSavedData = false;
+    }
+
+    // Propriedades acessadas pelos outros scripts
+    public List<InventorySlotData> slots => persistentSlots;
+    public bool hasGun
+    {
+        get => persistentHasGun;
+        set => persistentHasGun = value;
+    }
 
     public int ammoCount => GetTotalAmount(ItemPickup2D.ItemType.Ammo);
     public int decontamKitsCount => GetTotalAmount(ItemPickup2D.ItemType.DecontamKit);
 
+    private void Awake()
+    {
+        // Se for a primeira vez que o jogo roda, inicializa com o estado padrão
+        if (!hasSavedData)
+        {
+            persistentSlots = new List<InventorySlotData>();
+            persistentHasGun = false;
+            hasSavedData = true;
+        }
+    }
+
     public bool AddItem(string name, Sprite icon, ItemPickup2D.ItemType type, int amount)
     {
-        // Se o item coletado for a Arma, habilita o uso das armas de fogo
         if (type == ItemPickup2D.ItemType.Gun)
         {
             hasGun = true;
         }
 
         // 1. Agrupa se já existir no inventário
-        foreach (var slot in slots)
+        foreach (var slot in persistentSlots)
         {
             if (slot.type == type)
             {
@@ -41,7 +69,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         // 2. Adiciona em um slot livre
-        if (slots.Count < maxSlots)
+        if (persistentSlots.Count < maxSlots)
         {
             InventorySlotData newSlot = new InventorySlotData
             {
@@ -50,7 +78,7 @@ public class PlayerInventory : MonoBehaviour
                 type = type,
                 amount = amount
             };
-            slots.Add(newSlot);
+            persistentSlots.Add(newSlot);
             return true;
         }
 
@@ -59,7 +87,7 @@ public class PlayerInventory : MonoBehaviour
 
     private int GetTotalAmount(ItemPickup2D.ItemType type)
     {
-        foreach (var slot in slots)
+        foreach (var slot in persistentSlots)
         {
             if (slot.type == type) return slot.amount;
         }
