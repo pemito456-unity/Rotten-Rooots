@@ -3082,6 +3082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Bat
       objectReference: {fileID: 0}
+    - target: {fileID: 2524806830915740137, guid: 99693b69e229a2343937710d4cd1e715, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7106177275842656420, guid: 99693b69e229a2343937710d4cd1e715, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.13
