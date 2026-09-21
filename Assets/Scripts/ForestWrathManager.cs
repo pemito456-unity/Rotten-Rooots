@@ -6,18 +6,33 @@ public class ForestWrathManager : MonoBehaviour
 {
     public static ForestWrathManager Instance;
 
-    [Header("Configurações da Ira")]
-    public float currentWrath = 0f;
+    [Header("Configurações de Ira")]
     public float maxWrath = 100f;
+    public Slider wrathBar;
+    public TextMeshProUGUI wrathText;
 
-    [Header("UI (Placeholder)")]
-    public Slider wrathBar;             // (Opcional) Slider da UI para mostrar a barra
-    public TextMeshProUGUI wrathText;   // (Opcional) Texto mostrando a porcentagem
+    // --- DADO PERSISTENTE ENTRE CENAS ---
+    private static float persistentWrath = 0f;
+
+    public float currentWrath
+    {
+        get => persistentWrath;
+        set
+        {
+            persistentWrath = Mathf.Clamp(value, 0f, maxWrath);
+            UpdateUI();
+        }
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void ResetWrathOnPlay()
+    {
+        persistentWrath = 0f;
+    }
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        Instance = this;
     }
 
     private void Start()
@@ -25,43 +40,29 @@ public class ForestWrathManager : MonoBehaviour
         UpdateUI();
     }
 
-    // Aumenta a Ira (Disparos, descarte, destruição de arbustos/inimigos)
+    // Aumenta a Ira (Tiros/Ataques)
     public void AddWrath(float amount)
     {
-        currentWrath = Mathf.Clamp(currentWrath + amount, 0f, maxWrath);
-        Debug.Log($"[Floresta] Ira aumentada para: {currentWrath}/{maxWrath}");
-        UpdateUI();
-        CheckWrathEvents();
+        currentWrath += amount;
     }
 
-    // Diminui a Ira (Uso do Kit de Descontaminação)
+    // Reduz a Ira (Kits de Descontaminação)
     public void ReduceWrath(float amount)
     {
-        currentWrath = Mathf.Clamp(currentWrath - amount, 0f, maxWrath);
-        Debug.Log($"[Floresta] Ira reduzida para: {currentWrath}/{maxWrath}");
-        UpdateUI();
+        currentWrath -= amount;
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (wrathBar != null)
         {
             wrathBar.maxValue = maxWrath;
-            wrathBar.value = currentWrath;
+            wrathBar.value = persistentWrath;
         }
 
         if (wrathText != null)
         {
-            wrathText.text = $"Ira da Floresta: {Mathf.RoundToInt((currentWrath / maxWrath) * 100)}%";
-        }
-    }
-
-    private void CheckWrathEvents()
-    {
-        // Placeholders para futuros comportamentos dos inimigos
-        if (currentWrath >= 80f)
-        {
-            Debug.LogWarning("ALERT: A floresta está furiossa! Mutações mais agressivas se aproximando!");
+            wrathText.text = $"{Mathf.RoundToInt(persistentWrath)}%";
         }
     }
 }
