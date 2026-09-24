@@ -1189,12 +1189,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2895821608431225175, guid: 58300ab9ea01ef1468ace7949c3f5911, type: 3}
+  m_Sprite: {fileID: -2895821608431225175, guid: 4ad481b514fd0144aad8a0120de25171, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 60, y: 33.75}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1985,7 +1985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9f87b3826478a499f571914de3622d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
-  currentWrath: 0
   maxWrath: 100
   wrathBar: {fileID: 1557979939}
   wrathText: {fileID: 0}
@@ -2001,7 +2000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9f87b3826478a499f571914de3622d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
-  currentWrath: 0
   maxWrath: 100
   wrathBar: {fileID: 1557979939}
   wrathText: {fileID: 0}
