@@ -3314,10 +3314,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 945838518}
     m_Modifications:
+    - target: {fileID: 291958825409117797, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 291958825409117797, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.28
+      objectReference: {fileID: 0}
     - target: {fileID: 466644428427694294, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 220edee225fcdca4a9ce5f78f8d927a9, type: 3}
+    - target: {fileID: 466644428427694294, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 892226017230882310, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
       propertyPath: amount
       value: 10
@@ -3382,13 +3394,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6134033970064294769, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.022999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134033970064294769, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.023006814
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134033970064294769, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.023006814
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134033970064294769, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8707439021930625970, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
       propertyPath: m_fontSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707439021930625970, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_fontSizeMax
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8707439021930625970, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707439021930625970, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
       propertyPath: m_fontSizeBase
-      value: 7
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707439021930625970, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9143024979956119499, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
       propertyPath: m_Camera
@@ -3456,6 +3496,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 491440440896726564, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.022999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 491440440896726564, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.023006814
+      objectReference: {fileID: 0}
+    - target: {fileID: 491440440896726564, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.023006814
+      objectReference: {fileID: 0}
+    - target: {fileID: 491440440896726564, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1469007899217982969, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
       propertyPath: m_Name
       value: Item_Kit
@@ -3478,11 +3534,23 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: f4cff824981b89a4daabb076cd812019, type: 3}
     - target: {fileID: 7707209369202371780, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
       propertyPath: m_fontSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707209369202371780, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_fontSizeMax
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7707209369202371780, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707209369202371780, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
       propertyPath: m_fontSizeBase
-      value: 7
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707209369202371780, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
