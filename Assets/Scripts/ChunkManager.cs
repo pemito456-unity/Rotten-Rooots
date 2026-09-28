@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,22 @@ public class ChunkManager : MonoBehaviour
     [System.Serializable]
     public class ChunkData
     {
-        public string chunkID; // Ex: "A2", "A3"
+        public string chunkID;         // Ex: "A2", "A3"
         public GameObject chunkObject; // GameObject pai da sala
-        public Transform spawnPoint; // Ponto de entrada da sala
+        public Transform spawnPoint;   // Ponto de entrada da sala
     }
 
     [Header("Configuração das Chunks")]
     public List<ChunkData> chunks = new List<ChunkData>();
     public string startingChunkID = "A2";
 
+    [Header("Transição")]
+    public float transitionLockTime = 0.3f;
+
     private ChunkData currentActiveChunk;
     private Transform playerTransform;
+    private Rigidbody2D playerRb;
+    private bool isTransitioning = false;
 
     private void Awake()
     {
@@ -28,13 +34,18 @@ public class ChunkManager : MonoBehaviour
 
     private void Start()
     {
+        FindPlayer();
+        InitializeMap();
+    }
+
+    private void FindPlayer()
+    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerTransform = player.transform;
+            playerRb = player.GetComponent<Rigidbody2D>();
         }
-
-        InitializeMap();
     }
 
     // Liga apenas a chunk inicial e desliga todas as outras
@@ -46,11 +57,7 @@ public class ChunkManager : MonoBehaviour
             {
                 chunk.chunkObject.SetActive(true);
                 currentActiveChunk = chunk;
-
-                if (playerTransform != null && chunk.spawnPoint != null)
-                {
-                    playerTransform.position = chunk.spawnPoint.position;
-                }
+                TeleportPlayer(chunk.spawnPoint);
             }
             else
             {
@@ -59,33 +66,47 @@ public class ChunkManager : MonoBehaviour
         }
     }
 
-    // Função chamada pelas portas/portais para trocar a sala visível
-    public void TransitionToChunk(string targetChunkID)
+    // Retorna FALSE se recusada (em transição ou chunk inexistente)
+    public bool TransitionToChunk(string targetChunkID)
     {
-        ChunkData targetChunk = chunks.Find(c => c.chunkID == targetChunkID);
+        if (isTransitioning) return false;
 
-        if (targetChunk == null)
+        ChunkData targetChunk = chunks.Find(c => c.chunkID == targetChunkID);
+        if (targetChunk == null || targetChunk.chunkObject == null) return false;
+
+        StartCoroutine(PerformTransition(targetChunk));
+        return true;
+    }
+
+    private IEnumerator PerformTransition(ChunkData targetChunk)
+    {
+        isTransitioning = true;
+
+        targetChunk.chunkObject.SetActive(true);
+
+        if (playerRb == null) FindPlayer(); // garante referência
+        TeleportPlayer(targetChunk.spawnPoint);
+
+        if (currentActiveChunk != null && currentActiveChunk != targetChunk)
+            currentActiveChunk.chunkObject.SetActive(false);
+
+        currentActiveChunk = targetChunk;
+
+        yield return new WaitForSeconds(transitionLockTime);
+        isTransitioning = false;
+    }
+
+    // Teleporte correto p/ Rigidbody2D: rb.position (não transform.position)
+    private void TeleportPlayer(Transform spawn)
+    {
+        if (playerRb == null || spawn == null)
         {
-            Debug.LogError($"Chunk {targetChunkID} não foi encontrada no ChunkManager!");
+            Debug.LogWarning($"ChunkManager: teleporte falhou — playerRb: {playerRb != null}, spawn: {spawn != null}");
             return;
         }
 
-        // Ativa a nova sala
-        targetChunk.chunkObject.SetActive(true);
-
-        // Move o jogador para o SpawnPoint da nova sala
-        if (playerTransform != null && targetChunk.spawnPoint != null)
-        {
-            playerTransform.position = targetChunk.spawnPoint.position;
-        }
-
-        // Desativa a sala anterior para otimizar desempenho
-        if (currentActiveChunk != null && currentActiveChunk != targetChunk)
-        {
-            currentActiveChunk.chunkObject.SetActive(false);
-        }
-
-        currentActiveChunk = targetChunk;
-        Debug.Log($"Transição concluída para: {targetChunkID}");
+        playerRb.linearVelocity = Vector2.zero; // não carrega momentum da sala anterior
+        playerRb.position = spawn.position;
+        playerTransform.position = spawn.position; // sincroniza p/ câmera/scripts no mesmo frame
     }
 }
