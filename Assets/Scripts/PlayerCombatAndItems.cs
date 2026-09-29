@@ -15,7 +15,7 @@ public class PlayerCombatAndItems : MonoBehaviour
     [Header("Configurações da Faca")]
     public float wrathPerKnifeAttack = 5f;  // Quanto aumenta a Ira por golpe
     public float knifeRange = 1.2f;         // Alcance do ataque de faca
-    public LayerMask attackableLayers;       // Camada de inimigos/arbustos
+    public LayerMask attackableLayers;      // Camada de inimigos/arbustos
 
     [Header("Configurações do Kit Eco")]
     public float wrathReductionPerKit = 25f; // Quanto reduz a Ira por kit
@@ -81,11 +81,13 @@ public class PlayerCombatAndItems : MonoBehaviour
     private void TryShoot()
     {
         // 1. Checa se o jogador já possui/coletou a arma
-        if (!inventory.hasGun)
+        if (inventory != null && !inventory.hasGun)
         {
             Debug.Log("Você não possui uma arma! Encontre uma no mapa primeiro.");
             return;
         }
+
+        if (inventory == null) return;
 
         // 2. Checa se há munição no inventário
         var ammoSlot = inventory.slots.Find(s => s.type == ItemPickup2D.ItemType.Ammo);
@@ -142,6 +144,8 @@ public class PlayerCombatAndItems : MonoBehaviour
     // --- LÓGICA DO KIT DE DESCONTAMINAÇÃO ---
     private void TryUseDecontamKit()
     {
+        if (inventory == null) return;
+
         var kitSlot = inventory.slots.Find(s => s.type == ItemPickup2D.ItemType.DecontamKit);
 
         if (kitSlot != null && kitSlot.amount > 0)
