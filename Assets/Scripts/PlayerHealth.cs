@@ -1,102 +1,86 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public static PlayerHealth Instance;
-
-    [Header("Vida (em corações)")]
-    public float maxHealth = 5f;
+    [Header("Configurações de Vida")]
+    public float maxHealth = 100f;
     public float currentHealth;
 
-    [Header("Invulnerabilidade (i-frames)")]
-    public float invulnerabilityTime = 0.8f;
-    private float lastDamageTime = -999f;
+    [Header("Referências de UI e Áudio")]
+    public AnatomicalHeartHUD heartHUD;
+    public AudioSource heartbeatAudioSource;
 
-    [Header("Batimento — vida baixa")]
-    public AudioSource heartbeatSource;               // AudioSource c/ som de batida (Play On Awake OFF)
-    [Range(0f, 1f)] public float lowHealthThreshold = 0.3f;
-    public float minInterval = 0.35f;                 // intervalo com vida ~0 (rápido)
-    public float maxInterval = 1.1f;                  // intervalo no limiar (lento)
+    [Header("Ritmo do Batimento Cardíaco")]
+    [Tooltip("Tempo máximo de espera entre batidas quando a vida está cheia (ex: 1.2 segundos).")]
+    public float maxHeartbeatInterval = 1.2f;
+    [Tooltip("Tempo mínimo de espera entre batidas quando a vida está crítica (ex: 0.3 segundos).")]
+    public float minHeartbeatInterval = 0.3f;
 
-    [Header("Debug (teste sem inimigos)")]
-    public bool debugDamageKey = true;                // Tecla K = -1 coração
+    private float heartbeatTimer = 0f;
 
-    public event Action<float, float> OnHealthChanged; // (atual, max)
-    public event Action OnDeath;
-
-    public bool IsDead { get; private set; }
-
-    private Coroutine heartbeatRoutine;
-
-    private void Awake()
+    private void Start()
     {
-        Instance = this;
         currentHealth = maxHealth;
-    }
 
-    private void Start() => OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        if (heartHUD != null)
+            heartHUD.UpdateHeartUI(currentHealth, maxHealth);
+    }
 
     private void Update()
     {
-        if (debugDamageKey && Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame)
-            TakeDamage(1f);
+        HandleDynamicHeartbeat();
     }
 
-    public void TakeDamage(float hearts)
+    public void TakeDamage(float amount)
     {
-        if (IsDead) return;
-        if (Time.time - lastDamageTime < invulnerabilityTime) return; // i-frames
+        currentHealth = Mathf.Clamp(currentHealth - amount, 0f, maxHealth);
 
-        lastDamageTime = Time.time;
-        currentHealth = Mathf.Max(0f, currentHealth - hearts);
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        UpdateHeartbeat();
+        if (heartHUD != null)
+            heartHUD.UpdateHeartUI(currentHealth, maxHealth);
 
-        if (currentHealth <= 0f) Die();
-    }
-
-    public void Heal(float hearts)
-    {
-        if (IsDead) return;
-        currentHealth = Mathf.Min(maxHealth, currentHealth + hearts);
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        UpdateHeartbeat();
-    }
-
-    private void UpdateHeartbeat()
-    {
-        float fraction = currentHealth / maxHealth;
-        bool shouldBeat = fraction <= lowHealthThreshold && heartbeatSource != null;
-
-        if (shouldBeat && heartbeatRoutine == null)
-            heartbeatRoutine = StartCoroutine(HeartbeatLoop());
-        else if (!shouldBeat && heartbeatRoutine != null)
-            StopHeartbeat();
-    }
-
-    private IEnumerator HeartbeatLoop()
-    {
-        while (!IsDead)
+        if (currentHealth <= 0f)
         {
-            heartbeatSource.Play();
-            float fraction = Mathf.Clamp01(currentHealth / maxHealth / lowHealthThreshold);
-            float interval = Mathf.Lerp(minInterval, maxInterval, fraction);
-            yield return new WaitForSeconds(interval);
+            Die();
         }
     }
 
-    private void StopHeartbeat()
+    public void Heal(float amount)
     {
-        if (heartbeatRoutine != null) { StopCoroutine(heartbeatRoutine); heartbeatRoutine = null; }
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+
+        if (heartHUD != null)
+            heartHUD.UpdateHeartUI(currentHealth, maxHealth);
+    }
+
+    private void HandleDynamicHeartbeat()
+    {
+        if (heartbeatAudioSource == null) return;
+
+        // Calcula a porcentagem de vida (0.0 até 1.0)
+        float healthPercent = currentHealth / maxHealth;
+
+        // Quanto menor a vida, menor o intervalo entre as batidas (mais rápido fica)
+        // Mathf.Lerp faz a transição suave baseada na vida atual
+        float currentInterval = Mathf.Lerp(minHeartbeatInterval, maxHeartbeatInterval, healthPercent);
+
+        heartbeatTimer += Time.deltaTime;
+
+        if (heartbeatTimer >= currentInterval)
+        {
+            heartbeatTimer = 0f;
+            heartbeatAudioSource.PlayOneShot(heartbeatAudioSource.clip);
+        }
     }
 
     private void Die()
     {
-        IsDead = true;
-        StopHeartbeat();
-        OnDeath?.Invoke();
+        Debug.Log("Player morreu!");
+
+        if (heartbeatAudioSource != null)
+            heartbeatAudioSource.Stop();
+
+        // Reinicia a partida na cena atual
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
