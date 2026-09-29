@@ -4,7 +4,7 @@ public class SimpleBullet2D : MonoBehaviour
 {
     public float speed = 12f;
     public float lifeTime = 2f;
-    public int damage = 1; // Cada tiro tira 1 de vida
+    public float damage = 10f; // Dano do disparo
 
     private void Start()
     {
@@ -21,16 +21,19 @@ public class SimpleBullet2D : MonoBehaviour
         // Ignora colisão com o próprio Player
         if (other.CompareTag("Player")) return;
 
-        // Tenta pegar o script de inimigo do objeto atingido
-        EnemyController enemy = other.GetComponent<EnemyController>();
-        if (enemy != null)
+        // Tenta aplicar dano a qualquer objeto que implemente IDamageable
+        IDamageable target = other.GetComponent<IDamageable>();
+        if (target != null)
         {
-            enemy.TakeDamage(damage);
-            Destroy(gameObject); // Destrói a bala ao acertar o inimigo
+            target.TakeDamage(damage);
+            Destroy(gameObject);
             return;
         }
 
         // Destrói a bala se bater em paredes/cenário
-        Destroy(gameObject);
+        if (!other.isTrigger)
+        {
+            Destroy(gameObject);
+        }
     }
 }

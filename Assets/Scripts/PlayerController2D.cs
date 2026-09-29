@@ -1,33 +1,50 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController2D : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float runSpeed = 8f;
-    
+    public float runMultiplier = 1.5f;
+    public Vector2 lastFacingDirection = Vector2.right;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
-    public bool isRunning;
+    private bool isRunning;
+    private PlayerHealth playerHealth;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
-    void Update()
+    private void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-        isRunning = Input.GetKey(KeyCode.LeftShift);
+        if (Gamepad.current != null)
+        {
+            moveInput = Gamepad.current.leftStick.ReadValue();
+            if (moveInput.magnitude < 0.1f) moveInput = Gamepad.current.dpad.ReadValue();
+        }
+        else if (Keyboard.current != null)
+        {
+            Vector2 input = Vector2.zero;
+            if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) input.y += 1;
+            if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) input.y -= 1;
+            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) input.x -= 1;
+            if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) input.x += 1;
+            moveInput = input.normalized;
+        }
+
+        if (moveInput.sqrMagnitude > 0.01f) lastFacingDirection = moveInput.normalized;
+        isRunning = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        float currentSpeed = isRunning ? runSpeed : moveSpeed;
-        
-        // Aplica a velocidade diretamente na física do Rigidbody2D
-        // Isso impede totalmente o jogador de atravessar colisão de paredes
-        rb.linearVelocity = moveInput.normalized * currentSpeed; 
-        // Nota: Se usar versão mais antiga da Unity (anterior a 2023), use 'rb.velocity' no lugar de 'rb.linearVelocity'
+        // Se estiver em estado de Knockback, ignora o input do jogador para não anular a força
+        if (playerHealth != null && playerHealth.isKnockbacked) return;
+
+        float currentSpeed = isRunning ? moveSpeed * runMultiplier : moveSpeed;
+        rb.linearVelocity = moveInput * currentSpeed;
     }
 }
