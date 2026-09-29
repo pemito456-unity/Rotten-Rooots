@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A2
+  isLocked: 0
 --- !u!61 &2270226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -475,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C3
+  isLocked: 0
 --- !u!61 &226342553
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1038,6 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
+  isLocked: 0
 --- !u!61 &470866868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2010,6 +2013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A4
+  isLocked: 0
 --- !u!61 &887725449
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2482,6 +2486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
+  isLocked: 0
 --- !u!61 &1235199623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2649,6 +2654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A3
+  isLocked: 0
 --- !u!61 &1240657742
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3154,6 +3160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C3
+  isLocked: 0
 --- !u!61 &1376086438
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3396,6 +3403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
+  isLocked: 0
 --- !u!61 &1424807414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3520,25 +3528,25 @@ MonoBehaviour:
   chunks:
   - chunkID: A2
     chunkObject: {fileID: 945838517}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 703316095}
   - chunkID: A3
     chunkObject: {fileID: 1783693219}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 1017616690}
   - chunkID: A4
     chunkObject: {fileID: 2098043062}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 1916418451}
   - chunkID: B4
     chunkObject: {fileID: 636970071}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 162609270}
   - chunkID: C4
     chunkObject: {fileID: 393545239}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 1373366863}
   - chunkID: C3
     chunkObject: {fileID: 1734214278}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 1356842527}
   - chunkID: D4
     chunkObject: {fileID: 1337123349}
-    spawnPoint: {fileID: 0}
+    spawnPoint: {fileID: 334705414}
   startingChunkID: A2
   transitionLockTime: 0.3
 --- !u!1 &1532490236
@@ -3890,6 +3898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
+  isLocked: 0
 --- !u!61 &1680713417
 BoxCollider2D:
   m_ObjectHideFlags: 0

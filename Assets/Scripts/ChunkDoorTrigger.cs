@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class ChunkDoorTrigger : MonoBehaviour
 {
+    [Header("Configuração de Destino")]
     public string targetChunkID;
+
+    [Header("Mecânica (Ira da Floresta / Trancas)")]
+    public bool isLocked = false;
 
     private bool playerInside = false;
 
@@ -10,9 +14,15 @@ public class ChunkDoorTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player") || playerInside) return;
 
-        // Só trava a porta se a transição foi ACEITA
-        if (ChunkManager.Instance != null &&
-            ChunkManager.Instance.TransitionToChunk(targetChunkID))
+        // Se a passagem estiver bloqueada pela Ira da Floresta, não faz nada
+        if (isLocked)
+        {
+            Debug.Log($"A passagem para {targetChunkID} está bloqueada!");
+            return;
+        }
+
+        // Tenta realizar a transição no ChunkManager
+        if (ChunkManager.Instance != null && ChunkManager.Instance.TransitionToChunk(targetChunkID))
         {
             playerInside = true;
         }
@@ -23,6 +33,11 @@ public class ChunkDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player")) playerInside = false;
     }
 
-    // Chunk desativado derruba a colisão sem gerar Exit -> reset manual
     private void OnDisable() => playerInside = false;
+
+    // Método público para ser chamado pelo script da Ira da Floresta
+    public void SetDoorLock(bool locked)
+    {
+        isLocked = locked;
+    }
 }
