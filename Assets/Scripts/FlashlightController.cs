@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal; // Importante para usar Light2D
+using UnityEngine.Rendering.Universal;
 
 public class FlashlightController : MonoBehaviour
 {
@@ -39,7 +39,6 @@ public class FlashlightController : MonoBehaviour
         if (dir.sqrMagnitude > 0.01f)
         {
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            // Rotaciona o cone 2D na direção que o player está olhando
             transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
     }

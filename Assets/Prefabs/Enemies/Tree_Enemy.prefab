@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6406348495274652319}
   - component: {fileID: 3683675527774160599}
   - component: {fileID: 4838890992092730249}
-  - component: {fileID: 651074378416917178}
   - component: {fileID: 7869551133220167483}
   - component: {fileID: 8261446793493975213}
+  - component: {fileID: 1035727693474247287}
   m_Layer: 0
   m_Name: Tree_Enemy
   m_TagString: Enemy
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
   m_Color: {r: 0.03328587, g: 0.41509432, b: 0.12873799, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,7 +111,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -122,9 +122,41 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!66 &651074378416917178
-CompositeCollider2D:
+  m_Constraints: 4
+--- !u!114 &7869551133220167483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870308999364150352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d297e224c640b2446a0c7160931ba373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArvoreSinistra
+  maxHealth: 30
+  wrathOnDestroy: 15
+  spriteRenderer: {fileID: 3683675527774160599}
+  damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &8261446793493975213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870308999364150352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de7cf56725284c4daf1b31aaece925b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyNametag
+  enemyName: "\xC1rvore"
+  nameText: {fileID: 2173335760801854951}
+  healthBarFill: {fileID: 5713222656277945542}
+  offset: {x: 0, y: 1.2, z: 0}
+--- !u!61 &1035727693474247287
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,48 +190,17 @@ CompositeCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 870308999364150352}
---- !u!114 &7869551133220167483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870308999364150352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d297e224c640b2446a0c7160931ba373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArvoreSinistra
-  maxHealth: 30
-  wrathOnDestroy: 15
-  spriteRenderer: {fileID: 3683675527774160599}
-  damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &8261446793493975213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870308999364150352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de7cf56725284c4daf1b31aaece925b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyNametag
-  enemyName: "\xC1rvore"
-  nameText: {fileID: 2173335760801854951}
-  healthBarFill: {fileID: 5713222656277945542}
-  offset: {x: 0, y: 1.2, z: 0}
 --- !u!1 &1711765527316834677
 GameObject:
   m_ObjectHideFlags: 0
