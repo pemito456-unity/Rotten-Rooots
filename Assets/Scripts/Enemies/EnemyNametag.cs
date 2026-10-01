@@ -1,39 +1,46 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class EnemyNametag : MonoBehaviour
 {
-    [Header("Configurações do Nome")]
+    [Header("Configuração do Nome")]
     public string enemyName = "Inimigo";
     public TextMeshProUGUI nameText;
 
-    [Header("Posicionamento")]
+    [Header("Barra de Vida")]
+    public Image healthBarFill; // Arraste a Image 'HealthBarFill' aqui
+
+    [Header("Ajuste de Posição")]
     public Vector3 offset = new Vector3(0f, 1.2f, 0f);
 
-    private Transform enemyTransform;
+    private Transform canvasTransform;
 
     private void Start()
     {
-        // Encontra o transform do pai (o inimigo)
-        if (transform.parent != null)
-        {
-            enemyTransform = transform.parent;
-        }
-
-        if (nameText == null)
-            nameText = GetComponentInChildren<TextMeshProUGUI>();
-
         if (nameText != null)
+        {
             nameText.text = enemyName;
+            canvasTransform = nameText.transform.parent;
+        }
     }
 
     private void LateUpdate()
     {
-        if (enemyTransform == null) return;
+        // Mantém a UI alinhada ao topo e previne distorção quando o sprite do inimigo espelha (Flip)
+        if (canvasTransform != null)
+        {
+            canvasTransform.position = transform.position + offset;
+            canvasTransform.rotation = Quaternion.identity;
+        }
+    }
 
-        // Desvincula a posição do texto da rotação/scale do pai para não inverter ao dar flip
-        transform.position = enemyTransform.position + offset;
-        transform.rotation = Quaternion.identity; 
-        transform.localScale = Vector3.one * 0.01f; // Mantém a escala World Space fixa
+    // Atualiza a proporção da barra (valor entre 0 e 1)
+    public void UpdateHealthBar(float currentHealth, float maxHealth)
+    {
+        if (healthBarFill != null && maxHealth > 0)
+        {
+            healthBarFill.fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+        }
     }
 }
