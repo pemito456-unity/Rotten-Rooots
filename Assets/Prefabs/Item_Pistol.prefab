@@ -165,15 +165,15 @@ RectTransform:
   m_GameObject: {fileID: 968370940366155808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.0295858, y: 0.0295858, z: 0.0295858}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 891400927437923439}
   m_Father: {fileID: 1110075144311068799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.58, y: 0}
+  m_AnchoredPosition: {x: -1.58, y: 0.33}
   m_SizeDelta: {x: 601, y: 338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9143024979956119499
@@ -344,7 +344,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.58, y: 0.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6134033970064294769}
@@ -399,15 +399,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8d29248fb79f61647b26b51f8a1d6168, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.61, y: 3.68}
+  m_Size: {x: 2.7, y: 1.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!61 &291958825409117797
 BoxCollider2D:
@@ -447,8 +447,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4, y: 2.7}
-    newSize: {x: 3.61, y: 3.68}
+    oldSize: {x: 2.7, y: 1.48}
+    newSize: {x: 2.7, y: 1.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -470,6 +470,6 @@ MonoBehaviour:
   itemType: 2
   amount: 1
   itemName: Pistola
-  itemIcon: {fileID: 21300000, guid: 30525aea4a8f89045b1a7a6c18c4a4c9, type: 3}
+  itemIcon: {fileID: 21300000, guid: 8d29248fb79f61647b26b51f8a1d6168, type: 3}
   promptCanvas: {fileID: 968370940366155808}
   promptText: {fileID: 8707439021930625970}
