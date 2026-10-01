@@ -2175,7 +2175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &945838518
 Transform:
   m_ObjectHideFlags: 0
@@ -4255,7 +4255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1783693220
 Transform:
   m_ObjectHideFlags: 0
@@ -4676,7 +4676,7 @@ MonoBehaviour:
   hasGun: 0
   maxSlots: 8
   slots: []
-  flashlightIcon: {fileID: 0}
+  flashlightIcon: {fileID: -6619111317931664985, guid: 117fb64773d97c74b9ebd2a4ccf26aa6, type: 3}
 --- !u!114 &2024336247
 MonoBehaviour:
   m_ObjectHideFlags: 0
