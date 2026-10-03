@@ -1,24 +1,26 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 
 public class ItemPickup2D : MonoBehaviour
 {
-    // Adicionado 'Gun' ao Enum de tipos de item
-    public enum ItemType { Ammo, DecontamKit, Gun }
-    
+    public enum ItemType
+    {
+        Ammo,
+        DecontamKit,
+        Gun
+    }
+
     [Header("Configurações do Item")]
     public ItemType itemType;
     public int amount = 1;
     public string itemName = "Munição";
     public Sprite itemIcon;
 
-    [Header("UI Pixel HUD")]
+    [Header("UI do Item")]
     public GameObject promptCanvas;
     public TextMeshProUGUI promptText;
 
-    private bool playerInRange = false;
-    private PlayerInventory playerInventory;
+    private bool playerInRange;
 
     private void Start()
     {
@@ -26,61 +28,81 @@ public class ItemPickup2D : MonoBehaviour
             promptCanvas.SetActive(false);
 
         if (promptText != null)
-            promptText.text = $"{itemName}\n[E] Coletar";
-    }
-
-    private void Update()
-    {
-        if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            CollectItem();
-        }
+            promptText.text = $"{itemName}\n[E / Y] Coletar";
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInventory = other.GetComponent<PlayerInventory>();
-            playerInRange = true;
+        if (!other.CompareTag("Player"))
+            return;
 
-            if (promptCanvas != null)
-                promptCanvas.SetActive(true);
-        }
+        playerInRange = true;
+
+        if (promptCanvas != null)
+            promptCanvas.SetActive(true);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-            playerInventory = null;
+        if (!other.CompareTag("Player"))
+            return;
 
-            if (promptCanvas != null)
-                promptCanvas.SetActive(false);
-        }
+        playerInRange = false;
+
+        if (promptCanvas != null)
+            promptCanvas.SetActive(false);
     }
 
-    private void CollectItem()
+    private void CollectItem(PlayerInventory inventory)
     {
-        if (playerInventory != null)
+        if (inventory == null)
+            return;
+
+        bool success = inventory.AddItem(itemName, itemIcon, itemType, amount);
+
+        if (!success)
         {
-            bool success = playerInventory.AddItem(itemName, itemIcon, itemType, amount);
+            Debug.Log("Inventário cheio.");
+            return;
+        }
 
-            if (success)
-            {
-                if (InventoryUIManager.Instance != null)
-                {
-                    InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
-                    InventoryUIManager.Instance.UpdateHotbarUI();
-                }
+        if (InventoryUIManager.Instance != null)
+        {
+            InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
+            InventoryUIManager.Instance.UpdateHotbarUI();
+        }
 
-                Destroy(gameObject);
-            }
-            else
+        Destroy(gameObject);
+    }
+
+    public static void TryCollectNearby(
+        Vector2 playerPosition,
+        PlayerInventory inventory)
+    {
+        if (inventory == null)
+            return;
+
+        Collider2D[] nearby = Physics2D.OverlapCircleAll(playerPosition, 1.5f);
+        ItemPickup2D nearestPickup = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (Collider2D hit in nearby)
+        {
+            ItemPickup2D pickup = hit.GetComponent<ItemPickup2D>();
+
+            if (pickup == null || !pickup.playerInRange)
+                continue;
+
+            float distance = Vector2.Distance(playerPosition, pickup.transform.position);
+
+            if (distance < nearestDistance)
             {
-                Debug.Log("Inventário Cheio!");
+                nearestDistance = distance;
+                nearestPickup = pickup;
             }
         }
+
+        if (nearestPickup != null)
+            nearestPickup.CollectItem(inventory);
     }
 }

@@ -5,185 +5,157 @@ public class PlayerCombatAndItems : MonoBehaviour
 {
     [Header("Referências Principais")]
     public PlayerInventory inventory;
-    public Camera mainCamera;               // Referência para a câmera do jogo
 
-    [Header("Configurações do Tiro e Mira")]
-    public Transform firePoint;             // Ponto de onde sai a bala
-    public GameObject bulletPrefab;         // Prefab da bala
-    public float wrathPerShot = 10f;        // Quanto aumenta a Ira por tiro
-
-    [Header("Configurações da Faca")]
-    public float wrathPerKnifeAttack = 5f;  // Quanto aumenta a Ira por golpe
-    public float knifeRange = 1.2f;         // Alcance do ataque de faca
-    public LayerMask attackableLayers;      // Camada de inimigos/arbustos
+    [Header("Configurações da Arma")]
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+    public float wrathPerShot = 10f;
+    public int magazineCapacity = 8;
+    public int currentMagazineAmmo = 8;
 
     [Header("Configurações do Kit Eco")]
-    public float wrathReductionPerKit = 25f; // Quanto reduz a Ira por kit
+    public float wrathReductionPerKit = 25f;
 
-    private Vector3 mouseWorldPosition;
+    private PlayerController2D playerController;
 
     private void Start()
     {
         if (inventory == null)
             inventory = GetComponent<PlayerInventory>();
 
-        if (mainCamera == null)
-            mainCamera = Camera.main;
+        playerController = GetComponent<PlayerController2D>();
+        currentMagazineAmmo = Mathf.Clamp(currentMagazineAmmo, 0, magazineCapacity);
     }
 
-    private void Update()
+    // Ação Primary: dispara com a arma selecionada ou usa o kit selecionado.
+    public void OnPrimary(InputAction.CallbackContext context)
     {
-        // Atualiza a rotação do FirePoint para apontar sempre para o cursor do mouse
-        AimTowardsMouse();
+        if (!context.performed || inventory == null)
+            return;
 
-        if (Keyboard.current == null || Mouse.current == null) return;
+        InventorySlotData selectedSlot = inventory.SelectedSlot;
 
-        // 1. Atirar (Botão DIREITO do Mouse)
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (selectedSlot == null)
+            return;
+
+        if (selectedSlot.isFlashlight)
+            return;
+
+        switch (selectedSlot.type)
         {
-            TryShoot();
-        }
+            case ItemPickup2D.ItemType.Gun:
+                TryShoot();
+                break;
 
-        // 2. Usar Faca (Tecla V)
-        if (Keyboard.current.vKey.wasPressedThisFrame)
-        {
-            PerformKnifeAttack();
-        }
+            case ItemPickup2D.ItemType.DecontamKit:
+                TryUseDecontamKit(selectedSlot);
+                break;
 
-        // 3. Usar Kit de Descontaminação (Tecla Q)
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            TryUseDecontamKit();
+            default:
+                Debug.Log("O item selecionado não tem ação atribuída ao botão principal.");
+                break;
         }
     }
 
-    // --- LÓGICA DE MIRA PARA O CURSOR ---
-    private void AimTowardsMouse()
+    public void OnReload(InputAction.CallbackContext context)
     {
-        if (mainCamera == null || firePoint == null) return;
+        if (!context.performed || inventory == null)
+            return;
 
-        // Pega a posição do mouse na tela e converte para coordenadas do mundo 2D
-        Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-        mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPos);
-        mouseWorldPosition.z = 0f; // Mantém no plano 2D
+        InventorySlotData selectedSlot = inventory.SelectedSlot;
 
-        // Calcula a direção do FirePoint até o mouse
-        Vector2 aimDirection = (mouseWorldPosition - firePoint.position).normalized;
-
-        // Calcula o ângulo em graus
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-
-        // Aplica a rotação no FirePoint
-        firePoint.rotation = Quaternion.Euler(0f, 0f, angle);
-    }
-
-    // --- LÓGICA DE TIRO ---
-    private void TryShoot()
-    {
-        // 1. Checa se o jogador já possui/coletou a arma
-        if (inventory != null && !inventory.hasGun)
+        if (selectedSlot == null ||
+            selectedSlot.type != ItemPickup2D.ItemType.Gun ||
+            !inventory.hasGun)
         {
-            Debug.Log("Você não possui uma arma! Encontre uma no mapa primeiro.");
+            Debug.Log("Selecione a arma para recarregar.");
             return;
         }
 
-        if (inventory == null) return;
-
-        // 2. Checa se há munição no inventário
-        var ammoSlot = inventory.slots.Find(s => s.type == ItemPickup2D.ItemType.Ammo);
-
-        if (ammoSlot != null && ammoSlot.amount > 0)
+        if (currentMagazineAmmo >= magazineCapacity)
         {
-            ammoSlot.amount--;
-            if (ammoSlot.amount <= 0)
-            {
-                inventory.slots.Remove(ammoSlot);
-            }
-
-            if (bulletPrefab != null && firePoint != null)
-            {
-                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            }
-
-            if (ForestWrathManager.Instance != null)
-            {
-                ForestWrathManager.Instance.AddWrath(wrathPerShot);
-            }
-
-            if (InventoryUIManager.Instance != null)
-            {
-                InventoryUIManager.Instance.UpdateHotbarUI();
-            }
-
-            Debug.Log("Tiro disparado!");
+            Debug.Log("O pente já está cheio.");
+            return;
         }
-        else
+
+        InventorySlotData ammoSlot = inventory.slots.Find(
+            slot => slot.type == ItemPickup2D.ItemType.Ammo && slot.amount > 0
+        );
+
+        if (ammoSlot == null)
         {
-            Debug.Log("Sem munição suficiente no inventário!");
+            Debug.Log("Você não possui munição reserva.");
+            return;
         }
+
+        int spaceInMagazine = magazineCapacity - currentMagazineAmmo;
+        int ammoToLoad = Mathf.Min(spaceInMagazine, ammoSlot.amount);
+
+        currentMagazineAmmo += ammoToLoad;
+        ammoSlot.amount -= ammoToLoad;
+
+        if (ammoSlot.amount <= 0)
+            inventory.slots.Remove(ammoSlot);
+
+        inventory.RefreshInventoryUI();
+
+        Debug.Log($"Arma recarregada: {currentMagazineAmmo}/{magazineCapacity}");
     }
 
-    // --- LÓGICA DA FACA ---
-    private void PerformKnifeAttack()
+    private void TryShoot()
     {
-        Debug.Log("Ataque de Faca executado!");
-
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, knifeRange, attackableLayers);
-
-        foreach (Collider2D obj in hitObjects)
+        if (!inventory.hasGun)
         {
-            Debug.Log($"Faca atingiu: {obj.name}");
+            Debug.Log("Você ainda não possui uma arma.");
+            return;
         }
+
+        if (currentMagazineAmmo <= 0)
+        {
+            Debug.Log("Sem munição no pente. Recarregue.");
+            return;
+        }
+
+        if (firePoint == null || bulletPrefab == null)
+        {
+            Debug.LogWarning("Configure Fire Point e Bullet Prefab no PlayerCombatAndItems.");
+            return;
+        }
+
+        Vector2 direction = playerController != null
+            ? playerController.lastFacingDirection
+            : Vector2.right;
+
+        if (direction.sqrMagnitude < 0.01f)
+            direction = Vector2.right;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        firePoint.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        currentMagazineAmmo--;
 
         if (ForestWrathManager.Instance != null)
-        {
-            ForestWrathManager.Instance.AddWrath(wrathPerKnifeAttack);
-        }
+            ForestWrathManager.Instance.AddWrath(wrathPerShot);
+
+        Debug.Log($"Tiro disparado. Munição no pente: {currentMagazineAmmo}/{magazineCapacity}");
     }
 
-    // --- LÓGICA DO KIT DE DESCONTAMINAÇÃO ---
-    private void TryUseDecontamKit()
+    private void TryUseDecontamKit(InventorySlotData kitSlot)
     {
-        if (inventory == null) return;
+        if (kitSlot == null || kitSlot.amount <= 0)
+            return;
 
-        var kitSlot = inventory.slots.Find(s => s.type == ItemPickup2D.ItemType.DecontamKit);
+        kitSlot.amount--;
 
-        if (kitSlot != null && kitSlot.amount > 0)
-        {
-            kitSlot.amount--;
-            if (kitSlot.amount <= 0)
-            {
-                inventory.slots.Remove(kitSlot);
-            }
+        if (kitSlot.amount <= 0)
+            inventory.slots.Remove(kitSlot);
 
-            if (ForestWrathManager.Instance != null)
-            {
-                ForestWrathManager.Instance.ReduceWrath(wrathReductionPerKit);
-            }
+        if (ForestWrathManager.Instance != null)
+            ForestWrathManager.Instance.ReduceWrath(wrathReductionPerKit);
 
-            if (InventoryUIManager.Instance != null)
-            {
-                InventoryUIManager.Instance.UpdateHotbarUI();
-            }
+        inventory.RefreshInventoryUI();
 
-            Debug.Log("Kit usado! Floresta purificada.");
-        }
-        else
-        {
-            Debug.Log("Você não possui Kit de Descontaminação na Hotbar!");
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, knifeRange);
-
-        // Desenha uma linha visual na cena mostrando onde a arma está apontando
-        if (firePoint != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(firePoint.position, firePoint.right * 3f);
-        }
+        Debug.Log("Kit usado. A ira da floresta diminuiu.");
     }
 }

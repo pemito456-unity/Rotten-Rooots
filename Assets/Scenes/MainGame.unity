@@ -4491,6 +4491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2024336245}
   - component: {fileID: 2024336244}
+  - component: {fileID: 2024336250}
   - component: {fileID: 2024336243}
   - component: {fileID: 2024336242}
   - component: {fileID: 2024336241}
@@ -4498,7 +4499,6 @@ GameObject:
   - component: {fileID: 2024336247}
   - component: {fileID: 2024336249}
   - component: {fileID: 2024336248}
-  - component: {fileID: 2024336250}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -4849,7 +4849,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
 --- !u!1 &2026606035
 GameObject:
   m_ObjectHideFlags: 0

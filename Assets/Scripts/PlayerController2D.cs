@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController2D : MonoBehaviour
 {
+    [Header("Movimentação")]
     public float moveSpeed = 5f;
     public float runMultiplier = 1.5f;
     public Vector2 lastFacingDirection = Vector2.right;
@@ -18,33 +20,54 @@ public class PlayerController2D : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
     }
 
-    private void Update()
-    {
-        if (Gamepad.current != null)
-        {
-            moveInput = Gamepad.current.leftStick.ReadValue();
-            if (moveInput.magnitude < 0.1f) moveInput = Gamepad.current.dpad.ReadValue();
-        }
-        else if (Keyboard.current != null)
-        {
-            Vector2 input = Vector2.zero;
-            if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) input.y += 1;
-            if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) input.y -= 1;
-            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) input.x -= 1;
-            if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) input.x += 1;
-            moveInput = input.normalized;
-        }
+    // Conecte esta função à ação Move no componente PlayerInput.
+    public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
 
-        if (moveInput.sqrMagnitude > 0.01f) lastFacingDirection = moveInput.normalized;
-        isRunning = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
+    {
+        Vector2 input = context.ReadValue<Vector2>();
+
+        // Mantém apenas o eixo predominante para impedir diagonais.
+        if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+        moveInput = new Vector2(Mathf.Sign(input.x), 0f);
+        else if (Mathf.Abs(input.y) > 0.01f)
+        moveInput = new Vector2(0f, Mathf.Sign(input.y));
+        else
+        moveInput = Vector2.zero;
+
+        if (moveInput != Vector2.zero)
+        lastFacingDirection = moveInput;
+    }
+
+    public void OnInteract(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        return;
+
+        ItemPickup2D.TryCollectNearby(
+        transform.position,
+        GetComponent<PlayerInventory>()
+        );
+    }
+
+    // Conecte esta função à ação Run no componente PlayerInput.
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        isRunning = context.ReadValueAsButton();
     }
 
     private void FixedUpdate()
     {
-        // Se estiver em estado de Knockback, ignora o input do jogador para não anular a força
-        if (playerHealth != null && playerHealth.isKnockbacked) return;
+        if (rb == null)
+            return;
 
-        float currentSpeed = isRunning ? moveSpeed * runMultiplier : moveSpeed;
+        // Mantém o controle do jogador bloqueado durante o knockback.
+        if (playerHealth != null && playerHealth.isKnockbacked)
+            return;
+
+        float currentSpeed = isRunning
+            ? moveSpeed * runMultiplier
+            : moveSpeed;
+
         rb.linearVelocity = moveInput * currentSpeed;
     }
 }
