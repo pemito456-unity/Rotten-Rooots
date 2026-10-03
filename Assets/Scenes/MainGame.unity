@@ -4676,7 +4676,13 @@ MonoBehaviour:
   hasGun: 0
   maxSlots: 8
   slots: []
+  selectedSlotIndex: 0
   flashlightIcon: {fileID: -6619111317931664985, guid: 117fb64773d97c74b9ebd2a4ccf26aa6, type: 3}
+  ammoPickupPrefab: {fileID: 0}
+  decontamKitPickupPrefab: {fileID: 0}
+  gunPickupPrefab: {fileID: 0}
+  dropDistance: 0.8
+  wrathOnDrop: 5
 --- !u!114 &2024336247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4690,15 +4696,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatAndItems
   inventory: {fileID: 2024336246}
-  mainCamera: {fileID: 519420031}
   firePoint: {fileID: 1524357209}
   bulletPrefab: {fileID: 4205289567472905848, guid: ce39dab43cf3de84ebd5a2746e20abe8, type: 3}
   wrathPerShot: 15
-  wrathPerKnifeAttack: 5
-  knifeRange: 1.2
-  attackableLayers:
-    serializedVersion: 2
-    m_Bits: 0
+  magazineCapacity: 8
+  currentMagazineAmmo: 8
   wrathReductionPerKit: 15
 --- !u!82 &2024336248
 AudioSource:
@@ -4833,7 +4835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
   m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -4844,9 +4846,257 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336243}
+        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336243}
+        m_TargetAssemblyTypeName: PlayerController2D, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1a6e73f0-52bd-4169-a100-e5c5a33d7582
+    m_ActionName: 'Player/Slot 1[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3e960d33-7fa8-4e71-a8ca-25c959f65a3f
+    m_ActionName: 'Player/Slot 2[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bab0243f-6b66-413e-b65f-4307da970dce
+    m_ActionName: 'Player/Slot 3[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot4
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8f7aed81-8347-4b29-a4a8-07510c333e47
+    m_ActionName: 'Player/Slot 4[/Keyboard/4]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot5
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 33f1566e-d711-4b01-afb1-cff92753654f
+    m_ActionName: 'Player/Slot 5[/Keyboard/5]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot6
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fe1cbfa9-2695-438f-ae54-30bc569a1af4
+    m_ActionName: 'Player/Slot 6[/Keyboard/6]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot7
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bca6ae8d-9bc1-4feb-a783-5c28bae34bfe
+    m_ActionName: 'Player/Slot 7[/Keyboard/7]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnSelectSlot8
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d628e9bc-859f-4e9a-928c-b9497b338125
+    m_ActionName: 'Player/Slot 8[/Keyboard/8]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336247}
+        m_TargetAssemblyTypeName: PlayerCombatAndItems, Assembly-CSharp
+        m_MethodName: OnPrimary
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fcad137b-9fb6-4df3-ac0f-fa7bb37c01ba
+    m_ActionName: 'Player/Primary[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336247}
+        m_TargetAssemblyTypeName: PlayerCombatAndItems, Assembly-CSharp
+        m_MethodName: OnReload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 95bd430b-ce65-4f2c-a1f9-b59df76d1ccc
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 81f04f82-f2c6-4fda-bf52-38760a71a8d3
+    m_ActionName: 'Player/Drop Item[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
+    m_ActionName: 'UI/Point[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dad70c86-b58c-4b17-88ad-f5e53adf419e
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 519420031}
