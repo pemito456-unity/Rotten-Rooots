@@ -30,7 +30,7 @@
                     "id": "1a6e73f0-52bd-4169-a100-e5c5a33d7582",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -39,7 +39,7 @@
                     "id": "3e960d33-7fa8-4e71-a8ca-25c959f65a3f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -48,7 +48,7 @@
                     "id": "bab0243f-6b66-413e-b65f-4307da970dce",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -57,7 +57,7 @@
                     "id": "8f7aed81-8347-4b29-a4a8-07510c333e47",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -66,7 +66,7 @@
                     "id": "33f1566e-d711-4b01-afb1-cff92753654f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -75,7 +75,7 @@
                     "id": "fe1cbfa9-2695-438f-ae54-30bc569a1af4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -84,7 +84,7 @@
                     "id": "bca6ae8d-9bc1-4feb-a783-5c28bae34bfe",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -93,16 +93,16 @@
                     "id": "d628e9bc-859f-4e9a-928c-b9497b338125",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Primary",
+                    "name": "Use Item",
                     "type": "Button",
                     "id": "fcad137b-9fb6-4df3-ac0f-fa7bb37c01ba",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -111,7 +111,7 @@
                     "id": "95bd430b-ce65-4f2c-a1f9-b59df76d1ccc",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -120,7 +120,7 @@
                     "id": "81f04f82-f2c6-4fda-bf52-38760a71a8d3",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -275,7 +275,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Primary",
+                    "action": "Use Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -286,7 +286,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Primary",
+                    "action": "Use Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

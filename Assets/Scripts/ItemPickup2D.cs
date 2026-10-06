@@ -10,13 +10,16 @@ public class ItemPickup2D : MonoBehaviour
         Gun
     }
 
-    [Header("Configurações do Item")]
+    [Header("Configurações do item")]
     public ItemType itemType;
     public int amount = 1;
     public string itemName = "Munição";
     public Sprite itemIcon;
 
-    [Header("UI do Item")]
+    [Header("Dados carregados pelo item")]
+    public int carriedAmmo;
+
+    [Header("UI do item")]
     public GameObject promptCanvas;
     public TextMeshProUGUI promptText;
 
@@ -38,8 +41,6 @@ public class ItemPickup2D : MonoBehaviour
 
         playerInRange = true;
 
-        Debug.Log($"[Coleta] Jogador entrou no alcance de: {itemName}.");
-
         if (promptCanvas != null)
             promptCanvas.SetActive(true);
     }
@@ -51,8 +52,6 @@ public class ItemPickup2D : MonoBehaviour
 
         playerInRange = false;
 
-        Debug.Log($"[Coleta] Jogador saiu do alcance de: {itemName}.");
-
         if (promptCanvas != null)
             promptCanvas.SetActive(false);
     }
@@ -61,7 +60,7 @@ public class ItemPickup2D : MonoBehaviour
     {
         if (inventory == null)
         {
-            Debug.LogError($"[Coleta] PlayerInventory nulo ao tentar coletar {itemName}.");
+            Debug.LogError($"PlayerInventory ausente ao coletar {itemName}.");
             return;
         }
 
@@ -69,16 +68,15 @@ public class ItemPickup2D : MonoBehaviour
             itemName,
             itemIcon,
             itemType,
-            amount
+            amount,
+            carriedAmmo
         );
 
         if (!success)
         {
-            Debug.LogWarning($"[Coleta] Inventário cheio. Não foi possível coletar {itemName}.");
+            Debug.LogWarning("Inventário cheio.");
             return;
         }
-
-        Debug.Log($"[Coleta] Item coletado: {itemName} x{amount}.");
 
         if (InventoryUIManager.Instance != null)
         {
@@ -94,16 +92,9 @@ public class ItemPickup2D : MonoBehaviour
         PlayerInventory inventory)
     {
         if (inventory == null)
-        {
-            Debug.LogError("[Coleta] PlayerInventory nulo em TryCollectNearby.");
             return;
-        }
 
-        // Busca todos os itens ativos; o trigger informa quais estão ao alcance.
         ItemPickup2D[] pickups = FindObjectsOfType<ItemPickup2D>();
-
-        Debug.Log($"[Coleta] Interação procurando entre {pickups.Length} itens ativos.");
-
         ItemPickup2D nearestPickup = null;
         float nearestDistance = float.MaxValue;
 
@@ -117,11 +108,6 @@ public class ItemPickup2D : MonoBehaviour
                 pickup.transform.position
             );
 
-            Debug.Log(
-                $"[Coleta] {pickup.itemName} está no alcance. " +
-                $"Distância entre centros: {distance:F2}."
-            );
-
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
@@ -129,15 +115,7 @@ public class ItemPickup2D : MonoBehaviour
             }
         }
 
-        if (nearestPickup == null)
-        {
-            Debug.LogWarning(
-                "[Coleta] Nenhum ItemPickup2D marcou playerInRange, " +
-                "apesar de o jogador estar vendo o aviso."
-            );
-            return;
-        }
-
-        nearestPickup.CollectItem(inventory);
+        if (nearestPickup != null)
+            nearestPickup.CollectItem(inventory);
     }
 }

@@ -3,17 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombatAndItems : MonoBehaviour
 {
-    [Header("Referências Principais")]
+    [Header("Referências principais")]
     public PlayerInventory inventory;
 
-    [Header("Configurações da Arma")]
+    [Header("Configurações da pistola")]
     public Transform firePoint;
     public GameObject bulletPrefab;
     public float wrathPerShot = 10f;
-    public int magazineCapacity = 8;
-    public int currentMagazineAmmo = 8;
 
-    [Header("Configurações do Kit Eco")]
+    [Header("Configurações do kit de descontaminação")]
     public float wrathReductionPerKit = 25f;
 
     private PlayerController2D playerController;
@@ -24,10 +22,10 @@ public class PlayerCombatAndItems : MonoBehaviour
             inventory = GetComponent<PlayerInventory>();
 
         playerController = GetComponent<PlayerController2D>();
-        currentMagazineAmmo = Mathf.Clamp(currentMagazineAmmo, 0, magazineCapacity);
     }
 
-    // Ação Primary: dispara com a arma selecionada ou usa o kit selecionado.
+    // Pistola selecionada: dispara.
+    // Kit selecionado: usa o kit.
     public void OnPrimary(InputAction.CallbackContext context)
     {
         if (!context.performed || inventory == null)
@@ -35,16 +33,13 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         InventorySlotData selectedSlot = inventory.SelectedSlot;
 
-        if (selectedSlot == null)
-            return;
-
-        if (selectedSlot.isFlashlight)
+        if (selectedSlot == null || selectedSlot.isFlashlight)
             return;
 
         switch (selectedSlot.type)
         {
             case ItemPickup2D.ItemType.Gun:
-                TryShoot();
+                TryShoot(selectedSlot);
                 break;
 
             case ItemPickup2D.ItemType.DecontamKit:
@@ -52,11 +47,13 @@ public class PlayerCombatAndItems : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("O item selecionado não tem ação atribuída ao botão principal.");
+                Debug.Log("O item selecionado não tem ação no botão principal.");
                 break;
         }
     }
 
+    // A pistola não recarrega.
+    // Este callback fica disponível para a recarga futura da lanterna.
     public void OnReload(InputAction.CallbackContext context)
     {
         if (!context.performed || inventory == null)
@@ -64,61 +61,34 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         InventorySlotData selectedSlot = inventory.SelectedSlot;
 
-        if (selectedSlot == null ||
-            selectedSlot.type != ItemPickup2D.ItemType.Gun ||
-            !inventory.hasGun)
+        if (selectedSlot != null && selectedSlot.isFlashlight)
         {
-            Debug.Log("Selecione a arma para recarregar.");
+            Debug.Log("A recarga da lanterna ainda precisa ser implementada.");
             return;
         }
 
-        if (currentMagazineAmmo >= magazineCapacity)
-        {
-            Debug.Log("O pente já está cheio.");
-            return;
-        }
-
-        InventorySlotData ammoSlot = inventory.slots.Find(
-            slot => slot.type == ItemPickup2D.ItemType.Ammo && slot.amount > 0
-        );
-
-        if (ammoSlot == null)
-        {
-            Debug.Log("Você não possui munição reserva.");
-            return;
-        }
-
-        int spaceInMagazine = magazineCapacity - currentMagazineAmmo;
-        int ammoToLoad = Mathf.Min(spaceInMagazine, ammoSlot.amount);
-
-        currentMagazineAmmo += ammoToLoad;
-        ammoSlot.amount -= ammoToLoad;
-
-        if (ammoSlot.amount <= 0)
-            inventory.slots.Remove(ammoSlot);
-
-        inventory.RefreshInventoryUI();
-
-        Debug.Log($"Arma recarregada: {currentMagazineAmmo}/{magazineCapacity}");
+        Debug.Log("A pistola não é recarregável.");
     }
 
-    private void TryShoot()
+    private void TryShoot(InventorySlotData pistolSlot)
     {
         if (!inventory.hasGun)
         {
-            Debug.Log("Você ainda não possui uma arma.");
+            Debug.Log("Você ainda não possui uma pistola.");
             return;
         }
 
-        if (currentMagazineAmmo <= 0)
+        if (pistolSlot.ammoCount <= 0)
         {
-            Debug.Log("Sem munição no pente. Recarregue.");
+            Debug.Log("A pistola está sem munição.");
             return;
         }
 
         if (firePoint == null || bulletPrefab == null)
         {
-            Debug.LogWarning("Configure Fire Point e Bullet Prefab no PlayerCombatAndItems.");
+            Debug.LogWarning(
+                "Configure Fire Point e Bullet Prefab no PlayerCombatAndItems."
+            );
             return;
         }
 
@@ -133,12 +103,14 @@ public class PlayerCombatAndItems : MonoBehaviour
         firePoint.rotation = Quaternion.Euler(0f, 0f, angle);
 
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        currentMagazineAmmo--;
+
+        pistolSlot.ammoCount--;
+        inventory.RefreshInventoryUI();
 
         if (ForestWrathManager.Instance != null)
             ForestWrathManager.Instance.AddWrath(wrathPerShot);
 
-        Debug.Log($"Tiro disparado. Munição no pente: {currentMagazineAmmo}/{magazineCapacity}");
+        Debug.Log($"Tiro disparado. Munição restante: {pistolSlot.ammoCount}.");
     }
 
     private void TryUseDecontamKit(InventorySlotData kitSlot)

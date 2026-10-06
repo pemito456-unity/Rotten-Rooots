@@ -10,19 +10,25 @@ public class InventorySlotData
     public int amount;
     public ItemPickup2D.ItemType type;
     public bool isFlashlight;
+
+    // Usado pelo slot da pistola.
+    public int ammoCount;
 }
 
 public class PlayerInventory : MonoBehaviour
 {
-    [Header("Estado do Jogador")]
+    [Header("Estado do jogador")]
     public bool hasGun;
 
-    [Header("Configurações do Inventário")]
+    [Header("Configurações do inventário")]
     public int maxSlots = 8;
     public List<InventorySlotData> slots = new List<InventorySlotData>();
     public int selectedSlotIndex;
 
-    [Header("Lanterna Inicial")]
+    [Header("Munição coletada antes da pistola")]
+    public int pendingPistolAmmo;
+
+    [Header("Lanterna inicial")]
     public Sprite flashlightIcon;
 
     [Header("Itens que podem ser descartados")]
@@ -49,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         SetupDefaultFlashlight();
-        hasGun = slots.Exists(slot => slot.type == ItemPickup2D.ItemType.Gun);
+        UpdateGunState();
     }
 
     private void Start()
@@ -79,8 +85,76 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public bool AddItem(string name, Sprite icon, ItemPickup2D.ItemType type, int amount)
+    public bool AddItem(
+        string name,
+        Sprite icon,
+        ItemPickup2D.ItemType type,
+        int amount,
+        int carriedAmmo = 0)
     {
+        amount = Mathf.Max(1, amount);
+
+        // Munição não ocupa um slot próprio.
+        if (type == ItemPickup2D.ItemType.Ammo)
+        {
+            InventorySlotData pistolSlot = slots.Find(
+                slot => slot.type == ItemPickup2D.ItemType.Gun
+            );
+
+            if (pistolSlot != null)
+            {
+                pistolSlot.ammoCount += amount;
+                Debug.Log($"Munição adicionada à pistola: {pistolSlot.ammoCount}.");
+            }
+            else
+            {
+                pendingPistolAmmo += amount;
+                Debug.Log(
+                    $"Munição guardada até encontrar a pistola: {pendingPistolAmmo}."
+                );
+            }
+
+            RefreshInventoryUI();
+            return true;
+        }
+
+        // Mantém uma única pistola no inventário.
+        if (type == ItemPickup2D.ItemType.Gun)
+        {
+            InventorySlotData existingPistol = slots.Find(
+                slot => slot.type == ItemPickup2D.ItemType.Gun
+            );
+
+            if (existingPistol != null)
+            {
+                existingPistol.ammoCount += carriedAmmo;
+                RefreshInventoryUI();
+                return true;
+            }
+
+            if (slots.Count >= maxSlots)
+                return false;
+
+            InventorySlotData newPistolSlot = new InventorySlotData
+            {
+                itemName = name,
+                icon = icon,
+                type = type,
+                amount = 1,
+                isFlashlight = false,
+                ammoCount = pendingPistolAmmo + Mathf.Max(0, carriedAmmo)
+            };
+
+            slots.Add(newPistolSlot);
+            pendingPistolAmmo = 0;
+            UpdateGunState();
+            RefreshInventoryUI();
+
+            Debug.Log($"Pistola coletada com {newPistolSlot.ammoCount} munições.");
+            return true;
+        }
+
+        // Kits e outros itens empilháveis mantêm seu comportamento atual.
         InventorySlotData existingSlot = slots.Find(
             slot => slot.type == type && slot.itemName == name
         );
@@ -88,7 +162,6 @@ public class PlayerInventory : MonoBehaviour
         if (existingSlot != null)
         {
             existingSlot.amount += amount;
-            hasGun = slots.Exists(slot => slot.type == ItemPickup2D.ItemType.Gun);
             RefreshInventoryUI();
             return true;
         }
@@ -106,8 +179,7 @@ public class PlayerInventory : MonoBehaviour
         };
 
         slots.Add(newSlot);
-        hasGun = slots.Exists(slot => slot.type == ItemPickup2D.ItemType.Gun);
-
+        UpdateGunState();
         RefreshInventoryUI();
         return true;
     }
@@ -138,7 +210,6 @@ public class PlayerInventory : MonoBehaviour
         if (slots == null || slots.Count == 0)
             return;
 
-        // LB/RB alternam circularmente apenas entre os slots ocupados.
         if (index < 0)
             index = slots.Count - 1;
         else if (index >= slots.Count)
@@ -175,12 +246,12 @@ public class PlayerInventory : MonoBehaviour
 
         if (pickupPrefab == null)
         {
-            Debug.LogWarning($"Configure um prefab de coleta para o item: {slot.itemName}.");
+            Debug.LogWarning($"Configure o prefab de descarte de {slot.itemName}.");
             return;
         }
 
-        Vector2 dropDirection = GetDropDirection();
-        Vector3 dropPosition = transform.position + (Vector3)(dropDirection * dropDistance);
+        Vector2 direction = GetDropDirection();
+        Vector3 dropPosition = transform.position + (Vector3)(direction * dropDistance);
 
         GameObject droppedObject = Instantiate(
             pickupPrefab,
@@ -192,7 +263,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (droppedPickup == null)
         {
-            Debug.LogError("O prefab descartado precisa ter o componente ItemPickup2D.");
+            Debug.LogError("O prefab precisa ter o componente ItemPickup2D.");
             Destroy(droppedObject);
             return;
         }
@@ -202,14 +273,23 @@ public class PlayerInventory : MonoBehaviour
         droppedPickup.itemType = slot.type;
         droppedPickup.amount = 1;
 
+        // A munição acompanha a pistola quando ela é descartada.
+        droppedPickup.carriedAmmo = slot.type == ItemPickup2D.ItemType.Gun
+            ? slot.ammoCount
+            : 0;
+
         slot.amount--;
 
         if (slot.amount <= 0)
             slots.Remove(slot);
 
-        selectedSlotIndex = Mathf.Clamp(selectedSlotIndex, 0, Mathf.Max(0, slots.Count - 1));
-        hasGun = slots.Exists(item => item.type == ItemPickup2D.ItemType.Gun);
+        selectedSlotIndex = Mathf.Clamp(
+            selectedSlotIndex,
+            0,
+            Mathf.Max(0, slots.Count - 1)
+        );
 
+        UpdateGunState();
         ApplySelectedItem();
         RefreshInventoryUI();
 
@@ -223,13 +303,10 @@ public class PlayerInventory : MonoBehaviour
         {
             case ItemPickup2D.ItemType.Ammo:
                 return ammoPickupPrefab;
-
             case ItemPickup2D.ItemType.DecontamKit:
                 return decontamKitPickupPrefab;
-
             case ItemPickup2D.ItemType.Gun:
                 return gunPickupPrefab;
-
             default:
                 return null;
         }
@@ -239,10 +316,18 @@ public class PlayerInventory : MonoBehaviour
     {
         PlayerController2D controller = GetComponent<PlayerController2D>();
 
-        if (controller != null && controller.lastFacingDirection.sqrMagnitude > 0.01f)
+        if (controller != null &&
+            controller.lastFacingDirection.sqrMagnitude > 0.01f)
+        {
             return controller.lastFacingDirection.normalized;
+        }
 
         return Vector2.right;
+    }
+
+    private void UpdateGunState()
+    {
+        hasGun = slots.Exists(slot => slot.type == ItemPickup2D.ItemType.Gun);
     }
 
     public void RefreshInventoryUI()

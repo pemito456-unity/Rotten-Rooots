@@ -4675,12 +4675,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   hasGun: 0
   maxSlots: 8
-  slots: []
+  slots:
+  - itemName: Lanterna
+    icon: {fileID: -6619111317931664985, guid: 117fb64773d97c74b9ebd2a4ccf26aa6, type: 3}
+    amount: 0
+    type: 0
+    isFlashlight: 1
+    ammoCount: 0
   selectedSlotIndex: 0
+  pendingPistolAmmo: 0
   flashlightIcon: {fileID: -6619111317931664985, guid: 117fb64773d97c74b9ebd2a4ccf26aa6, type: 3}
-  ammoPickupPrefab: {fileID: 0}
-  decontamKitPickupPrefab: {fileID: 0}
-  gunPickupPrefab: {fileID: 0}
+  ammoPickupPrefab: {fileID: 2195506687684675852, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
+  decontamKitPickupPrefab: {fileID: 1469007899217982969, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
+  gunPickupPrefab: {fileID: 2195506687684675852, guid: 133999f598fc43f45a522df578f53c4d, type: 3}
   dropDistance: 0.8
   wrathOnDrop: 5
 --- !u!114 &2024336247
@@ -4699,8 +4706,6 @@ MonoBehaviour:
   firePoint: {fileID: 1524357209}
   bulletPrefab: {fileID: 4205289567472905848, guid: ce39dab43cf3de84ebd5a2746e20abe8, type: 3}
   wrathPerShot: 15
-  magazineCapacity: 8
-  currentMagazineAmmo: 8
   wrathReductionPerKit: 15
 --- !u!82 &2024336248
 AudioSource:
