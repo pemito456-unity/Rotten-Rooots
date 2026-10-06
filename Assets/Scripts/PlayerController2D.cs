@@ -20,36 +20,43 @@ public class PlayerController2D : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
     }
 
-    // Conecte esta função à ação Move no componente PlayerInput.
-    public void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
-
+    // Conecte à ação Move no PlayerInput.
+    public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
 
-        // Mantém apenas o eixo predominante para impedir diagonais.
+        // Mantém apenas o eixo predominante para bloquear diagonais.
         if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
-        moveInput = new Vector2(Mathf.Sign(input.x), 0f);
+            moveInput = new Vector2(Mathf.Sign(input.x), 0f);
         else if (Mathf.Abs(input.y) > 0.01f)
-        moveInput = new Vector2(0f, Mathf.Sign(input.y));
+            moveInput = new Vector2(0f, Mathf.Sign(input.y));
         else
-        moveInput = Vector2.zero;
+            moveInput = Vector2.zero;
 
         if (moveInput != Vector2.zero)
-        lastFacingDirection = moveInput;
+            lastFacingDirection = moveInput;
     }
 
-    public void OnInteract(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    // Conecte à ação Interact no PlayerInput.
+    public void OnInteract(InputAction.CallbackContext context)
     {
         if (!context.performed)
-        return;
+            return;
 
-        ItemPickup2D.TryCollectNearby(
-        transform.position,
-        GetComponent<PlayerInventory>()
-        );
+        Debug.Log("[Coleta] E/interação recebido pelo PlayerController2D.");
+
+        PlayerInventory inventory = GetComponent<PlayerInventory>();
+
+        if (inventory == null)
+        {
+            Debug.LogError("[Coleta] PlayerInventory não foi encontrado no Player.");
+            return;
+        }
+
+        ItemPickup2D.TryCollectNearby(transform.position, inventory);
     }
 
-    // Conecte esta função à ação Run no componente PlayerInput.
+    // Opcional: só será usado se houver uma ação Run no Input Actions.
     public void OnRun(InputAction.CallbackContext context)
     {
         isRunning = context.ReadValueAsButton();
@@ -60,7 +67,7 @@ public class PlayerController2D : MonoBehaviour
         if (rb == null)
             return;
 
-        // Mantém o controle do jogador bloqueado durante o knockback.
+        // Mantém o controle bloqueado durante o knockback.
         if (playerHealth != null && playerHealth.isKnockbacked)
             return;
 
