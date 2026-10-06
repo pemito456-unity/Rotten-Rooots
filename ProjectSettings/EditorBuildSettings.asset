@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 213582772eb34ae4093566482b999a1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/J1_SegundaChunk.unity
     guid: 03d64506bcdc56a408bf0a952dd74cfd
   m_configObjects:
