@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.5, y: 1.59, z: 0}
-  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.9999999}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2617730549951642150}
@@ -136,6 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArvoreSinistra
   maxHealth: 30
+  moveSpeed: 3.5
+  detectionRadius: 6
+  damage: 25
+  attackCooldown: 1
   wrathOnDestroy: 15
   spriteRenderer: {fileID: 3683675527774160599}
   damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
@@ -404,10 +408,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
