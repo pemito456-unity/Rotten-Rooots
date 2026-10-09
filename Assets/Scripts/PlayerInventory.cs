@@ -40,6 +40,16 @@ public class PlayerInventory : MonoBehaviour
 
     private FlashlightController flashlightController;
 
+    public FlashlightController FlashlightController
+    {
+        get
+        {
+            if (flashlightController == null)
+                flashlightController = GetComponentInChildren<FlashlightController>(true);
+            return flashlightController;
+        }
+    }
+
     public InventorySlotData SelectedSlot
     {
         get

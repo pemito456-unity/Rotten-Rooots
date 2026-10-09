@@ -72,7 +72,11 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         if (selectedSlot != null && selectedSlot.isFlashlight)
         {
-            Debug.Log("A recarga da lanterna ainda precisa ser implementada.");
+            FlashlightController flashlight = inventory.FlashlightController;
+            if (flashlight != null)
+                flashlight.RegisterRechargePress();
+            else
+                Debug.LogWarning("FlashlightController não foi encontrado no Player.");
             return;
         }
 

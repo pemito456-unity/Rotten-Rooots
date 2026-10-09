@@ -14,6 +14,7 @@ public class InventoryUIManager : MonoBehaviour
         public Image iconImage;
         public TextMeshProUGUI countText;
         [System.NonSerialized] public GameObject selectionBorder;
+        [System.NonSerialized] public Image batteryBarFill;
     }
 
     [Header("Slots da hotbar")]
@@ -28,6 +29,7 @@ public class InventoryUIManager : MonoBehaviour
 
     private Coroutine notificationCoroutine;
     private UnityEngine.Canvas ammoNoticeCanvas;
+    private Sprite solidSprite;
 
     private void Awake()
     {
@@ -49,6 +51,11 @@ public class InventoryUIManager : MonoBehaviour
         }
 
         UpdateHotbarUI();
+    }
+
+    private void Update()
+    {
+        UpdateFlashlightBatteryBars();
     }
 
     public void UpdateHotbarUI()
@@ -90,6 +97,8 @@ public class InventoryUIManager : MonoBehaviour
                             slotData.amount > 1 ? $"x{slotData.amount}" : "";
                     }
                 }
+
+                UpdateSlotBatteryBar(i, slotData);
             }
             else
             {
@@ -101,8 +110,105 @@ public class InventoryUIManager : MonoBehaviour
 
                 if (uiSlots[i].countText != null)
                     uiSlots[i].countText.text = "";
+
+                if (uiSlots[i].batteryBarFill != null)
+                    uiSlots[i].batteryBarFill.transform.parent.gameObject.SetActive(false);
             }
+
+            // Mantém a borda de seleção acima das barras criadas dinamicamente.
+            UpdateSlotSelectionBorder(i);
         }
+    }
+
+    private void UpdateFlashlightBatteryBars()
+    {
+        if (playerInventory == null)
+            return;
+
+        for (int i = 0; i < playerInventory.slots.Count && i < uiSlots.Count; i++)
+        {
+            InventorySlotData slotData = playerInventory.slots[i];
+            if (slotData.isFlashlight)
+                UpdateSlotBatteryBar(i, slotData);
+        }
+    }
+
+    private void UpdateSlotBatteryBar(int slotIndex, InventorySlotData slotData)
+    {
+        UISlotReference uiSlot = uiSlots[slotIndex];
+        bool isFlashlightSlot = slotData.isFlashlight;
+
+        if (!isFlashlightSlot)
+        {
+            if (uiSlot.batteryBarFill != null)
+                uiSlot.batteryBarFill.transform.parent.gameObject.SetActive(false);
+            return;
+        }
+
+        if (uiSlot.iconImage == null)
+            return;
+
+        if (uiSlot.batteryBarFill == null)
+            CreateBatteryBar(slotIndex, uiSlot);
+
+        FlashlightController flashlight = playerInventory.FlashlightController;
+        if (flashlight != null)
+            uiSlot.batteryBarFill.fillAmount = flashlight.BatteryNormalized;
+    }
+
+    private void CreateBatteryBar(int slotIndex, UISlotReference uiSlot)
+    {
+        if (solidSprite == null)
+        {
+            solidSprite = Sprite.Create(
+                Texture2D.whiteTexture,
+                new Rect(0f, 0f, 1f, 1f),
+                new Vector2(0.5f, 0.5f)
+            );
+        }
+
+        GameObject background = new GameObject(
+            $"FlashlightBattery_Slot{slotIndex + 1}",
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(Image)
+        );
+        background.transform.SetParent(uiSlot.iconImage.transform, false);
+
+        RectTransform backgroundRect = background.GetComponent<RectTransform>();
+        backgroundRect.anchorMin = new Vector2(0f, 0f);
+        backgroundRect.anchorMax = new Vector2(1f, 0f);
+        backgroundRect.pivot = new Vector2(0.5f, 0f);
+        backgroundRect.anchoredPosition = new Vector2(0f, 3f);
+        backgroundRect.sizeDelta = new Vector2(-8f, 6f);
+
+        Image backgroundImage = background.GetComponent<Image>();
+        backgroundImage.sprite = solidSprite;
+        backgroundImage.color = new Color(0f, 0f, 0f, 0.9f);
+        backgroundImage.raycastTarget = false;
+
+        GameObject fill = new GameObject(
+            "Fill",
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(Image)
+        );
+        fill.transform.SetParent(background.transform, false);
+
+        RectTransform fillRect = fill.GetComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.offsetMin = Vector2.one;
+        fillRect.offsetMax = -Vector2.one;
+
+        uiSlot.batteryBarFill = fill.GetComponent<Image>();
+        uiSlot.batteryBarFill.sprite = solidSprite;
+        uiSlot.batteryBarFill.type = Image.Type.Filled;
+        uiSlot.batteryBarFill.fillMethod = Image.FillMethod.Horizontal;
+        uiSlot.batteryBarFill.fillOrigin = (int)Image.OriginHorizontal.Left;
+        uiSlot.batteryBarFill.fillAmount = 1f;
+        uiSlot.batteryBarFill.color = new Color(0.45f, 0.9f, 0.25f, 1f);
+        uiSlot.batteryBarFill.raycastTarget = false;
     }
 
     private void UpdateSlotSelectionBorder(int slotIndex)
@@ -114,6 +220,7 @@ public class InventoryUIManager : MonoBehaviour
         if (slot.selectionBorder == null)
             slot.selectionBorder = CreateSelectionBorder(slotIndex, slot.iconImage.transform);
 
+        slot.selectionBorder.transform.SetAsLastSibling();
         slot.selectionBorder.SetActive(slotIndex == playerInventory.selectedSlotIndex);
     }
 
