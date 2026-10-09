@@ -27,10 +27,12 @@ public class InventoryUIManager : MonoBehaviour
     public PlayerInventory playerInventory;
 
     private Coroutine notificationCoroutine;
+    private UnityEngine.Canvas ammoNoticeCanvas;
 
     private void Awake()
     {
         Instance = this;
+        CreateAmmoNoticeCanvas();
     }
 
     private void Start()
@@ -230,6 +232,110 @@ public class InventoryUIManager : MonoBehaviour
             StopCoroutine(notificationCoroutine);
 
         notificationCoroutine = StartCoroutine(NotificationSequence());
+    }
+
+    public void ShowAmmoPickupNotice(Vector3 worldPosition, int amount)
+    {
+        if (ammoNoticeCanvas == null)
+            CreateAmmoNoticeCanvas();
+
+        Camera mainCamera = Camera.main;
+        if (ammoNoticeCanvas == null || mainCamera == null)
+            return;
+
+        Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
+        if (screenPosition.z < 0f)
+            return;
+
+        RectTransform canvasRect = ammoNoticeCanvas.transform as RectTransform;
+        if (canvasRect == null || !RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect, screenPosition, null, out Vector2 localPosition))
+        {
+            return;
+        }
+
+        GameObject noticeObject = new GameObject(
+            "AmmoPickupNotice",
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(TextMeshProUGUI),
+            typeof(UnityEngine.UI.Outline)
+        );
+        noticeObject.transform.SetParent(ammoNoticeCanvas.transform, false);
+
+        RectTransform noticeRect = noticeObject.GetComponent<RectTransform>();
+        noticeRect.anchorMin = new Vector2(0.5f, 0.5f);
+        noticeRect.anchorMax = new Vector2(0.5f, 0.5f);
+        noticeRect.pivot = new Vector2(0.5f, 0.5f);
+        noticeRect.anchoredPosition = localPosition + Vector2.up * 22f;
+        noticeRect.sizeDelta = new Vector2(240f, 42f);
+
+        TextMeshProUGUI noticeText = noticeObject.GetComponent<TextMeshProUGUI>();
+        if (TMP_Settings.defaultFontAsset != null)
+            noticeText.font = TMP_Settings.defaultFontAsset;
+        noticeText.text = $"+{Mathf.Max(1, amount)} MUNIÇÃO";
+        noticeText.fontSize = 16f;
+        noticeText.fontStyle = FontStyles.Bold;
+        noticeText.color = Color.white;
+        noticeText.alignment = TextAlignmentOptions.Center;
+        noticeText.enableWordWrapping = false;
+        noticeText.raycastTarget = false;
+
+        UnityEngine.UI.Outline outline = noticeObject.GetComponent<UnityEngine.UI.Outline>();
+        outline.effectColor = new Color(0f, 0f, 0f, 0.9f);
+        outline.effectDistance = new Vector2(1.5f, -1.5f);
+
+        StartCoroutine(AnimateAmmoPickupNotice(noticeText, noticeRect));
+    }
+
+    private void CreateAmmoNoticeCanvas()
+    {
+        if (ammoNoticeCanvas != null)
+            return;
+
+        GameObject canvasObject = new GameObject(
+            "AmmoPickupNoticeCanvas",
+            typeof(RectTransform),
+            typeof(UnityEngine.Canvas),
+            typeof(UnityEngine.UI.CanvasScaler)
+        );
+
+        ammoNoticeCanvas = canvasObject.GetComponent<UnityEngine.Canvas>();
+        ammoNoticeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        ammoNoticeCanvas.overrideSorting = true;
+        ammoNoticeCanvas.sortingOrder = 100;
+
+        UnityEngine.UI.CanvasScaler scaler = canvasObject.GetComponent<UnityEngine.UI.CanvasScaler>();
+        scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(800f, 600f);
+        scaler.matchWidthOrHeight = 0.5f;
+    }
+
+    private IEnumerator AnimateAmmoPickupNotice(
+        TextMeshProUGUI noticeText,
+        RectTransform noticeRect)
+    {
+        const float duration = 1f;
+        const float riseDistance = 28f;
+        Vector2 startPosition = noticeRect.anchoredPosition;
+        Color startColor = noticeText.color;
+        float elapsed = 0f;
+
+        while (elapsed < duration && noticeText != null && noticeRect != null)
+        {
+            float t = Mathf.Clamp01(elapsed / duration);
+            noticeRect.anchoredPosition = startPosition + Vector2.up * (riseDistance * t);
+
+            Color color = startColor;
+            color.a = 1f - t;
+            noticeText.color = color;
+
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (noticeText != null)
+            Destroy(noticeText.gameObject);
     }
 
     private IEnumerator NotificationSequence()

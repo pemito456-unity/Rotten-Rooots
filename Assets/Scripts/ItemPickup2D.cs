@@ -64,6 +64,8 @@ public class ItemPickup2D : MonoBehaviour
             return;
         }
 
+        Vector3 pickupWorldPosition = transform.position;
+
         bool success = inventory.AddItem(
             itemName,
             itemIcon,
@@ -80,7 +82,11 @@ public class ItemPickup2D : MonoBehaviour
 
         if (InventoryUIManager.Instance != null)
         {
-            InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
+            if (itemType == ItemType.Ammo)
+                InventoryUIManager.Instance.ShowAmmoPickupNotice(pickupWorldPosition, amount);
+            else
+                InventoryUIManager.Instance.ShowCollectionNotice(itemName, amount);
+
             InventoryUIManager.Instance.UpdateHotbarUI();
         }
 
