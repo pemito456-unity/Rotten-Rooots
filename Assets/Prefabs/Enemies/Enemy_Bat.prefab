@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BatEnemy
   health: 15
-  moveSpeed: 4
+  moveSpeed: 2
   pushForce: 8
   damage: 10
 --- !u!114 &3609045474258970047
