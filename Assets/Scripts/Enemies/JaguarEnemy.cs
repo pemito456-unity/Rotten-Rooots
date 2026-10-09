@@ -14,11 +14,16 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
     public float damage = 25f;
     public float attackCooldown = 1f;
 
+    [Header("Som de aproximação")]
+    public AudioClip aggroSound;
+    public AudioSource audioSource;
+
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private Rigidbody2D rb;
     private float lastAttackTime;
     private EnemyNametag nametag;
+    private bool playerWasInSoundRange;
 
     private void Start()
     {
@@ -45,6 +50,7 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
         if (playerTransform == null || rb == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        UpdateProximitySound(distanceToPlayer);
 
         if (distanceToPlayer <= detectionRadius)
         {
@@ -64,6 +70,33 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
             rb.velocity = Vector2.zero;
 #endif
         }
+    }
+
+    private void UpdateProximitySound(float distanceToPlayer)
+    {
+        bool playerIsInRange = distanceToPlayer <= detectionRadius;
+        if (playerIsInRange && !playerWasInSoundRange)
+            PlayAggroSound();
+
+        playerWasInSoundRange = playerIsInRange;
+    }
+
+    private void PlayAggroSound()
+    {
+        if (aggroSound == null) return;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.PlayOneShot(aggroSound);
+    }
+
+    private void OnDisable()
+    {
+        playerWasInSoundRange = false;
     }
 
     private void OnCollisionStay2D(Collision2D collision)

@@ -24,6 +24,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     private EnemyNametag nametag;
     private float maxHealth;
     private float throwTimer;
+    private bool playerWasInAggroRange;
 
     private void Awake()
     {
@@ -60,10 +61,15 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
 
         float distance = Vector2.Distance(transform.position, playerTransform.position);
 
-        if (!isAggroed && distance <= aggroDistance)
+        bool playerIsInAggroRange = distance <= aggroDistance;
+        if (playerIsInAggroRange && !playerWasInAggroRange)
         {
-            TriggerAggro();
+            if (isAggroed)
+                PlayAggroSound();
+            else
+                TriggerAggro(); // A primeira aproximação também inicia o estado hostil.
         }
+        playerWasInAggroRange = playerIsInAggroRange;
 
         if (isAggroed)
         {
@@ -84,10 +90,25 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
         // Dá um intervalo completo antes do primeiro arremesso, deixando o estado
         // neutro/hostil previsível e evitando disparo no mesmo frame da provocação.
         throwTimer = 0f;
-        if (audioSource != null && aggroSound != null)
-        {
-            audioSource.PlayOneShot(aggroSound);
-        }
+        PlayAggroSound();
+    }
+
+    private void PlayAggroSound()
+    {
+        if (aggroSound == null) return;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.PlayOneShot(aggroSound);
+    }
+
+    private void OnDisable()
+    {
+        playerWasInAggroRange = false;
     }
 
     private void ThrowStone()

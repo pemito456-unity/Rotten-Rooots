@@ -23,11 +23,16 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     public Color damageFlashColor = Color.red;
     private Color originalColor;
 
+    [Header("Som de aproximação")]
+    public AudioClip aggroSound;
+    public AudioSource audioSource;
+
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private Rigidbody2D rb;
     private EnemyNametag nametag;
     private float lastAttackTime;
+    private bool playerWasInSoundRange;
 
     private void Start()
     {
@@ -59,6 +64,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
             return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        UpdateProximitySound(distanceToPlayer);
         if (distanceToPlayer <= detectionRadius)
         {
             Vector2 direction = ((Vector2)playerTransform.position - rb.position).normalized;
@@ -76,6 +82,33 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
             rb.velocity = Vector2.zero;
 #endif
         }
+    }
+
+    private void UpdateProximitySound(float distanceToPlayer)
+    {
+        bool playerIsInRange = distanceToPlayer <= detectionRadius;
+        if (playerIsInRange && !playerWasInSoundRange)
+            PlayAggroSound();
+
+        playerWasInSoundRange = playerIsInRange;
+    }
+
+    private void PlayAggroSound()
+    {
+        if (aggroSound == null) return;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.PlayOneShot(aggroSound);
+    }
+
+    private void OnDisable()
+    {
+        playerWasInSoundRange = false;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
