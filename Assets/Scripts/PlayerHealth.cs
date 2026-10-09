@@ -12,6 +12,10 @@ public class PlayerHealth : MonoBehaviour
     public AnatomicalHeartHUD heartHUD;
     public AudioSource heartbeatAudioSource;
 
+    [Header("Som ao receber dano")]
+    public AudioClip damageSound;
+    [Range(0f, 1f)] public float damageSoundVolume = 1f;
+
     [Header("Feedback Visual (Dano)")]
     public SpriteRenderer playerSprite;
     public Color damageColor = Color.red;
@@ -71,6 +75,8 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, 0f, maxHealth);
 
+        PlayDamageSound();
+
         if (heartHUD != null)
             heartHUD.UpdateHeartUI(currentHealth, maxHealth);
 
@@ -86,6 +92,14 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
+    }
+
+    private void PlayDamageSound()
+    {
+        if (heartbeatAudioSource == null || damageSound == null)
+            return;
+
+        heartbeatAudioSource.PlayOneShot(damageSound, damageSoundVolume);
     }
 
     private void ApplyKnockback(Vector2 attackerPos, float force)
