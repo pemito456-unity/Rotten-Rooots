@@ -19,6 +19,10 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     public AudioSource audioSource;
     public AudioClip aggroSound;
 
+    [Header("Som ao receber dano")]
+    public AudioClip damageSound;
+    [Range(0f, 1f)] public float damageSoundVolume = 0.8f;
+
     private Transform playerTransform;
     private Rigidbody2D rb;
     private EnemyNametag nametag;
@@ -136,6 +140,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         TriggerAggro(); // Provoca o macaco ao tomar tiro
+        PlayDamageSound();
         health -= amount;
         if (nametag != null)
             nametag.UpdateHealthBar(health, maxHealth);
@@ -144,6 +149,12 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
         {
             Die();
         }
+    }
+
+    private void PlayDamageSound()
+    {
+        if (damageSound == null) return;
+        AudioSource.PlayClipAtPoint(damageSound, transform.position, damageSoundVolume);
     }
 
     private void Die()

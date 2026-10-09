@@ -27,6 +27,10 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     public AudioClip aggroSound;
     public AudioSource audioSource;
 
+    [Header("Som ao receber dano")]
+    public AudioClip damageSound;
+    [Range(0f, 1f)] public float damageSoundVolume = 0.8f;
+
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private Rigidbody2D rb;
@@ -125,6 +129,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        PlayDamageSound();
         currentHealth -= amount;
 
         if (nametag != null)
@@ -135,6 +140,12 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0f)
             DestroyTree();
+    }
+
+    private void PlayDamageSound()
+    {
+        if (damageSound == null) return;
+        AudioSource.PlayClipAtPoint(damageSound, transform.position, damageSoundVolume);
     }
 
     private IEnumerator FlashDamage()

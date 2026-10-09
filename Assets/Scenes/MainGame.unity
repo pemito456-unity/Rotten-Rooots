@@ -4905,6 +4905,8 @@ MonoBehaviour:
   firePoint: {fileID: 1524357209}
   bulletPrefab: {fileID: 4205289567472905848, guid: ce39dab43cf3de84ebd5a2746e20abe8, type: 3}
   wrathPerShot: 15
+  shotSound: {fileID: 8300000, guid: ade4da5c7fd1a7145a94b3723b17323b, type: 3}
+  shotVolume: 0.5
   wrathReductionPerKit: 15
 --- !u!82 &2024336248
 AudioSource:

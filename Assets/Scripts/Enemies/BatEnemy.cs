@@ -15,6 +15,10 @@ public class BatEnemy : MonoBehaviour, IDamageable
     public AudioClip aggroSound;
     public AudioSource audioSource;
 
+    [Header("Som ao receber dano")]
+    public AudioClip damageSound;
+    [Range(0f, 1f)] public float damageSoundVolume = 0.8f;
+
     private Transform playerTransform;
     private Rigidbody2D rb;
     private EnemyNametag nametag;
@@ -88,6 +92,7 @@ public class BatEnemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        PlayDamageSound();
         health -= amount;
         if (nametag != null)
             nametag.UpdateHealthBar(health, maxHealth);
@@ -96,6 +101,12 @@ public class BatEnemy : MonoBehaviour, IDamageable
         {
             Die();
         }
+    }
+
+    private void PlayDamageSound()
+    {
+        if (damageSound == null) return;
+        AudioSource.PlayClipAtPoint(damageSound, transform.position, damageSoundVolume);
     }
 
     private void Die()

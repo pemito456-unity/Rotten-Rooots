@@ -143,6 +143,10 @@ MonoBehaviour:
   wrathOnDestroy: 15
   spriteRenderer: {fileID: 3683675527774160599}
   damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  aggroSound: {fileID: 0}
+  audioSource: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: c7d6e9f47ad949dc9aa506a7b6d2f813, type: 3}
+  damageSoundVolume: 0.8
 --- !u!114 &8261446793493975213
 MonoBehaviour:
   m_ObjectHideFlags: 0

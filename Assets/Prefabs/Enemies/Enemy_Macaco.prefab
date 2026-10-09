@@ -256,6 +256,8 @@ MonoBehaviour:
   stoneSpeed: 6
   audioSource: {fileID: 4540889629243670763}
   aggroSound: {fileID: 8300000, guid: 21908405fee5b3b48ae2928061e818d8, type: 3}
+  damageSound: {fileID: 8300000, guid: c7d6e9f47ad949dc9aa506a7b6d2f813, type: 3}
+  damageSoundVolume: 0.8
 --- !u!50 &2607887744909046329
 Rigidbody2D:
   serializedVersion: 5

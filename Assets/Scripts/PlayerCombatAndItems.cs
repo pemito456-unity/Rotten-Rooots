@@ -11,10 +11,15 @@ public class PlayerCombatAndItems : MonoBehaviour
     public GameObject bulletPrefab;
     public float wrathPerShot = 10f;
 
+    [Header("Som do disparo")]
+    public AudioClip shotSound;
+    [Range(0f, 1f)] public float shotVolume = 0.8f;
+
     [Header("Configurações do kit de descontaminação")]
     public float wrathReductionPerKit = 25f;
 
     private PlayerController2D playerController;
+    private AudioSource shotAudioSource;
 
     private void Start()
     {
@@ -22,6 +27,10 @@ public class PlayerCombatAndItems : MonoBehaviour
             inventory = GetComponent<PlayerInventory>();
 
         playerController = GetComponent<PlayerController2D>();
+
+        shotAudioSource = gameObject.AddComponent<AudioSource>();
+        shotAudioSource.playOnAwake = false;
+        shotAudioSource.spatialBlend = 0f;
     }
 
     // Pistola selecionada: dispara.
@@ -103,6 +112,9 @@ public class PlayerCombatAndItems : MonoBehaviour
         firePoint.rotation = Quaternion.Euler(0f, 0f, angle);
 
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        if (shotSound != null && shotAudioSource != null)
+            shotAudioSource.PlayOneShot(shotSound, shotVolume);
 
         pistolSlot.ammoCount--;
         inventory.RefreshInventoryUI();

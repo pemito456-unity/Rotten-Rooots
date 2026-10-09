@@ -370,6 +370,8 @@ MonoBehaviour:
   attackCooldown: 1
   aggroSound: {fileID: 8300000, guid: f4b23bdb2ba62854095ba5fc181914a1, type: 3}
   audioSource: {fileID: 226685796893420015}
+  damageSound: {fileID: 8300000, guid: c7d6e9f47ad949dc9aa506a7b6d2f813, type: 3}
+  damageSoundVolume: 0.8
 --- !u!50 &7532291647182620530
 Rigidbody2D:
   serializedVersion: 5
