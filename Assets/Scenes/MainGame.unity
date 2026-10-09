@@ -1717,19 +1717,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &8462117332461097021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636970071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19f0a7b5e6d4c239a8b01f2d3e4a5b6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::ChunkEnemyRespawner
-  enemyPrefab: {fileID: 3633308062126764184, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
 --- !u!4 &636970072
 Transform:
   m_ObjectHideFlags: 0
@@ -5034,6 +5021,9 @@ MonoBehaviour:
   playerSprite: {fileID: 2024336244}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
+  screenDamageColor: {r: 1, g: 0, b: 0, a: 0.72}
+  screenDamagePulseDuration: 0.18
+  screenDamagePulseCount: 2
   defaultKnockbackForce: 15
   knockbackDuration: 0.15
   maxHeartbeatInterval: 1.2
@@ -5311,6 +5301,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnNextItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7a856c1f-5aea-47a1-966b-a529edf389d6
+    m_ActionName: Player/Next Inventory Item
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2024336246}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnPreviousItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6c2d6a50-cb92-4fee-ad98-2373ac7a0635
+    m_ActionName: Player/Previous Inventory Item
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -6102,6 +6124,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 171110183186048844, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
   m_PrefabInstance: {fileID: 3360597222069256723}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8462117332461097021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636970071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c19f0a7b5e6d4c239a8b01f2d3e4a5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChunkEnemyRespawner
+  enemyPrefab: {fileID: 3633308062126764184, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
