@@ -344,7 +344,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.58, y: 0.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.67, y: 0.67, z: 0.67}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6134033970064294769}
@@ -471,5 +471,6 @@ MonoBehaviour:
   amount: 10
   itemName: "Muni\xE7\xE3o"
   itemIcon: {fileID: 21300000, guid: 220edee225fcdca4a9ce5f78f8d927a9, type: 3}
+  carriedAmmo: 0
   promptCanvas: {fileID: 968370940366155808}
   promptText: {fileID: 8707439021930625970}
