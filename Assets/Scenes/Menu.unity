@@ -352,7 +352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &564963244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ae55e6f0d64974aa660e6a2ccd64ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
-  firstChunkSceneName: J1_PrimeiraChunk
+  firstChunkSceneName: MainGame
   controlsPanel: {fileID: 564963243}
 --- !u!4 &1569307385
 Transform:
