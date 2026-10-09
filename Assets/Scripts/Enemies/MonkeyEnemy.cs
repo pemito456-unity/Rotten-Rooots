@@ -20,17 +20,43 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     public AudioClip aggroSound;
 
     private Transform playerTransform;
+    private Rigidbody2D rb;
+    private EnemyNametag nametag;
+    private float maxHealth;
     private float throwTimer;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        nametag = GetComponent<EnemyNametag>();
+        maxHealth = health;
+
+        // O macaco é um inimigo neutro parado; o jogador não deve empurrá-lo.
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.gravityScale = 0f;
+        }
+    }
 
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
+
+        if (nametag != null)
+            nametag.UpdateHealthBar(health, maxHealth);
     }
 
     private void Update()
     {
-        if (playerTransform == null) return;
+        // Também cobre o caso em que o Player é criado depois do macaco na cena.
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) return;
+            playerTransform = player.transform;
+        }
 
         float distance = Vector2.Distance(transform.position, playerTransform.position);
 
@@ -42,7 +68,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
         if (isAggroed)
         {
             throwTimer += Time.deltaTime;
-            if (throwTimer >= throwInterval)
+            if (throwTimer >= Mathf.Max(0.1f, throwInterval))
             {
                 throwTimer = 0f;
                 ThrowStone();
@@ -55,6 +81,9 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
         if (isAggroed) return;
 
         isAggroed = true;
+        // Dá um intervalo completo antes do primeiro arremesso, deixando o estado
+        // neutro/hostil previsível e evitando disparo no mesmo frame da provocação.
+        throwTimer = 0f;
         if (audioSource != null && aggroSound != null)
         {
             audioSource.PlayOneShot(aggroSound);
@@ -65,20 +94,31 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     {
         if (stonePrefab == null || throwPoint == null || playerTransform == null) return;
 
+        Vector2 direction = ((Vector2)playerTransform.position - (Vector2)throwPoint.position).normalized;
+        if (direction.sqrMagnitude < 0.01f)
+            direction = Vector2.left;
+
         GameObject stone = Instantiate(stonePrefab, throwPoint.position, Quaternion.identity);
-        Vector2 dir = ((Vector2)playerTransform.position - (Vector2)throwPoint.position).normalized;
 
         MonkeyStone stoneScript = stone.GetComponent<MonkeyStone>();
         if (stoneScript != null)
         {
-            stoneScript.Launch(dir);
-        }  
+            stoneScript.Launch(direction, stoneSpeed);
+        }
+        else
+        {
+            Debug.LogError("O prefab da pedra do macaco não tem o componente MonkeyStone.", stone);
+            Destroy(stone);
+        }
     }
 
     public void TakeDamage(float amount)
     {
         TriggerAggro(); // Provoca o macaco ao tomar tiro
         health -= amount;
+        if (nametag != null)
+            nametag.UpdateHealthBar(health, maxHealth);
+
         if (health <= 0)
         {
             Die();
