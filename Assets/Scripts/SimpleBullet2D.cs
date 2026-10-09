@@ -22,7 +22,8 @@ public class SimpleBullet2D : MonoBehaviour
         if (other.CompareTag("Player")) return;
 
         // Tenta aplicar dano a qualquer objeto que implemente IDamageable
-        IDamageable target = other.GetComponent<IDamageable>();
+        // O collider pode estar num filho do inimigo; procura o componente no pai também.
+        IDamageable target = other.GetComponentInParent<IDamageable>();
         if (target != null)
         {
             target.TakeDamage(damage);

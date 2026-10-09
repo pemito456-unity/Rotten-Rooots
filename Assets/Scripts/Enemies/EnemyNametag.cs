@@ -15,6 +15,19 @@ public class EnemyNametag : MonoBehaviour
     public Vector3 offset = new Vector3(0f, 1.2f, 0f);
 
     private Transform canvasTransform;
+    private RectTransform healthBarFillRect;
+    private Vector2 healthBarInitialAnchorMin;
+    private Vector2 healthBarInitialAnchorMax;
+
+    private void Awake()
+    {
+        if (healthBarFill != null)
+        {
+            healthBarFillRect = healthBarFill.rectTransform;
+            healthBarInitialAnchorMin = healthBarFillRect.anchorMin;
+            healthBarInitialAnchorMax = healthBarFillRect.anchorMax;
+        }
+    }
 
     private void Start()
     {
@@ -40,7 +53,20 @@ public class EnemyNametag : MonoBehaviour
     {
         if (healthBarFill != null && maxHealth > 0)
         {
-            healthBarFill.fillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+            float healthRatio = Mathf.Clamp01(currentHealth / maxHealth);
+
+            // Reduz a largura pelos anchors, que também funciona quando a Image
+            // está em Simple ou não tem Sprite (casos presentes nos prefabs atuais).
+            if (healthBarFillRect != null)
+            {
+                Vector2 anchorMax = healthBarInitialAnchorMax;
+                anchorMax.x = Mathf.Lerp(healthBarInitialAnchorMin.x,
+                    healthBarInitialAnchorMax.x, healthRatio);
+                healthBarFillRect.anchorMax = anchorMax;
+            }
+
+            // Mantém Filled Images compatíveis sem aplicar a redução duas vezes.
+            healthBarFill.fillAmount = 1f;
         }
     }
 }

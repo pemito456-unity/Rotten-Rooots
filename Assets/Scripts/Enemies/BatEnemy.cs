@@ -12,10 +12,18 @@ public class BatEnemy : MonoBehaviour, IDamageable
 
     private Transform playerTransform;
     private Rigidbody2D rb;
+    private EnemyNametag nametag;
+    private float maxHealth;
 
     private void Start()
     {
+        maxHealth = health;
         rb = GetComponent<Rigidbody2D>();
+        nametag = GetComponent<EnemyNametag>();
+
+        if (nametag != null)
+            nametag.UpdateHealthBar(health, maxHealth);
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
     }
@@ -45,6 +53,9 @@ public class BatEnemy : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         health -= amount;
+        if (nametag != null)
+            nametag.UpdateHealthBar(health, maxHealth);
+
         if (health <= 0)
         {
             Die();

@@ -447,7 +447,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.24, y: 2.42}
+    oldSize: {x: 1.3778596, y: 0.6363397}
     newSize: {x: 2.7, y: 1.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   itemType: 2
   amount: 1
   itemName: Pistola
-  itemIcon: {fileID: 21300000, guid: 8d29248fb79f61647b26b51f8a1d6168, type: 3}
+  itemIcon: {fileID: 21300000, guid: 04ff1ed7c44ff0c47a300820eb90e892, type: 3}
   carriedAmmo: 0
   promptCanvas: {fileID: 968370940366155808}
   promptText: {fileID: 8707439021930625970}
