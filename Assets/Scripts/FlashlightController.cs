@@ -9,6 +9,9 @@ public class FlashlightController : MonoBehaviour
     [Header("Estado")]
     public bool isOn = true;
 
+    [Header("Transição de direção")]
+    public float rotationSpeed = 360f;
+
     private PlayerController2D playerController;
 
     private void Awake()
@@ -21,26 +24,35 @@ public class FlashlightController : MonoBehaviour
 
     private void Update()
     {
-        if (flashlightLight == null) return;
+        if (flashlightLight == null)
+            return;
 
         flashlightLight.enabled = isOn;
 
         if (isOn)
-        {
             UpdateDirection();
-        }
     }
 
     private void UpdateDirection()
     {
-        if (playerController == null) return;
+        if (playerController == null)
+            return;
 
-        Vector2 dir = playerController.lastFacingDirection;
-        if (dir.sqrMagnitude > 0.01f)
-        {
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-        }
+        Vector2 direction = playerController.lastFacingDirection;
+
+        if (direction.sqrMagnitude <= 0.01f)
+            return;
+
+        float targetAngle =
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
     }
 
     public void ToggleFlashlight()
