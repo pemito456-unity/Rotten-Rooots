@@ -25,6 +25,24 @@ public class ChunkManager : MonoBehaviour
     private Transform playerTransform;
     private Rigidbody2D playerRb;
     private bool isTransitioning = false;
+    private readonly HashSet<string> visitedChunkIDs = new HashSet<string>();
+
+    public string CurrentChunkID => currentActiveChunk != null
+        ? currentActiveChunk.chunkID
+        : null;
+
+    public bool HasVisitedChunk(string chunkID)
+    {
+        return !string.IsNullOrEmpty(chunkID) && visitedChunkIDs.Contains(chunkID);
+    }
+
+    public bool IsChunkRegistered(string chunkID)
+    {
+        return !string.IsNullOrEmpty(chunkID) &&
+               chunks.Exists(chunk => chunk != null &&
+                                      chunk.chunkObject != null &&
+                                      chunk.chunkID == chunkID);
+    }
 
     private void Awake()
     {
@@ -51,12 +69,18 @@ public class ChunkManager : MonoBehaviour
     // Liga apenas a chunk inicial e desliga todas as outras
     private void InitializeMap()
     {
+        visitedChunkIDs.Clear();
+
         foreach (var chunk in chunks)
         {
+            if (chunk == null || chunk.chunkObject == null)
+                continue;
+
             if (chunk.chunkID == startingChunkID)
             {
                 chunk.chunkObject.SetActive(true);
                 currentActiveChunk = chunk;
+                visitedChunkIDs.Add(chunk.chunkID);
                 TeleportPlayer(chunk.spawnPoint);
             }
             else
@@ -91,6 +115,7 @@ public class ChunkManager : MonoBehaviour
             currentActiveChunk.chunkObject.SetActive(false);
 
         currentActiveChunk = targetChunk;
+        visitedChunkIDs.Add(targetChunk.chunkID);
 
         yield return new WaitForSeconds(transitionLockTime);
         isTransitioning = false;
