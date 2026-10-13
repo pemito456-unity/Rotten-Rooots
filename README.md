@@ -154,6 +154,7 @@ git clone https://github.com/pemito456-unity/Rotten-Rooots.git
 - *Pixel HUD UI Free Kit*, por IndigoLay
 - *Free Inventory System for 2D Games*, por Kinnly
 - Efeitos sonoros: [Pixabay](https://pixabay.com)
+
 **Referências de design**
 - *Darkwood* e *Resident Evil 7*: atmosfera e tensão
 - *The Last of Us*: body horror de fungo e mutação
