@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 496fa1d9d7818de42ad7ed5a6b107387
+guid: d5a60b25f61c87049a3c152205c800a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4045114995007804087
-    second: a3_0
+      213: -6850146007533124591
+    second: botao tela pausa_0
+  - first:
+      213: -5287583560869779479
+    second: botao tela pausa_1
+  - first:
+      213: -6634949893937188045
+    second: botao tela pausa_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: a3_0
+      name: botao tela pausa_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        y: 27
+        width: 39
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 94d24fe085ddcd7c0800000000000000
-      internalID: -4045114995007804087
+      spriteID: 1148d61ff746fe0a0800000000000000
+      internalID: -6850146007533124591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela pausa_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 27
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e7692624cabe96b0800000000000000
+      internalID: -5287583560869779479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela pausa_2
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 26
+        width: 44
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 333bb55993cebe3a0800000000000000
+      internalID: -6634949893937188045
       vertices: []
       indices: 
       edges: []
@@ -151,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      a3_0: -4045114995007804087
+      botao tela pausa_0: -6850146007533124591
+      botao tela pausa_1: -5287583560869779479
+      botao tela pausa_2: -6634949893937188045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

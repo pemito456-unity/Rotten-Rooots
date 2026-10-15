@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 80aa3f117bce3df4dbca141afd092c9f
+guid: 2f99107a93ced09498ab247174302c5f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2895821608431225175
-    second: a2_0
+      213: -6528164165277170383
+    second: botao tela volume_0
+  - first:
+      213: -679063379542135818
+    second: botao tela volume_1
+  - first:
+      213: -2674001831378831747
+    second: botao tela volume_2
+  - first:
+      213: 9057583648047966993
+    second: botao tela volume_3
+  - first:
+      213: -7120355237275744921
+    second: botao tela volume_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: a2_0
+      name: botao tela volume_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        y: 26
+        width: 21
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +153,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a67e800799ffc7d0800000000000000
-      internalID: -2895821608431225175
+      spriteID: 1354835874d4765a0800000000000000
+      internalID: -6528164165277170383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela volume_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 25
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fb2a62447b7396f0800000000000000
+      internalID: -679063379542135818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela volume_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 26
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d76bbe7708904ead0800000000000000
+      internalID: -2674001831378831747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela volume_3
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 26
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11b2949b65003bd70800000000000000
+      internalID: 9057583648047966993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: botao tela volume_4
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 26
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 765469f03aa6f2d90800000000000000
+      internalID: -7120355237275744921
       vertices: []
       indices: 
       edges: []
@@ -151,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +261,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      a2_0: -2895821608431225175
+      botao tela volume_0: -6528164165277170383
+      botao tela volume_1: -679063379542135818
+      botao tela volume_2: -2674001831378831747
+      botao tela volume_3: 9057583648047966993
+      botao tela volume_4: -7120355237275744921
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
