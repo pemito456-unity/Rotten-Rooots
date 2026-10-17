@@ -239,14 +239,14 @@ RectTransform:
   m_GameObject: {fileID: 33650013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 332118870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 72.84, y: -9.100006}
+  m_AnchoredPosition: {x: 59.9, y: -16.5}
   m_SizeDelta: {x: 185, y: 61}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &33650015
@@ -4636,15 +4636,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Continuar
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
-  m_sharedMaterial: {fileID: -6894112168266142605, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
+  m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190318
+  m_fontColor: {r: 0.9339623, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4669,7 +4669,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -5099,15 +5099,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sair
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
-  m_sharedMaterial: {fileID: -6894112168266142605, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
+  m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190318
+  m_fontColor: {r: 0.9339623, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5132,7 +5132,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
