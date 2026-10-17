@@ -6,7 +6,15 @@ using UnityEngine;
 /// </summary>
 public class EvidencePhotoTarget : MonoBehaviour
 {
+    public enum EvidenceCategory
+    {
+        MutantAnimal,
+        Corpse,
+        MutantTree
+    }
+
     [Header("Identificação da evidência")]
+    public EvidenceCategory category = EvidenceCategory.MutantAnimal;
     [Min(1)] public int evidenceIndex = 1;
     public string evidenceName = "Evidência";
     public Sprite galleryImage;
@@ -18,6 +26,11 @@ public class EvidencePhotoTarget : MonoBehaviour
     public Vector2 PhotoPosition => photoPoint != null
         ? (Vector2)photoPoint.position
         : (Vector2)transform.position;
+
+    public bool IsSupportedCategory =>
+        category == EvidenceCategory.MutantAnimal ||
+        category == EvidenceCategory.Corpse ||
+        category == EvidenceCategory.MutantTree;
 
     private void OnValidate()
     {

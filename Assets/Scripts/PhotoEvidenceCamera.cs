@@ -101,7 +101,8 @@ public class PhotoEvidenceCamera : MonoBehaviour
         EvidencePhotoTarget[] targets = FindObjectsOfType<EvidencePhotoTarget>();
         foreach (EvidencePhotoTarget target in targets)
         {
-            if (target == null || !target.gameObject.activeInHierarchy)
+            if (target == null || !target.gameObject.activeInHierarchy ||
+                !target.IsSupportedCategory)
                 continue;
 
             Vector2 targetPosition = target.PhotoPosition;

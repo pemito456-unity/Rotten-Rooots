@@ -70,7 +70,7 @@ public class PhotoEvidenceGallery : MonoBehaviour
 
     public bool TryUnlockEvidence(EvidencePhotoTarget target)
     {
-        if (target == null)
+        if (target == null || !target.IsSupportedCategory)
             return false;
 
         if (target.evidenceIndex < 1 || target.evidenceIndex > evidenceSlotCount)
@@ -417,6 +417,7 @@ public class PhotoEvidenceGallery : MonoBehaviour
         {
             if (target == null || !target.gameObject.scene.IsValid() ||
                 !target.gameObject.scene.isLoaded ||
+                !target.IsSupportedCategory ||
                 target.evidenceIndex < 1 || target.evidenceIndex > evidenceSlotCount)
             {
                 continue;
