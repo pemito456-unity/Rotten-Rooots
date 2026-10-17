@@ -5853,7 +5853,7 @@ MonoBehaviour:
   decontamKitPickupPrefab: {fileID: 1469007899217982969, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
   gunPickupPrefab: {fileID: 2195506687684675852, guid: 133999f598fc43f45a522df578f53c4d, type: 3}
   dropDistance: 0.8
-  wrathOnDrop: 5
+  wrathOnDrop: 3
 --- !u!114 &2024336247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5869,11 +5869,11 @@ MonoBehaviour:
   inventory: {fileID: 2024336246}
   firePoint: {fileID: 1524357209}
   bulletPrefab: {fileID: 4205289567472905848, guid: ce39dab43cf3de84ebd5a2746e20abe8, type: 3}
-  wrathPerShot: 15
+  wrathPerShot: 8
   shotSound: {fileID: 8300000, guid: ade4da5c7fd1a7145a94b3723b17323b, type: 3}
   shotMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
   shotVolume: 0.5
-  wrathReductionPerKit: 15
+  wrathReductionPerKit: 25
 --- !u!82 &2024336248
 AudioSource:
   m_ObjectHideFlags: 0
