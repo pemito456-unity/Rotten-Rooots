@@ -38,10 +38,8 @@ public class PauseMenuController : MonoBehaviour
             playerInput = FindObjectOfType<PlayerInput>();
 
         photoEvidenceGallery = GetComponent<PhotoEvidenceGallery>();
-        if (photoEvidenceGallery == null)
-            photoEvidenceGallery = gameObject.AddComponent<PhotoEvidenceGallery>();
-
-        photoEvidenceGallery.Initialize(pausePanel);
+        if (photoEvidenceGallery != null)
+            photoEvidenceGallery.Initialize();
     }
 
     // Ligue este método ao evento da ação Pause no componente Player Input.

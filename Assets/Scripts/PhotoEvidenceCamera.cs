@@ -9,7 +9,7 @@ using UnityEngine.Audio;
 /// </summary>
 public class PhotoEvidenceCamera : MonoBehaviour
 {
-    [Header("Enquadramento")]
+    [Header("Área de reconhecimento")]
     [Min(0.1f)] public float maxPhotoDistance = 5f;
     [Range(1f, 120f)] public float fieldOfViewDegrees = 35f;
     [Min(0f)] public float photoCooldown = 0.5f;
@@ -116,19 +116,33 @@ public class PhotoEvidenceCamera : MonoBehaviour
             if (angle > halfFov)
                 continue;
 
-            RaycastHit2D hit = Physics2D.Raycast(
+            RaycastHit2D[] hits = Physics2D.RaycastAll(
                 origin,
                 toTarget / distance,
                 distance,
                 obstructionLayers
             );
 
-            if (hit.collider != null &&
-                hit.distance < distance - 0.08f &&
-                hit.collider.GetComponentInParent<EvidencePhotoTarget>() != target)
+            bool isBlocked = false;
+            foreach (RaycastHit2D hit in hits)
             {
-                continue;
+                if (hit.collider == null || hit.distance >= distance - 0.08f)
+                    continue;
+
+                // O raio começa na posição do jogador. Ignore os colliders do próprio
+                // jogador para que eles não bloqueiem todas as fotos por estarem na origem.
+                if (hit.collider.GetComponentInParent<PlayerController2D>() != null)
+                    continue;
+
+                if (hit.collider.GetComponentInParent<EvidencePhotoTarget>() == target)
+                    continue;
+
+                isBlocked = true;
+                break;
             }
+
+            if (isBlocked)
+                continue;
 
             if (distance < closestDistance)
             {
@@ -138,6 +152,12 @@ public class PhotoEvidenceCamera : MonoBehaviour
         }
 
         return closestTarget;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0.2f, 1f, 0.55f, 0.8f);
+        Gizmos.DrawWireSphere(transform.position, maxPhotoDistance);
     }
 
     private Vector2 GetFacingDirection()
@@ -205,7 +225,7 @@ public class PhotoEvidenceCamera : MonoBehaviour
     private Sprite CreateEdgeGradientSprite()
     {
         const int size = 128;
-        const float fadeWidth = 0.22f;
+        const float fadeWidth = 0.12f;
         edgeFlashTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
         edgeFlashTexture.name = "GeneratedPhotoFlashEdges";
         edgeFlashTexture.wrapMode = TextureWrapMode.Clamp;
