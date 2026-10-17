@@ -1,17 +1,10 @@
 fileFormatVersion: 2
-guid: ac2265aff6200fe4b9e05b2085501d77
-AssetOrigin:
-  serializedVersion: 1
-  productId: 378572
-  packageName: Pixel HUD UI Free Kit
-  packageVersion: 1.0
-  assetPath: Assets/Pixel_HUD_UI_FreeKit/Sprites/UI Elements/UI_Slot_Selected.png
-  uploadId: 914142
+guid: 2b3cd0dd7c669724f91b36b2e07a2d42
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 694905761202071033
-    second: UI_Slot_Selected_0
+      213: -2985166235380480030
+    second: ui inventario-1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -82,7 +75,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,10 +98,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,10 +111,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -133,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Slot_Selected_0
+      name: ui inventario-1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 111
-        height: 111
+        width: 122
+        height: 123
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f562d8ab1dc4a900800000000000000
-      internalID: 694905761202071033
+      spriteID: 2e708a0002f8296d0800000000000000
+      internalID: -2985166235380480030
       vertices: []
       indices: 
       edges: []
@@ -168,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_Slot_Selected_0: 694905761202071033
+      ui inventario-1_0: -2985166235380480030
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -24,6 +24,7 @@ public class PauseMenuController : MonoBehaviour
     private bool isPaused;
     private float timeScaleBeforePause = 1f;
     private GameObject selectionBeforePause;
+    private PhotoEvidenceGallery photoEvidenceGallery;
 
     private void Awake()
     {
@@ -35,6 +36,12 @@ public class PauseMenuController : MonoBehaviour
 
         if (playerInput == null)
             playerInput = FindObjectOfType<PlayerInput>();
+
+        photoEvidenceGallery = GetComponent<PhotoEvidenceGallery>();
+        if (photoEvidenceGallery == null)
+            photoEvidenceGallery = gameObject.AddComponent<PhotoEvidenceGallery>();
+
+        photoEvidenceGallery.Initialize(pausePanel);
     }
 
     // Ligue este método ao evento da ação Pause no componente Player Input.
@@ -42,6 +49,12 @@ public class PauseMenuController : MonoBehaviour
     {
         if (!context.performed)
             return;
+
+        if (isPaused && photoEvidenceGallery != null && photoEvidenceGallery.IsOpen)
+        {
+            photoEvidenceGallery.CloseGallery();
+            return;
+        }
 
         if (isPaused)
             ResumeGame();
@@ -78,6 +91,9 @@ public class PauseMenuController : MonoBehaviour
         if (!isPaused)
             return;
 
+        if (photoEvidenceGallery != null && photoEvidenceGallery.IsOpen)
+            photoEvidenceGallery.CloseGalleryWithoutChangingSelection();
+
         pausePanel.SetActive(false);
         Time.timeScale = timeScaleBeforePause;
 
@@ -96,6 +112,11 @@ public class PauseMenuController : MonoBehaviour
     public void ReturnToMenu()
     {
         // Time.timeScale persiste entre cenas; redefina antes de carregar o menu.
+        if (photoEvidenceGallery != null && photoEvidenceGallery.IsOpen)
+            photoEvidenceGallery.CloseGalleryWithoutChangingSelection();
+
+        PhotoEvidenceGallery.ResetProgress();
+
         Time.timeScale = 1f;
         isPaused = false;
 

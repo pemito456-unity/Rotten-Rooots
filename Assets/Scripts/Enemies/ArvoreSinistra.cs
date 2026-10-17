@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ArvoreSinistra : MonoBehaviour, IDamageable
 {
@@ -26,6 +27,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     [Header("Som de aproximação")]
     public AudioClip aggroSound;
     public AudioSource audioSource;
+    public AudioMixerGroup sfxMixerGroup;
 
     [Header("Som ao receber dano")]
     public AudioClip damageSound;
@@ -107,6 +109,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
             audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
         audioSource.PlayOneShot(aggroSound);
     }
 
@@ -145,7 +148,13 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     private void PlayDamageSound()
     {
         if (damageSound == null) return;
-        AudioSource.PlayClipAtPoint(damageSound, transform.position, damageSoundVolume);
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
+        audioSource.PlayOneShot(damageSound, damageSoundVolume);
     }
 
     private IEnumerator FlashDamage()

@@ -13,6 +13,7 @@ public class InventorySlotData
 
     // Usado pelo slot da pistola.
     public int ammoCount;
+    public bool isCamera;
 }
 
 public class PlayerInventory : MonoBehaviour
@@ -31,6 +32,9 @@ public class PlayerInventory : MonoBehaviour
     [Header("Lanterna inicial")]
     public Sprite flashlightIcon;
 
+    [Header("Câmera fixa")]
+    public Sprite cameraIcon;
+
     [Header("Itens que podem ser descartados")]
     public GameObject ammoPickupPrefab;
     public GameObject decontamKitPickupPrefab;
@@ -39,6 +43,8 @@ public class PlayerInventory : MonoBehaviour
     public float wrathOnDrop = 5f;
 
     private FlashlightController flashlightController;
+    private Sprite generatedCameraIcon;
+    private Texture2D generatedCameraIconTexture;
 
     public FlashlightController FlashlightController
     {
@@ -65,6 +71,7 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         SetupDefaultFlashlight();
+        SetupDefaultCamera();
         UpdateGunState();
     }
 
@@ -95,6 +102,93 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    private void SetupDefaultCamera()
+    {
+        if (slots.Exists(slot => slot.isCamera))
+            return;
+
+        if (slots.Count >= maxSlots)
+        {
+            Debug.LogWarning("Não há espaço para adicionar a câmera fixa ao inventário.");
+            return;
+        }
+
+        if (cameraIcon == null)
+            cameraIcon = CreateCameraPlaceholderIcon();
+
+        InventorySlotData cameraSlot = new InventorySlotData
+        {
+            itemName = "Câmera",
+            icon = cameraIcon,
+            amount = 1,
+            type = ItemPickup2D.ItemType.PhotoCamera,
+            isCamera = true
+        };
+
+        // A câmera fica logo depois da lanterna para ser fácil de encontrar no teste.
+        slots.Insert(Mathf.Min(1, slots.Count), cameraSlot);
+    }
+
+    private Sprite CreateCameraPlaceholderIcon()
+    {
+        const int size = 32;
+        generatedCameraIconTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        generatedCameraIconTexture.name = "CameraPlaceholderIconTexture";
+        generatedCameraIconTexture.filterMode = FilterMode.Point;
+        generatedCameraIconTexture.wrapMode = TextureWrapMode.Clamp;
+
+        Color transparent = new Color(0f, 0f, 0f, 0f);
+        Color body = new Color(0.82f, 0.82f, 0.76f, 1f);
+        Color dark = new Color(0.12f, 0.14f, 0.13f, 1f);
+        Color lens = new Color(0.24f, 0.55f, 0.58f, 1f);
+        Color[] pixels = new Color[size * size];
+
+        for (int i = 0; i < pixels.Length; i++)
+            pixels[i] = transparent;
+
+        for (int y = 7; y <= 24; y++)
+        {
+            for (int x = 3; x <= 28; x++)
+                pixels[y * size + x] = body;
+        }
+
+        for (int y = 22; y <= 27; y++)
+        {
+            for (int x = 9; x <= 17; x++)
+                pixels[y * size + x] = body;
+        }
+
+        for (int y = 10; y <= 21; y++)
+        {
+            for (int x = 12; x <= 23; x++)
+            {
+                int dx = x - 17;
+                int dy = y - 15;
+                if (dx * dx + dy * dy <= 36)
+                    pixels[y * size + x] = dark;
+                if (dx * dx + dy * dy <= 16)
+                    pixels[y * size + x] = lens;
+            }
+        }
+
+        for (int y = 18; y <= 21; y++)
+        {
+            for (int x = 6; x <= 9; x++)
+                pixels[y * size + x] = dark;
+        }
+
+        generatedCameraIconTexture.SetPixels(pixels);
+        generatedCameraIconTexture.Apply(false, true);
+
+        generatedCameraIcon = Sprite.Create(
+            generatedCameraIconTexture,
+            new Rect(0f, 0f, size, size),
+            new Vector2(0.5f, 0.5f),
+            32f
+        );
+        return generatedCameraIcon;
+    }
+
     public bool AddItem(
         string name,
         Sprite icon,
@@ -103,6 +197,13 @@ public class PlayerInventory : MonoBehaviour
         int carriedAmmo = 0)
     {
         amount = Mathf.Max(1, amount);
+
+        // A câmera faz parte do equipamento inicial e não é coletável nem empilhável.
+        if (type == ItemPickup2D.ItemType.PhotoCamera)
+        {
+            Debug.LogWarning("A câmera é um item fixo e não pode ser coletada como pickup.");
+            return false;
+        }
 
         // Munição não ocupa um slot próprio.
         if (type == ItemPickup2D.ItemType.Ammo)
@@ -246,9 +347,9 @@ public class PlayerInventory : MonoBehaviour
 
         InventorySlotData slot = SelectedSlot;
 
-        if (slot == null || slot.isFlashlight)
+        if (slot == null || slot.isFlashlight || slot.isCamera)
         {
-            Debug.Log("Não é possível descartar a lanterna.");
+            Debug.Log("Não é possível descartar a lanterna ou a câmera.");
             return;
         }
 
@@ -344,5 +445,13 @@ public class PlayerInventory : MonoBehaviour
     {
         if (InventoryUIManager.Instance != null)
             InventoryUIManager.Instance.UpdateHotbarUI();
+    }
+
+    private void OnDestroy()
+    {
+        if (generatedCameraIcon != null)
+            Destroy(generatedCameraIcon);
+        if (generatedCameraIconTexture != null)
+            Destroy(generatedCameraIconTexture);
     }
 }

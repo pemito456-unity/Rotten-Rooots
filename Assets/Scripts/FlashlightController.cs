@@ -15,7 +15,7 @@ public class FlashlightController : MonoBehaviour
     [SerializeField, Range(0, 4)] private int rechargePresses;
 
     [Header("Transição de direção")]
-    public float rotationSpeed = 360f;
+    public float rotationSpeed = 420f;
 
     private PlayerController2D playerController;
     private float batteryAtRechargeStart;

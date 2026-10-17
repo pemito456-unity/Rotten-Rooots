@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class KillFeedbackManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class KillFeedbackManager : MonoBehaviour
     [Header("Configurações de Áudio")]
     public AudioSource audioSource;
     public AudioClip firstKillRoarSound;
+    public AudioMixerGroup sfxMixerGroup;
 
     [Header("Configurações de Screen Shake")]
     public float shakeDuration = 0.3f;
@@ -17,6 +19,14 @@ public class KillFeedbackManager : MonoBehaviour
 
     private void Awake()
     {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
+
         if (Instance == null)
         {
             Instance = this;

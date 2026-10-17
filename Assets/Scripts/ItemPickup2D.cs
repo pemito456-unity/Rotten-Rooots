@@ -7,7 +7,8 @@ public class ItemPickup2D : MonoBehaviour
     {
         Ammo,
         DecontamKit,
-        Gun
+        Gun,
+        PhotoCamera
     }
 
     [Header("Configurações do item")]

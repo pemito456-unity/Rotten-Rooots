@@ -255,6 +255,7 @@ MonoBehaviour:
   throwInterval: 1.5
   stoneSpeed: 6
   audioSource: {fileID: 4540889629243670763}
+  sfxMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
   aggroSound: {fileID: 8300000, guid: 21908405fee5b3b48ae2928061e818d8, type: 3}
   damageSound: {fileID: 8300000, guid: c7d6e9f47ad949dc9aa506a7b6d2f813, type: 3}
   damageSoundVolume: 0.8
@@ -356,7 +357,7 @@ AudioSource:
   m_GameObject: {fileID: 3633308062126764184}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

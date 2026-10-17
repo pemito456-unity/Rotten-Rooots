@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MonkeyEnemy : MonoBehaviour, IDamageable
 {
@@ -18,6 +19,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     [Header("Feedback Sonoro")]
     public AudioSource audioSource;
     public AudioClip aggroSound;
+    public AudioMixerGroup sfxMixerGroup;
 
     [Header("Som ao receber dano")]
     public AudioClip damageSound;
@@ -107,6 +109,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
             audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
         audioSource.PlayOneShot(aggroSound);
     }
 
@@ -154,7 +157,13 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     private void PlayDamageSound()
     {
         if (damageSound == null) return;
-        AudioSource.PlayClipAtPoint(damageSound, transform.position, damageSoundVolume);
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
+        audioSource.PlayOneShot(damageSound, damageSoundVolume);
     }
 
     private void Die()

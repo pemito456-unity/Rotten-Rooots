@@ -343,6 +343,30 @@ public class InventoryUIManager : MonoBehaviour
 
     public void ShowAmmoPickupNotice(Vector3 worldPosition, int amount)
     {
+        CreateWorldNotice(
+            worldPosition,
+            $"+{Mathf.Max(1, amount)} MUNIÇÃO",
+            new Vector2(240f, 42f),
+            16f
+        );
+    }
+
+    public void ShowPhotoEvidenceNotice(Vector3 worldPosition, string message)
+    {
+        CreateWorldNotice(
+            worldPosition,
+            message,
+            new Vector2(340f, 48f),
+            14f
+        );
+    }
+
+    private void CreateWorldNotice(
+        Vector3 worldPosition,
+        string message,
+        Vector2 size,
+        float fontSize)
+    {
         if (ammoNoticeCanvas == null)
             CreateAmmoNoticeCanvas();
 
@@ -375,13 +399,13 @@ public class InventoryUIManager : MonoBehaviour
         noticeRect.anchorMax = new Vector2(0.5f, 0.5f);
         noticeRect.pivot = new Vector2(0.5f, 0.5f);
         noticeRect.anchoredPosition = localPosition + Vector2.up * 22f;
-        noticeRect.sizeDelta = new Vector2(240f, 42f);
+        noticeRect.sizeDelta = size;
 
         TextMeshProUGUI noticeText = noticeObject.GetComponent<TextMeshProUGUI>();
         if (TMP_Settings.defaultFontAsset != null)
             noticeText.font = TMP_Settings.defaultFontAsset;
-        noticeText.text = $"+{Mathf.Max(1, amount)} MUNIÇÃO";
-        noticeText.fontSize = 16f;
+        noticeText.text = message;
+        noticeText.fontSize = fontSize;
         noticeText.fontStyle = FontStyles.Bold;
         noticeText.color = Color.white;
         noticeText.alignment = TextAlignmentOptions.Center;

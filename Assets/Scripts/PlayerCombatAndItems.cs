@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 public class PlayerCombatAndItems : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerCombatAndItems : MonoBehaviour
 
     [Header("Som do disparo")]
     public AudioClip shotSound;
+    public AudioMixerGroup shotMixerGroup;
     [Range(0f, 1f)] public float shotVolume = 0.8f;
 
     [Header("Configurações do kit de descontaminação")]
@@ -20,6 +22,7 @@ public class PlayerCombatAndItems : MonoBehaviour
 
     private PlayerController2D playerController;
     private AudioSource shotAudioSource;
+    private PhotoEvidenceCamera photoCamera;
 
     private void Start()
     {
@@ -28,9 +31,14 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         playerController = GetComponent<PlayerController2D>();
 
+        photoCamera = GetComponent<PhotoEvidenceCamera>();
+        if (photoCamera == null)
+            photoCamera = gameObject.AddComponent<PhotoEvidenceCamera>();
+
         shotAudioSource = gameObject.AddComponent<AudioSource>();
         shotAudioSource.playOnAwake = false;
         shotAudioSource.spatialBlend = 0f;
+        shotAudioSource.outputAudioMixerGroup = shotMixerGroup;
     }
 
     // Pistola selecionada: dispara.
@@ -44,6 +52,13 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         if (selectedSlot == null || selectedSlot.isFlashlight)
             return;
+
+        if (selectedSlot.isCamera)
+        {
+            if (photoCamera != null)
+                photoCamera.TakePhoto();
+            return;
+        }
 
         switch (selectedSlot.type)
         {
