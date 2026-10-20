@@ -8,7 +8,8 @@ public class ForestWrathManager : MonoBehaviour
 
     [Header("Configurações de Ira")]
     public float maxWrath = 100f;
-    public Slider wrathBar;
+    [Tooltip("Imagem Filled da árvore. A árvore esvazia conforme a ira aumenta.")]
+    public Image wrathFillImage;
     public TextMeshProUGUI wrathText;
 
     // --- DADO PERSISTENTE ENTRE CENAS ---
@@ -54,11 +55,12 @@ public class ForestWrathManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (wrathBar != null)
-        {
-            wrathBar.maxValue = maxWrath;
-            wrathBar.value = persistentWrath;
-        }
+        float wrathRatio = maxWrath > 0f
+            ? Mathf.Clamp01(persistentWrath / maxWrath)
+            : 0f;
+
+        if (wrathFillImage != null)
+            wrathFillImage.fillAmount = 1f - wrathRatio;
 
         if (wrathText != null)
         {
