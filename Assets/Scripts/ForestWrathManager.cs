@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,6 +16,37 @@ public class ForestWrathManager : MonoBehaviour
 
     // --- DADO PERSISTENTE ENTRE CENAS ---
     private static float persistentWrath = 0f;
+    private static readonly HashSet<string> activePassages = new HashSet<string>();
+    private static readonly HashSet<string> clearedPassages = new HashSet<string>();
+
+    public static event Action<float> WrathChanged;
+    public static event Action<string> PassageCleared;
+
+    public static bool IsPassageBlocked(string passageId)
+    {
+        return !string.IsNullOrEmpty(passageId) &&
+               activePassages.Contains(passageId) &&
+               !clearedPassages.Contains(passageId);
+    }
+
+    public static void MarkPassageBlocked(string passageId)
+    {
+        if (!string.IsNullOrEmpty(passageId) && !clearedPassages.Contains(passageId))
+            activePassages.Add(passageId);
+    }
+
+    public static bool IsPassageCleared(string passageId)
+    {
+        return !string.IsNullOrEmpty(passageId) && clearedPassages.Contains(passageId);
+    }
+
+    public static void MarkPassageCleared(string passageId)
+    {
+        if (string.IsNullOrEmpty(passageId) || !clearedPassages.Add(passageId))
+            return;
+
+        PassageCleared?.Invoke(passageId);
+    }
 
     public float currentWrath
     {
@@ -29,6 +62,10 @@ public class ForestWrathManager : MonoBehaviour
     static void ResetWrathOnPlay()
     {
         persistentWrath = 0f;
+        activePassages.Clear();
+        clearedPassages.Clear();
+        WrathChanged = null;
+        PassageCleared = null;
     }
 
     private void Awake()
@@ -66,5 +103,10 @@ public class ForestWrathManager : MonoBehaviour
         {
             wrathText.text = $"{Mathf.RoundToInt(persistentWrath)}%";
         }
+
+        float wrathPercent = maxWrath > 0f
+            ? Mathf.Clamp01(persistentWrath / maxWrath) * 100f
+            : 0f;
+        WrathChanged?.Invoke(wrathPercent);
     }
 }

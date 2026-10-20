@@ -141,7 +141,10 @@ MonoBehaviour:
   detectionRadius: 6
   damage: 25
   attackCooldown: 1
+  attackRange: 1.4
   wrathOnDestroy: 15
+  isPassageBlocker: 0
+  onlyRemovableByKit: 0
   spriteRenderer: {fileID: 3683675527774160599}
   damageFlashColor: {r: 1, g: 0, b: 0, a: 1}
   aggroSound: {fileID: 0}

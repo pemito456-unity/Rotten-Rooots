@@ -166,6 +166,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A2
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &2270226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -421,6 +426,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &160052123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -683,6 +693,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &226342553
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1433,6 +1448,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &470866868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2360,6 +2380,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &842050044
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2604,6 +2629,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &887725449
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2761,7 +2791,7 @@ Transform:
   - {fileID: 116133193}
   - {fileID: 1424312004574962432}
   - {fileID: 3360597222069256724}
-  - {fileID: 1117950304}
+  - {fileID: 8712345678901234002}
   m_Father: {fileID: 1868701104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &945838519
@@ -3094,76 +3124,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1117950303
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 945838518}
-    m_Modifications:
-    - target: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_Name
-      value: Tree_Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7869551133220167483, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: moveSpeed
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7869551133220167483, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-      propertyPath: detectionRadius
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
---- !u!4 &1117950304 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6406348495274652319, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-  m_PrefabInstance: {fileID: 1117950303}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1201243388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3277,6 +3237,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: D4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1235199623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3445,6 +3410,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A3
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1240657742
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3538,6 +3508,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A3
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1265094838
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4177,6 +4152,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C3
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1376086438
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4383,6 +4363,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1424807414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4987,6 +4972,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
   isLocked: 0
+  useWrathBlocker: 0
+  wrathThresholdPercent: 50
+  passageBlockerId: 
+  hostileTreePrefab: {fileID: 0}
+  blockerOnlyRemovableByKit: 0
 --- !u!61 &1680713417
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5579,6 +5569,7 @@ MonoBehaviour:
   ammoPickupPrefab: {fileID: 2195506687684675852, guid: 0399c3ff5a8cdd94f8bc94a47f736f9c, type: 3}
   decontamKitPickupPrefab: {fileID: 1469007899217982969, guid: e8c0f7676454afd48bd813e82903c65f, type: 3}
   gunPickupPrefab: {fileID: 2195506687684675852, guid: 133999f598fc43f45a522df578f53c4d, type: 3}
+  knifePickupPrefab: {fileID: 0}
   dropDistance: 0.8
   wrathOnDrop: 3
 --- !u!114 &2024336247
@@ -5600,7 +5591,18 @@ MonoBehaviour:
   shotSound: {fileID: 8300000, guid: ade4da5c7fd1a7145a94b3723b17323b, type: 3}
   shotMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
   shotVolume: 0.5
+  meleeDamage: 20
+  meleeReach: 0.8
+  meleeRadius: 0.75
+  meleeCooldown: 0.45
+  wrathPerMeleeHit: 2
+  meleeSwingSound: {fileID: 8300000, guid: 25ba5765956dee34b8bcff9d6e19426a, type: 3}
+  meleeHitSound: {fileID: 0}
+  meleeMixerGroup: {fileID: 0}
+  meleeVolume: 0.8
+  meleeSlashColor: {r: 0.8, g: 1, b: 0.75, a: 1}
   wrathReductionPerKit: 25
+  decontamKitUseRange: 2.25
 --- !u!82 &2024336248
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12392,6 +12394,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkEnemyRespawner
   enemyPrefab: {fileID: 3633308062126764184, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
+--- !u!1001 &8712345678901234001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 945838518}
+    m_Modifications:
+    - target: {fileID: 171110183186048844, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 171110183186048844, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 171110183186048844, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469007899217982969, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_Name
+      value: Item_Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519884215475738434, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2824018372903243168, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+--- !u!4 &8712345678901234002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 171110183186048844, guid: 6e7b0af93f724a5da746e2a7ed8b1c53, type: 3}
+  m_PrefabInstance: {fileID: 8712345678901234001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

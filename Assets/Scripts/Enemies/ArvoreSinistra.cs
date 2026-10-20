@@ -8,16 +8,29 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     public float maxHealth = 30f;
     private float currentHealth;
 
-    [Header("Perseguição (mesma lógica da onça)")]
+    [Header("Comportamento fixo")]
+    [Tooltip("Mantido para compatibilidade com valores antigos do Inspector. A árvore não se move.")]
     public float moveSpeed = 3.5f;
+    [Tooltip("Raio em que a árvore percebe o jogador e pode tocar o som de alerta.")]
     public float detectionRadius = 6f;
 
     [Header("Ataque")]
     public float damage = 25f;
     public float attackCooldown = 1f;
+    public float attackRange = 1.4f;
 
     [Header("Ira da Floresta")]
     public float wrathOnDestroy = 15f;
+
+    [Header("Bloqueio de passagem")]
+    [Tooltip("Árvores de passagem informam à porta quando são removidas.")]
+    public bool isPassageBlocker;
+    [Tooltip("Quando ativo, arma de fogo e faca não causam dano; só o kit remove a árvore.")]
+    public bool onlyRemovableByKit;
+    private string passageId;
+    private bool isBeingRemoved;
+
+    public bool OnlyRemovableByKit => onlyRemovableByKit;
 
     [Header("Feedback de dano")]
     public SpriteRenderer spriteRenderer;
@@ -44,6 +57,13 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.constraints |= RigidbodyConstraints2D.FreezePositionX |
+                              RigidbodyConstraints2D.FreezePositionY;
+            rb.linearVelocity = Vector2.zero;
+        }
+
         nametag = GetComponent<EnemyNametag>();
 
         if (spriteRenderer == null)
@@ -52,41 +72,44 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
         if (spriteRenderer != null)
             originalColor = spriteRenderer.color;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            playerTransform = player.transform;
-            playerHealth = player.GetComponent<PlayerHealth>();
-        }
+        FindPlayer();
 
         if (nametag != null)
             nametag.UpdateHealthBar(currentHealth, maxHealth);
     }
 
+    private void FindPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+            return;
+
+        playerTransform = player.transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+    }
+
     private void FixedUpdate()
     {
-        // Segue o mesmo comportamento de perseguição do JaguarEnemy.
-        if (playerTransform == null || rb == null)
-            return;
+        // A árvore fica ancorada na passagem; ela ataca sem perseguir.
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        if (playerTransform == null)
+        {
+            FindPlayer();
+            if (playerTransform == null)
+                return;
+        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         UpdateProximitySound(distanceToPlayer);
-        if (distanceToPlayer <= detectionRadius)
+
+        if (distanceToPlayer <= attackRange &&
+            Time.time >= lastAttackTime + attackCooldown &&
+            playerHealth != null)
         {
-            Vector2 direction = ((Vector2)playerTransform.position - rb.position).normalized;
-#if UNITY_6000_0_OR_NEWER
-            rb.linearVelocity = direction * moveSpeed;
-#else
-            rb.velocity = direction * moveSpeed;
-#endif
-        }
-        else
-        {
-#if UNITY_6000_0_OR_NEWER
-            rb.linearVelocity = Vector2.zero;
-#else
-            rb.velocity = Vector2.zero;
-#endif
+            playerHealth.TakeDamage(damage, transform.position);
+            lastAttackTime = Time.time;
         }
     }
 
@@ -118,20 +141,11 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
         playerWasInSoundRange = false;
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player") || Time.time < lastAttackTime + attackCooldown)
-            return;
-
-        if (playerHealth != null)
-        {
-            playerHealth.TakeDamage(damage, transform.position);
-            lastAttackTime = Time.time;
-        }
-    }
-
     public void TakeDamage(float amount)
     {
+        if (onlyRemovableByKit || isBeingRemoved)
+            return;
+
         PlayDamageSound();
         currentHealth -= amount;
 
@@ -143,6 +157,22 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0f)
             DestroyTree();
+    }
+
+    public void ConfigureAsPassageBlocker(string id, bool kitOnly)
+    {
+        isPassageBlocker = true;
+        passageId = id;
+        onlyRemovableByKit = kitOnly;
+    }
+
+    public bool DispelByKit()
+    {
+        if (isBeingRemoved)
+            return false;
+
+        RemoveTree(false);
+        return true;
     }
 
     private void PlayDamageSound()
@@ -168,13 +198,28 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
 
     private void DestroyTree()
     {
-        if (KillFeedbackManager.Instance != null)
+        RemoveTree(true);
+    }
+
+    private void RemoveTree(bool defeatedByCombat)
+    {
+        if (isBeingRemoved)
+            return;
+
+        isBeingRemoved = true;
+
+        if (defeatedByCombat && KillFeedbackManager.Instance != null)
             KillFeedbackManager.Instance.TriggerFirstKillFeedback();
 
-        if (ForestWrathManager.Instance != null)
+        if (defeatedByCombat && ForestWrathManager.Instance != null)
             ForestWrathManager.Instance.AddWrath(wrathOnDestroy);
 
-        Debug.Log("[Árvore Sinistra] A floresta sentiu a destruição da árvore!");
+        if (isPassageBlocker)
+            ForestWrathManager.MarkPassageCleared(passageId);
+
+        Debug.Log(defeatedByCombat
+            ? "[Árvore Sinistra] A floresta sentiu a destruição da árvore!"
+            : "[Árvore Sinistra] Árvore removida pelo kit de descontaminação.");
         Destroy(gameObject);
     }
 
@@ -182,5 +227,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
