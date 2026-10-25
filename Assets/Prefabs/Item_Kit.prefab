@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.24, y: 0.12, z: 0}
-  m_LocalScale: {x: 0.67, y: 0.67, z: 0.67}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 491440440896726564}
@@ -82,9 +82,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f4cff824981b89a4daabb076cd812019, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbc9574767180594b8a05ad617ee00b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 4.78, y: 3.85}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   itemType: 1
   amount: 1
   itemName: "Kit de Descontamina\xE7\xE3o"
-  itemIcon: {fileID: 21300000, guid: f4cff824981b89a4daabb076cd812019, type: 3}
+  itemIcon: {fileID: 21300000, guid: bbc9574767180594b8a05ad617ee00b2, type: 3}
   carriedAmmo: 0
   promptCanvas: {fileID: 9209425270549245181}
   promptText: {fileID: 7707209369202371780}
@@ -400,7 +400,7 @@ RectTransform:
   m_GameObject: {fileID: 9209425270549245181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.022999998, y: 0.023006814, z: 0.023006814}
+  m_LocalScale: {x: 0.069, y: 0.06902044, z: 0.06902044}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2818614211591051772}
