@@ -318,7 +318,7 @@ public class InventoryUIManager : MonoBehaviour
         ammoText.fontStyle = FontStyles.Bold;
         ammoText.color = Color.white;
         ammoText.alignment = TextAlignmentOptions.BottomRight;
-        ammoText.enableWordWrapping = false;
+        ammoText.textWrappingMode = TextWrappingModes.NoWrap;
         ammoText.raycastTarget = false;
 
         UnityEngine.UI.Outline outline = textObject.AddComponent<UnityEngine.UI.Outline>();
@@ -409,7 +409,7 @@ public class InventoryUIManager : MonoBehaviour
         noticeText.fontStyle = FontStyles.Bold;
         noticeText.color = Color.white;
         noticeText.alignment = TextAlignmentOptions.Center;
-        noticeText.enableWordWrapping = false;
+        noticeText.textWrappingMode = TextWrappingModes.NoWrap;
         noticeText.raycastTarget = false;
 
         UnityEngine.UI.Outline outline = noticeObject.GetComponent<UnityEngine.UI.Outline>();

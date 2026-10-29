@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A2
+  spawnPointIndex: 1
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -379,6 +380,37 @@ MonoBehaviour:
   gameplayActionMapName: Player
   pauseActionName: Pause
   menuSceneName: Menu
+--- !u!1 &152328264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 152328265}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &152328265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152328264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.69, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 636970072}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160052120
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A4
+  spawnPointIndex: 1
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -487,7 +520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 162609270}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPoint_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -502,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 162609269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.84, y: 0, z: 0}
+  m_LocalPosition: {x: -7.89, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -646,6 +679,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174201087}
   m_CullTransparentMesh: 1
+--- !u!1 &199963636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 199963637}
+  m_Layer: 0
+  m_Name: SpawnPoint_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &199963637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199963636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.57, y: 0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 393545240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &226342550
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
+  spawnPointIndex: 2
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -1198,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &393545240
 Transform:
   m_ObjectHideFlags: 0
@@ -1213,6 +1278,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1373366863}
+  - {fileID: 1340437595}
+  - {fileID: 199963637}
   - {fileID: 842050042}
   - {fileID: 1235199621}
   - {fileID: 1376086436}
@@ -1277,6 +1344,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &397230038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397230039}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397230039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397230038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.57, y: 0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2098043063}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411379755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,6 +1545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
+  spawnPointIndex: 1
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -1711,6 +1810,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541093150}
   m_CullTransparentMesh: 1
+--- !u!1 &564670731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564670732}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &564670732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564670731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.09, y: -3.66, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 945838518}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &572446241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 162609270}
+  - {fileID: 152328265}
   - {fileID: 160052121}
   - {fileID: 1424807412}
   - {fileID: 1024399361}
@@ -2158,7 +2289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703316095}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPoint_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2379,6 +2510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
+  spawnPointIndex: 1
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -2628,6 +2760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A4
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -2772,7 +2905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &945838518
 Transform:
   m_ObjectHideFlags: 0
@@ -2787,6 +2920,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 703316095}
+  - {fileID: 564670732}
   - {fileID: 1240657740}
   - {fileID: 116133193}
   - {fileID: 1424312004574962432}
@@ -2938,7 +3072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017616690}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPoint_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3123,6 +3257,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1166789188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166789189}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1166789189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166789188}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1783693220}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1201243388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3235,6 +3400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: D4
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -3408,6 +3574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A3
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -3506,6 +3673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: A3
+  spawnPointIndex: 1
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -3965,6 +4133,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1340437594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1340437595}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1340437595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340437594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33, y: 3.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 393545240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1356842526
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,7 +4283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1373366863}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPoint_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4151,6 +4350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C3
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -4362,6 +4562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: C4
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -4629,25 +4830,35 @@ MonoBehaviour:
   chunks:
   - chunkID: A2
     chunkObject: {fileID: 945838517}
-    spawnPoint: {fileID: 703316095}
+    spawnPoints:
+    - {fileID: 703316095}
+    - {fileID: 564670732}
   - chunkID: A3
     chunkObject: {fileID: 1783693219}
-    spawnPoint: {fileID: 1017616690}
+    spawnPoints:
+    - {fileID: 1017616690}
+    - {fileID: 1166789189}
   - chunkID: A4
     chunkObject: {fileID: 2098043062}
-    spawnPoint: {fileID: 1916418451}
+    spawnPoints:
+    - {fileID: 1916418451}
+    - {fileID: 397230039}
   - chunkID: B4
     chunkObject: {fileID: 636970071}
-    spawnPoint: {fileID: 162609270}
+    spawnPoints:
+    - {fileID: 162609270}
+    - {fileID: 152328265}
   - chunkID: C4
     chunkObject: {fileID: 393545239}
-    spawnPoint: {fileID: 1373366863}
+    spawnPoints: []
   - chunkID: C3
     chunkObject: {fileID: 1734214278}
-    spawnPoint: {fileID: 1356842527}
+    spawnPoints:
+    - {fileID: 1356842527}
   - chunkID: D4
     chunkObject: {fileID: 1337123349}
-    spawnPoint: {fileID: 334705414}
+    spawnPoints:
+    - {fileID: 334705414}
   startingChunkID: A2
   transitionLockTime: 0.3
 --- !u!1 &1532490236
@@ -4971,6 +5182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
   targetChunkID: B4
+  spawnPointIndex: 0
   isLocked: 0
   useWrathBlocker: 0
   wrathThresholdPercent: 50
@@ -5039,7 +5251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1734214279
 Transform:
   m_ObjectHideFlags: 0
@@ -5147,6 +5359,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1017616690}
+  - {fileID: 1166789189}
   - {fileID: 887725447}
   - {fileID: 2270224}
   - {fileID: 1201243389}
@@ -5260,7 +5473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916418451}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: SpawnPoint_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6236,9 +6449,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1529063402}
   - {fileID: 368521747}
   - {fileID: 1532490237}
-  - {fileID: 1529063402}
   - {fileID: 439361667}
   - {fileID: 117613231}
   m_Father: {fileID: 0}
@@ -6620,6 +6833,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1916418451}
+  - {fileID: 397230039}
   - {fileID: 1265094836}
   - {fileID: 1680713415}
   m_Father: {fileID: 1868701104}

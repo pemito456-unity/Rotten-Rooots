@@ -5,6 +5,9 @@ public class ChunkDoorTrigger : MonoBehaviour
     [Header("Configuração de Destino")]
     public string targetChunkID;
 
+    [Header("Qual Spawn Point do Chunk é o Alvo")]
+    public int spawnPointIndex = 0;
+
     [Header("Mecânica (Ira da Floresta / Trancas)")]
     public bool isLocked = false;
 
@@ -67,7 +70,7 @@ public class ChunkDoorTrigger : MonoBehaviour
             return;
         }
 
-        TryTransition();
+        TryTransition(spawnPointIndex);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -76,12 +79,12 @@ public class ChunkDoorTrigger : MonoBehaviour
         // saia e entre novamente no trigger.
         if (other.CompareTag("Player") && waitingAtBlockedPassage &&
             !playerInside && !IsPassageBlocked)
-            TryTransition();
+            TryTransition(spawnPointIndex);
     }
 
-    private void TryTransition()
+    private void TryTransition(int spawnPointIndex)
     {
-        if (ChunkManager.Instance != null && ChunkManager.Instance.TransitionToChunk(targetChunkID))
+        if (ChunkManager.Instance != null && ChunkManager.Instance.TransitionToChunk(targetChunkID, spawnPointIndex))
         {
             playerInside = true;
             waitingAtBlockedPassage = false;

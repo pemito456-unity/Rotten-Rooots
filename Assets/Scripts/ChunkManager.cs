@@ -11,7 +11,7 @@ public class ChunkManager : MonoBehaviour
     {
         public string chunkID;         // Ex: "A2", "A3"
         public GameObject chunkObject; // GameObject pai da sala
-        public Transform spawnPoint;   // Ponto de entrada da sala
+        public Transform[] spawnPoints;   // Ponto de entrada da sala
     }
 
     [Header("Configuração das Chunks")]
@@ -81,7 +81,7 @@ public class ChunkManager : MonoBehaviour
                 chunk.chunkObject.SetActive(true);
                 currentActiveChunk = chunk;
                 visitedChunkIDs.Add(chunk.chunkID);
-                TeleportPlayer(chunk.spawnPoint);
+                TeleportPlayer(chunk.spawnPoints[0]);
             }
             else
             {
@@ -91,25 +91,25 @@ public class ChunkManager : MonoBehaviour
     }
 
     // Retorna FALSE se recusada (em transição ou chunk inexistente)
-    public bool TransitionToChunk(string targetChunkID)
+    public bool TransitionToChunk(string targetChunkID, int spawnPointIndex)
     {
         if (isTransitioning) return false;
 
         ChunkData targetChunk = chunks.Find(c => c.chunkID == targetChunkID);
         if (targetChunk == null || targetChunk.chunkObject == null) return false;
 
-        StartCoroutine(PerformTransition(targetChunk));
+        StartCoroutine(PerformTransition(targetChunk, spawnPointIndex));
         return true;
     }
 
-    private IEnumerator PerformTransition(ChunkData targetChunk)
+    private IEnumerator PerformTransition(ChunkData targetChunk, int spawnPointIndex)
     {
         isTransitioning = true;
 
         targetChunk.chunkObject.SetActive(true);
 
         if (playerRb == null) FindPlayer(); // garante referência
-        TeleportPlayer(targetChunk.spawnPoint);
+        TeleportPlayer(targetChunk.spawnPoints[spawnPointIndex]);
 
         if (currentActiveChunk != null && currentActiveChunk != targetChunk)
             currentActiveChunk.chunkObject.SetActive(false);
