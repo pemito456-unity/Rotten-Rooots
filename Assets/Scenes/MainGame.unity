@@ -1263,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &393545240
 Transform:
   m_ObjectHideFlags: 0
@@ -2905,7 +2905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &945838518
 Transform:
   m_ObjectHideFlags: 0
@@ -4850,7 +4850,10 @@ MonoBehaviour:
     - {fileID: 152328265}
   - chunkID: C4
     chunkObject: {fileID: 393545239}
-    spawnPoints: []
+    spawnPoints:
+    - {fileID: 1373366863}
+    - {fileID: 1340437595}
+    - {fileID: 199963637}
   - chunkID: C3
     chunkObject: {fileID: 1734214278}
     spawnPoints:
@@ -5251,7 +5254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1734214279
 Transform:
   m_ObjectHideFlags: 0
