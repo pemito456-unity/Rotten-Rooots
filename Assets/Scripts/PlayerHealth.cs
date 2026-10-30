@@ -41,6 +41,8 @@ public class PlayerHealth : MonoBehaviour
     private Coroutine flashCoroutine;
     private Coroutine screenDamageCoroutine;
     private Coroutine knockbackCoroutine;
+    private Animator animator;
+    private bool deathStarted;
     private UnityEngine.UI.Image screenDamageImage;
     private Texture2D screenDamageTexture;
     private Sprite screenDamageSprite;
@@ -48,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         if (playerSprite == null)
             playerSprite = GetComponentInChildren<SpriteRenderer>();
@@ -300,11 +303,41 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (deathStarted)
+            return;
+
+        deathStarted = true;
         Debug.Log("Player morreu!");
+
+        if (GameOverController.Instance != null)
+        {
+            GameOverController.Instance.TriggerGameOver();
+            return;
+        }
+
+        PrepareForGameOver();
+        StartCoroutine(ReloadAfterDeathAnimation());
+    }
+
+    public void PrepareForGameOver()
+    {
+        deathStarted = true;
+        currentHealth = 0f;
 
         if (heartbeatAudioSource != null)
             heartbeatAudioSource.Stop();
 
+        if (heartHUD != null)
+            heartHUD.UpdateHeartUI(currentHealth, maxHealth);
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+    }
+
+    private IEnumerator ReloadAfterDeathAnimation()
+    {
+        // Death tem 5 quadros a 6 FPS (aprox. 0,83 s); a margem deixa o último quadro visível.
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

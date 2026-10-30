@@ -13,11 +13,13 @@ public class PlayerController2D : MonoBehaviour
     private Vector2 moveInput;
     private bool isRunning;
     private PlayerHealth playerHealth;
+    private Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
+        animator = GetComponent<Animator>();
     }
 
     // Conecte à ação Move no PlayerInput.
@@ -93,5 +95,24 @@ public class PlayerController2D : MonoBehaviour
             : moveSpeed;
 
         rb.linearVelocity = moveInput * currentSpeed;
+    }
+
+    private void Update()
+    {
+        if (animator == null)
+            return;
+
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        bool movementBlocked = (notePanel != null && notePanel.IsOpen) ||
+                               (playerHealth != null && playerHealth.isKnockbacked) ||
+                               (playerHealth != null && playerHealth.currentHealth <= 0f);
+
+        Vector2 facing = lastFacingDirection.sqrMagnitude > 0.01f
+            ? lastFacingDirection.normalized
+            : Vector2.right;
+
+        animator.SetFloat("MoveX", facing.x);
+        animator.SetFloat("MoveY", facing.y);
+        animator.SetBool("IsMoving", !movementBlocked && moveInput.sqrMagnitude > 0.01f);
     }
 }

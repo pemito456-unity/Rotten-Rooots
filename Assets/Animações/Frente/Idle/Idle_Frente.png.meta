@@ -141,12 +141,12 @@ TextureImporter:
       name: Idle_Frente_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 7
-        width: 118
-        height: 229
+        x: 72
+        y: 8
+        width: 116
+        height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,12 +163,12 @@ TextureImporter:
       name: Idle_Frente_1
       rect:
         serializedVersion: 2
-        x: 293
-        y: 7
-        width: 117
-        height: 229
+        x: 294
+        y: 8
+        width: 115
+        height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,12 +185,12 @@ TextureImporter:
       name: Idle_Frente_2
       rect:
         serializedVersion: 2
-        x: 482
-        y: 7
-        width: 117
-        height: 229
+        x: 483
+        y: 8
+        width: 115
+        height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,12 +207,12 @@ TextureImporter:
       name: Idle_Frente_3
       rect:
         serializedVersion: 2
-        x: 679
-        y: 7
-        width: 118
-        height: 229
+        x: 680
+        y: 8
+        width: 116
+        height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,12 +229,12 @@ TextureImporter:
       name: Idle_Frente_4
       rect:
         serializedVersion: 2
-        x: 863
-        y: 7
-        width: 119
-        height: 229
+        x: 864
+        y: 8
+        width: 117
+        height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e891fe0349af9094b9411efffd719441
     internalID: 0
     vertices: []
     indices: 
@@ -259,7 +259,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Idle_Frente_0: 3974252048445154765
       Idle_Frente_1: -3049209627497146469

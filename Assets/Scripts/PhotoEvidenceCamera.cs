@@ -10,7 +10,7 @@ using UnityEngine.Audio;
 public class PhotoEvidenceCamera : MonoBehaviour
 {
     [Header("Área de reconhecimento")]
-    [Min(0.1f)] public float maxPhotoDistance = 5f;
+    [Min(0.1f)] public float maxPhotoDistance = 8.5f;
     [Range(1f, 120f)] public float fieldOfViewDegrees = 35f;
     [Min(0f)] public float photoCooldown = 0.5f;
     public LayerMask obstructionLayers = Physics2D.DefaultRaycastLayers;

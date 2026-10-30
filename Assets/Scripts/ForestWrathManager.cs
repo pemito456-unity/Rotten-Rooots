@@ -107,6 +107,10 @@ public class ForestWrathManager : MonoBehaviour
         float wrathPercent = maxWrath > 0f
             ? Mathf.Clamp01(persistentWrath / maxWrath) * 100f
             : 0f;
+
+        if (persistentWrath >= maxWrath && GameOverController.Instance != null)
+            GameOverController.Instance.TriggerGameOver();
+
         WrathChanged?.Invoke(wrathPercent);
     }
 }
