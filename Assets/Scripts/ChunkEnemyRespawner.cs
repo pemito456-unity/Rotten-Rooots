@@ -19,7 +19,9 @@ public class ChunkEnemyRespawner : MonoBehaviour
         MonkeyEnemy existingEnemy = GetComponentInChildren<MonkeyEnemy>(true);
         if (existingEnemy == null)
         {
-            Debug.LogError("B4EnemyRespawner: não encontrei o macaco original dentro da chunk B4.", this);
+            // O respawner só é necessário quando a chunk tem um macaco para recriar.
+            // Sem um inimigo original, deixa esta instância inativa sem gerar erro.
+            enabled = false;
             return;
         }
 
