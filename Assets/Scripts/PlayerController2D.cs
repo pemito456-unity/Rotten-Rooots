@@ -43,6 +43,16 @@ public class PlayerController2D : MonoBehaviour
         if (!context.performed)
             return;
 
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        if (notePanel != null && notePanel.IsOpen)
+        {
+            notePanel.Close();
+            return;
+        }
+
+        if (CorpseInvestigation.TryOpenNearby(transform.position))
+            return;
+
         Debug.Log("[Coleta] E/interação recebido pelo PlayerController2D.");
 
         PlayerInventory inventory = GetComponent<PlayerInventory>();
@@ -66,6 +76,13 @@ public class PlayerController2D : MonoBehaviour
     {
         if (rb == null)
             return;
+
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        if (notePanel != null && notePanel.IsOpen)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
 
         // Mantém o controle bloqueado durante o knockback.
         if (playerHealth != null && playerHealth.isKnockbacked)

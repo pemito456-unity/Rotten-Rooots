@@ -260,9 +260,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BatEnemy
   health: 15
-  moveSpeed: 2
+  moveSpeed: 0.8
   pushForce: 8
-  damage: 10
+  damage: 2
   proximitySoundDistance: 6
   aggroSound: {fileID: 8300000, guid: a22365cfd79c8134ab312e7c1c92ec5c, type: 3}
   audioSource: {fileID: 3442271278001418429}
@@ -382,6 +382,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8760000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838973290286473471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ab93fae32a4fdfb7b2a34714dc90c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EvidencePhotoTarget
+  category: 0
+  evidenceIndex: 1
+  evidenceName: Morcego mutante
+  galleryImage: {fileID: 0}
+  photoPoint: {fileID: 0}
 --- !u!1 &1723478766741421641
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,20 +714,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8760000000000000001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838973290286473471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64ab93fae32a4fdfb7b2a34714dc90c1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::EvidencePhotoTarget
-  category: 0
-  evidenceIndex: 1
-  evidenceName: Morcego mutante
-  galleryImage: {fileID: 0}
-  photoPoint: {fileID: 0}

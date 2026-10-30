@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 226685796893420015}
   - component: {fileID: 8760000000000000002}
   m_Layer: 0
-  m_Name: Enemy_Onca
+  m_Name: Enemy_Quimera
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

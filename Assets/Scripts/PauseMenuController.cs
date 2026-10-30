@@ -48,6 +48,13 @@ public class PauseMenuController : MonoBehaviour
         if (!context.performed)
             return;
 
+        CorpseNotePanelController corpseNotePanel = CorpseNotePanelController.Instance;
+        if (corpseNotePanel != null && corpseNotePanel.IsOpen)
+        {
+            corpseNotePanel.Close();
+            return;
+        }
+
         if (isPaused && photoEvidenceGallery != null && photoEvidenceGallery.IsOpen)
         {
             photoEvidenceGallery.CloseGallery();

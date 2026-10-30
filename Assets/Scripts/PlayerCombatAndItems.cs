@@ -81,6 +81,10 @@ public class PlayerCombatAndItems : MonoBehaviour
         if (!context.performed || inventory == null)
             return;
 
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        if (notePanel != null && notePanel.IsOpen)
+            return;
+
         InventorySlotData selectedSlot = inventory.SelectedSlot;
 
         if (selectedSlot == null || selectedSlot.isFlashlight)
