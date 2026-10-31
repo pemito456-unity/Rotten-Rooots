@@ -9788,6 +9788,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkManager
   chunks:
+  - chunkID: A1
+    chunkObject: {fileID: 1775794430}
+    spawnPoints: []
   - chunkID: A2
     chunkObject: {fileID: 945838517}
     spawnPoints:
@@ -9803,21 +9806,61 @@ MonoBehaviour:
     spawnPoints:
     - {fileID: 1916418451}
     - {fileID: 397230039}
+  - chunkID: B1
+    chunkObject: {fileID: 1948323686}
+    spawnPoints:
+    - {fileID: 1170841873}
+    - {fileID: 1251813664}
+  - chunkID: B2
+    chunkObject: {fileID: 216499674}
+    spawnPoints:
+    - {fileID: 1167071167}
+    - {fileID: 1100377650}
+  - chunkID: B3
+    chunkObject: {fileID: 129193000}
+    spawnPoints:
+    - {fileID: 423063994}
+    - {fileID: 1786583642}
   - chunkID: B4
     chunkObject: {fileID: 636970071}
     spawnPoints:
     - {fileID: 162609270}
     - {fileID: 152328265}
+  - chunkID: C1
+    chunkObject: {fileID: 1014621205}
+    spawnPoints:
+    - {fileID: 61977244}
+    - {fileID: 1047203649}
+  - chunkID: C2
+    chunkObject: {fileID: 463315733}
+    spawnPoints:
+    - {fileID: 806917816}
+    - {fileID: 1472638333}
+  - chunkID: C3
+    chunkObject: {fileID: 1734214278}
+    spawnPoints:
+    - {fileID: 1356842527}
   - chunkID: C4
     chunkObject: {fileID: 393545239}
     spawnPoints:
     - {fileID: 1373366863}
     - {fileID: 1340437595}
     - {fileID: 199963637}
-  - chunkID: C3
-    chunkObject: {fileID: 1734214278}
+  - chunkID: D1
+    chunkObject: {fileID: 1989182609}
     spawnPoints:
-    - {fileID: 1356842527}
+    - {fileID: 348703245}
+    - {fileID: 644173700}
+  - chunkID: D2
+    chunkObject: {fileID: 1764002849}
+    spawnPoints:
+    - {fileID: 1702213801}
+    - {fileID: 2114355377}
+  - chunkID: D3
+    chunkObject: {fileID: 177568183}
+    spawnPoints:
+    - {fileID: 913435874}
+    - {fileID: 1012713439}
   - chunkID: D4
     chunkObject: {fileID: 1337123349}
     spawnPoints:
