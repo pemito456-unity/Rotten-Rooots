@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
   corpseName: "Cadáver 4 — Segurança"
   interactionRange: 1.5
+  startsFinalFire: 1
   pages:
   - title: "Página 1 — 22:48"
     text: "22:48

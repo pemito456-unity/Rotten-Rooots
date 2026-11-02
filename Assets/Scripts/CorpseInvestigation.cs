@@ -21,6 +21,8 @@ public class CorpseInvestigation : MonoBehaviour
     [Header("Investigação")]
     public string corpseName = "Cadáver";
     [Min(0.1f)] public float interactionRange = 1.5f;
+    [Tooltip("Ativa o incêndio final quando o jogador abre as anotações deste cadáver.")]
+    public bool startsFinalFire;
     public List<NotePage> pages = new List<NotePage>();
 
     [Header("Aviso de interação (hierarquia do prefab)")]
@@ -145,6 +147,13 @@ public class CorpseInvestigation : MonoBehaviour
         }
 
         panel.Open(nearest);
+        if (nearest.startsFinalFire && panel.IsOpen)
+        {
+            if (FinalFireSequence.Instance != null)
+                FinalFireSequence.Instance.BeginFinalSequence();
+            else
+                Debug.LogError("CorpseInvestigation: não há FinalFireSequence configurado na cena.", nearest);
+        }
         return true;
     }
 }

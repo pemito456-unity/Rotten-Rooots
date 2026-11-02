@@ -46,6 +46,10 @@ public class PlayerHealth : MonoBehaviour
     private UnityEngine.UI.Image screenDamageImage;
     private Texture2D screenDamageTexture;
     private Sprite screenDamageSprite;
+    private bool fireWarningActive;
+    private Color fireWarningColor;
+    private float fireWarningIntensity;
+    private float fireWarningPulseSpeed;
 
     private void Awake()
     {
@@ -72,6 +76,7 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         HandleDynamicHeartbeat();
+        UpdateFireWarningOverlay();
     }
 
     public void TakeDamage(float amount, Vector2 damageSourcePosition = default, float knockbackForce = -1f)
@@ -228,7 +233,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void TriggerScreenDamageFlash()
     {
-        if (screenDamageImage == null) return;
+        if (screenDamageImage == null || fireWarningActive) return;
 
         if (screenDamageCoroutine != null)
             StopCoroutine(screenDamageCoroutine);
@@ -267,6 +272,38 @@ public class PlayerHealth : MonoBehaviour
 
         screenDamageImage.color = new Color(screenDamageColor.r, screenDamageColor.g,
             screenDamageColor.b, endAlpha);
+    }
+
+    /// <summary>Shows or hides the orange edge pulse used by the final fire sequence.</summary>
+    public void SetFireWarning(bool active, Color color, float intensity, float pulseSpeed)
+    {
+        fireWarningActive = active;
+        fireWarningColor = color;
+        fireWarningIntensity = Mathf.Clamp01(intensity);
+        fireWarningPulseSpeed = Mathf.Max(0f, pulseSpeed);
+
+        if (active && screenDamageCoroutine != null)
+        {
+            StopCoroutine(screenDamageCoroutine);
+            screenDamageCoroutine = null;
+        }
+
+        if (!active && screenDamageImage != null)
+        {
+            screenDamageImage.color = new Color(screenDamageColor.r,
+                screenDamageColor.g, screenDamageColor.b, 0f);
+        }
+    }
+
+    private void UpdateFireWarningOverlay()
+    {
+        if (!fireWarningActive || screenDamageImage == null)
+            return;
+
+        float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * fireWarningPulseSpeed * Mathf.PI * 2f);
+        float alpha = fireWarningIntensity * Mathf.Lerp(0.38f, 1f, pulse);
+        screenDamageImage.color = new Color(fireWarningColor.r,
+            fireWarningColor.g, fireWarningColor.b, alpha);
     }
 
     private void OnDestroy()

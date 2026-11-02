@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -15,6 +16,7 @@ public class GameOverController : MonoBehaviour
     [Header("Animação de morte")]
     [SerializeField] private float deathAnimationFallbackDuration = 1f;
     [SerializeField] private float deathAnimationTimeout = 4f;
+    [SerializeField, Min(0f)] private float endingRevealDelay = 0.75f;
 
     [Header("Cena do menu")]
     [SerializeField] private string menuSceneName = "Menu";
@@ -25,13 +27,23 @@ public class GameOverController : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody2D playerRigidbody;
     private bool gameOverStarted;
+    private bool endingUsesDeathAnimation;
+    private string endingTitle = "GAME OVER";
+    private string endingMessage = "A floresta tomou você.";
+    private TMP_Text endingTitleText;
+    private TMP_Text endingMessageText;
+
+    public bool IsGameOverStarted => gameOverStarted;
 
     private void Awake()
     {
         Instance = this;
 
         if (gameOverPanel != null)
+        {
             gameOverPanel.SetActive(false);
+            FindEndingLabels();
+        }
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
@@ -46,13 +58,32 @@ public class GameOverController : MonoBehaviour
 
     public void TriggerGameOver()
     {
+        BeginGameOver("GAME OVER", "A floresta tomou você.", true, 0f);
+    }
+
+    public void TriggerEnding(string title, string message, bool playDeathAnimation, float revealDelay)
+    {
+        BeginGameOver(title, message, playDeathAnimation, revealDelay);
+    }
+
+    private void BeginGameOver(string title, string message, bool playDeathAnimation, float revealDelay)
+    {
         if (gameOverStarted)
             return;
 
         gameOverStarted = true;
+        endingTitle = title;
+        endingMessage = message;
+        endingUsesDeathAnimation = playDeathAnimation;
+        endingRevealDelay = Mathf.Max(0f, revealDelay);
+
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        if (notePanel != null && notePanel.IsOpen)
+            notePanel.Close();
+
         Time.timeScale = 1f;
 
-        if (playerHealth != null)
+        if (playDeathAnimation && playerHealth != null)
             playerHealth.PrepareForGameOver();
 
         if (playerRigidbody != null)
@@ -64,7 +95,7 @@ public class GameOverController : MonoBehaviour
         if (playerInput != null)
             playerInput.enabled = false;
 
-        if (playerAnimator != null)
+        if (playDeathAnimation && playerAnimator != null)
             playerAnimator.SetBool("IsDead", true);
 
         StartCoroutine(ShowGameOverAfterDeathAnimation());
@@ -72,7 +103,11 @@ public class GameOverController : MonoBehaviour
 
     private IEnumerator ShowGameOverAfterDeathAnimation()
     {
-        if (playerAnimator == null)
+        if (!endingUsesDeathAnimation)
+        {
+            yield return new WaitForSecondsRealtime(endingRevealDelay);
+        }
+        else if (playerAnimator == null)
         {
             yield return new WaitForSecondsRealtime(deathAnimationFallbackDuration);
         }
@@ -108,6 +143,11 @@ public class GameOverController : MonoBehaviour
             yield break;
         }
 
+        if (endingTitleText != null)
+            endingTitleText.text = endingTitle;
+        if (endingMessageText != null)
+            endingMessageText.text = endingMessage;
+
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
 
@@ -116,6 +156,18 @@ public class GameOverController : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
             if (firstSelectedButton != null && firstSelectedButton.activeInHierarchy)
                 EventSystem.current.SetSelectedGameObject(firstSelectedButton);
+        }
+    }
+
+    private void FindEndingLabels()
+    {
+        TMP_Text[] labels = gameOverPanel.GetComponentsInChildren<TMP_Text>(true);
+        foreach (TMP_Text label in labels)
+        {
+            if (label.name == "GameOverTitle")
+                endingTitleText = label;
+            else if (label.name == "GameOverMessage")
+                endingMessageText = label;
         }
     }
 
