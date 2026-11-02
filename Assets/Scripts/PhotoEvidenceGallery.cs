@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Controls the evidence gallery authored in the MainGame scene.
-/// Unlocked evidence persists while MainGame is reloaded during the current play session.
+/// Controla a galeria de evidências que já existe na cena MainGame.
+/// As fotos coletadas continuam desbloqueadas quando a cena reinicia.
 /// </summary>
 public class PhotoEvidenceGallery : MonoBehaviour
 {
@@ -25,9 +25,26 @@ public class PhotoEvidenceGallery : MonoBehaviour
     private static readonly HashSet<int> collectedEvidence = new HashSet<int>();
     private bool initialized;
 
-    public bool IsOpen => galleryPanel != null && galleryPanel.activeSelf;
-    public int CollectedCount => CountCollectedEvidence();
-    public int EvidenceSlotCount => evidenceSlotCount;
+    public bool IsOpen
+    {
+        get
+        {
+            if (galleryPanel == null)
+                return false;
+
+            return galleryPanel.activeSelf;
+        }
+    }
+
+    public int CollectedCount
+    {
+        get { return CountCollectedEvidence(); }
+    }
+
+    public int EvidenceSlotCount
+    {
+        get { return evidenceSlotCount; }
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetCollectedEvidence()
@@ -101,7 +118,11 @@ public class PhotoEvidenceGallery : MonoBehaviour
 
         RefreshGallery();
         galleryPanel.SetActive(true);
-        SetSelectedObject(backButton != null ? backButton.gameObject : null);
+        GameObject firstSelection = null;
+        if (backButton != null)
+            firstSelection = backButton.gameObject;
+
+        SetSelectedObject(firstSelection);
     }
 
     public void CloseGallery()

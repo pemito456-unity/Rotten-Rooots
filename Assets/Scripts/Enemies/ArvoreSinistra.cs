@@ -30,7 +30,13 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     private string passageId;
     private bool isBeingRemoved;
 
-    public bool OnlyRemovableByKit => onlyRemovableByKit;
+    public bool OnlyRemovableByKit
+    {
+        get
+        {
+            return onlyRemovableByKit;
+        }
+    }
 
     [Header("Feedback de dano")]
     public SpriteRenderer spriteRenderer;

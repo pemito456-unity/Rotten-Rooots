@@ -89,7 +89,10 @@ public class PlayerHealth : MonoBehaviour
             heartHUD.UpdateHeartUI(currentHealth, maxHealth);
 
         // Aplica o Knockback
-        float finalForce = knockbackForce < 0 ? defaultKnockbackForce : knockbackForce;
+        float finalForce = knockbackForce;
+        if (knockbackForce < 0)
+            finalForce = defaultKnockbackForce;
+
         ApplyKnockback(damageSourcePosition, finalForce);
 
         // Aplica o Flash Vermelho
@@ -119,7 +122,10 @@ public class PlayerHealth : MonoBehaviour
         if (attackerPos == Vector2.zero)
         {
             PlayerController2D pc = GetComponent<PlayerController2D>();
-            knockbackDir = pc != null ? -pc.lastFacingDirection : Vector2.left;
+            if (pc != null)
+                knockbackDir = -pc.lastFacingDirection;
+            else
+                knockbackDir = Vector2.left;
         }
         else
         {
@@ -274,7 +280,7 @@ public class PlayerHealth : MonoBehaviour
             screenDamageColor.b, endAlpha);
     }
 
-    /// <summary>Shows or hides the orange edge pulse used by the final fire sequence.</summary>
+    /// <summary>Mostra ou esconde o pulso laranja nas bordas da tela.</summary>
     public void SetFireWarning(bool active, Color color, float intensity, float pulseSpeed)
     {
         fireWarningActive = active;

@@ -45,12 +45,16 @@ public class ForestWrathManager : MonoBehaviour
         if (string.IsNullOrEmpty(passageId) || !clearedPassages.Add(passageId))
             return;
 
-        PassageCleared?.Invoke(passageId);
+        if (PassageCleared != null)
+            PassageCleared.Invoke(passageId);
     }
 
     public float currentWrath
     {
-        get => persistentWrath;
+        get
+        {
+            return persistentWrath;
+        }
         set
         {
             persistentWrath = Mathf.Clamp(value, 0f, maxWrath);
@@ -92,9 +96,9 @@ public class ForestWrathManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        float wrathRatio = maxWrath > 0f
-            ? Mathf.Clamp01(persistentWrath / maxWrath)
-            : 0f;
+        float wrathRatio = 0f;
+        if (maxWrath > 0f)
+            wrathRatio = Mathf.Clamp01(persistentWrath / maxWrath);
 
         if (wrathFillImage != null)
             wrathFillImage.fillAmount = 1f - wrathRatio;
@@ -104,13 +108,14 @@ public class ForestWrathManager : MonoBehaviour
             wrathText.text = $"{Mathf.RoundToInt(persistentWrath)}%";
         }
 
-        float wrathPercent = maxWrath > 0f
-            ? Mathf.Clamp01(persistentWrath / maxWrath) * 100f
-            : 0f;
+        float wrathPercent = 0f;
+        if (maxWrath > 0f)
+            wrathPercent = Mathf.Clamp01(persistentWrath / maxWrath) * 100f;
 
         if (persistentWrath >= maxWrath && GameOverController.Instance != null)
             GameOverController.Instance.TriggerGameOver();
 
-        WrathChanged?.Invoke(wrathPercent);
+        if (WrathChanged != null)
+            WrathChanged.Invoke(wrathPercent);
     }
 }

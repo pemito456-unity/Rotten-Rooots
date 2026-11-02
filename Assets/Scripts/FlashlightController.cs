@@ -26,9 +26,16 @@ public class FlashlightController : MonoBehaviour
 
     private const int PressesToRecharge = 4;
 
-    public float BatteryNormalized => batteryDurationSeconds <= 0f
-        ? 0f
-        : Mathf.Clamp01(batteryRemainingSeconds / batteryDurationSeconds);
+    public float BatteryNormalized
+    {
+        get
+        {
+            if (batteryDurationSeconds <= 0f)
+                return 0f;
+
+            return Mathf.Clamp01(batteryRemainingSeconds / batteryDurationSeconds);
+        }
+    }
 
     private void Awake()
     {
@@ -63,8 +70,6 @@ public class FlashlightController : MonoBehaviour
             return;
         }
 
-        // Com carga disponível, o estado da luz depende apenas da seleção e da recarga.
-        // Isso evita que um pisca-pisca antigo deixe a luz apagada após recarregar.
         depletionFeedbackPlayed = false;
         depletionFlickerActive = false;
         flashlightLight.enabled = isOn && rechargePresses == 0;

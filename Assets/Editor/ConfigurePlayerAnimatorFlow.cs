@@ -12,11 +12,14 @@ public static class ConfigurePlayerAnimatorFlow
     [InitializeOnLoadMethod]
     private static void ConfigureWhenEditorCompiles()
     {
-        EditorApplication.delayCall += () =>
-        {
-            if (AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath) == null)
-                Configure();
-        };
+        EditorApplication.delayCall += ConfigureIfControllerIsMissing;
+    }
+
+    private static void ConfigureIfControllerIsMissing()
+    {
+        AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
+        if (controller == null)
+            Configure();
     }
 
     [MenuItem("Tools/Rotten Roots/Configurar fluxo do Animator do Player")]
@@ -118,7 +121,9 @@ public static class ConfigurePlayerAnimatorFlow
         string path = ClipRoot + "/" + relativePath;
         AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
         if (clip == null)
-            throw new MissingReferenceException("Clip de animação não encontrado: " + path);
+            throw new UnityEngine.MissingReferenceException(
+                "Clip de animação não encontrado: " + path
+            );
         return clip;
     }
 }

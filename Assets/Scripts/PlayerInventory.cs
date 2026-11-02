@@ -105,7 +105,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void SetupDefaultCamera()
     {
-        if (slots.Exists(slot => slot.isCamera))
+        if (HasCameraSlot())
             return;
 
         if (slots.Count >= maxSlots)
@@ -209,9 +209,7 @@ public class PlayerInventory : MonoBehaviour
         // Munição não ocupa um slot próprio.
         if (type == ItemPickup2D.ItemType.Ammo)
         {
-            InventorySlotData pistolSlot = slots.Find(
-                slot => slot.type == ItemPickup2D.ItemType.Gun
-            );
+            InventorySlotData pistolSlot = FindPistolSlot();
 
             if (pistolSlot != null)
             {
@@ -233,9 +231,7 @@ public class PlayerInventory : MonoBehaviour
         // Mantém uma única pistola no inventário.
         if (type == ItemPickup2D.ItemType.Gun)
         {
-            InventorySlotData existingPistol = slots.Find(
-                slot => slot.type == ItemPickup2D.ItemType.Gun
-            );
+            InventorySlotData existingPistol = FindPistolSlot();
 
             if (existingPistol != null)
             {
@@ -267,9 +263,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         // Kits e outros itens empilháveis mantêm seu comportamento atual.
-        InventorySlotData existingSlot = slots.Find(
-            slot => slot.type == type && slot.itemName == name
-        );
+        InventorySlotData existingSlot = FindItemSlot(type, name);
 
         if (existingSlot != null)
         {
@@ -308,14 +302,53 @@ public class PlayerInventory : MonoBehaviour
             SelectSlot(selectedSlotIndex - 1);
     }
 
-    public void OnSelectSlot1(InputAction.CallbackContext context) { if (context.performed) SelectSlot(0); }
-    public void OnSelectSlot2(InputAction.CallbackContext context) { if (context.performed) SelectSlot(1); }
-    public void OnSelectSlot3(InputAction.CallbackContext context) { if (context.performed) SelectSlot(2); }
-    public void OnSelectSlot4(InputAction.CallbackContext context) { if (context.performed) SelectSlot(3); }
-    public void OnSelectSlot5(InputAction.CallbackContext context) { if (context.performed) SelectSlot(4); }
-    public void OnSelectSlot6(InputAction.CallbackContext context) { if (context.performed) SelectSlot(5); }
-    public void OnSelectSlot7(InputAction.CallbackContext context) { if (context.performed) SelectSlot(6); }
-    public void OnSelectSlot8(InputAction.CallbackContext context) { if (context.performed) SelectSlot(7); }
+    public void OnSelectSlot1(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(0);
+    }
+
+    public void OnSelectSlot2(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(1);
+    }
+
+    public void OnSelectSlot3(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(2);
+    }
+
+    public void OnSelectSlot4(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(3);
+    }
+
+    public void OnSelectSlot5(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(4);
+    }
+
+    public void OnSelectSlot6(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(5);
+    }
+
+    public void OnSelectSlot7(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(6);
+    }
+
+    public void OnSelectSlot8(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            SelectSlot(7);
+    }
 
     private void SelectSlot(int index)
     {
@@ -337,8 +370,11 @@ public class PlayerInventory : MonoBehaviour
         if (flashlightController == null)
             flashlightController = GetComponentInChildren<FlashlightController>(true);
 
-        if (flashlightController != null)
-            flashlightController.isOn = SelectedSlot != null && SelectedSlot.isFlashlight;
+        if (flashlightController == null)
+            return;
+
+        InventorySlotData selectedSlot = SelectedSlot;
+        flashlightController.isOn = selectedSlot != null && selectedSlot.isFlashlight;
     }
 
     public void OnDropItem(InputAction.CallbackContext context)
@@ -386,9 +422,9 @@ public class PlayerInventory : MonoBehaviour
         droppedPickup.amount = 1;
 
         // A munição acompanha a pistola quando ela é descartada.
-        droppedPickup.carriedAmmo = slot.type == ItemPickup2D.ItemType.Gun
-            ? slot.ammoCount
-            : 0;
+        droppedPickup.carriedAmmo = 0;
+        if (slot.type == ItemPickup2D.ItemType.Gun)
+            droppedPickup.carriedAmmo = slot.ammoCount;
 
         slot.amount--;
 
@@ -441,7 +477,40 @@ public class PlayerInventory : MonoBehaviour
 
     private void UpdateGunState()
     {
-        hasGun = slots.Exists(slot => slot.type == ItemPickup2D.ItemType.Gun);
+        hasGun = FindPistolSlot() != null;
+    }
+
+    private bool HasCameraSlot()
+    {
+        foreach (InventorySlotData slot in slots)
+        {
+            if (slot.isCamera)
+                return true;
+        }
+
+        return false;
+    }
+
+    private InventorySlotData FindPistolSlot()
+    {
+        foreach (InventorySlotData slot in slots)
+        {
+            if (slot.type == ItemPickup2D.ItemType.Gun)
+                return slot;
+        }
+
+        return null;
+    }
+
+    private InventorySlotData FindItemSlot(ItemPickup2D.ItemType type, string name)
+    {
+        foreach (InventorySlotData slot in slots)
+        {
+            if (slot.type == type && slot.itemName == name)
+                return slot;
+        }
+
+        return null;
     }
 
     public void RefreshInventoryUI()

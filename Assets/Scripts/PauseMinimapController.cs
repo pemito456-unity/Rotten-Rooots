@@ -83,9 +83,10 @@ public class PauseMinimapController : MonoBehaviour
                 continue;
             }
 
-            roomImage.color = room.name == currentChunkID
-                ? currentRoomColor
-                : visitedRoomColor;
+            if (room.name == currentChunkID)
+                roomImage.color = currentRoomColor;
+            else
+                roomImage.color = visitedRoomColor;
         }
 
         if (string.IsNullOrEmpty(currentChunkID))

@@ -9,9 +9,9 @@ public class ChunkManager : MonoBehaviour
     [System.Serializable]
     public class ChunkData
     {
-        public string chunkID;         // Ex: "A2", "A3"
-        public GameObject chunkObject; // GameObject pai da sala
-        public Transform[] spawnPoints;   // Ponto de entrada da sala
+        public string chunkID;       // Exemplo: "A2"
+        public GameObject chunkObject; // Objeto raiz da sala
+        public Transform[] spawnPoints; // Pontos de entrada da sala
     }
 
     [Header("Configuração das Chunks")]
@@ -27,27 +27,48 @@ public class ChunkManager : MonoBehaviour
     private bool isTransitioning = false;
     private readonly HashSet<string> visitedChunkIDs = new HashSet<string>();
 
-    public string CurrentChunkID => currentActiveChunk != null
-        ? currentActiveChunk.chunkID
-        : null;
+    public string CurrentChunkID
+    {
+        get
+        {
+            if (currentActiveChunk == null)
+                return null;
+
+            return currentActiveChunk.chunkID;
+        }
+    }
 
     public bool HasVisitedChunk(string chunkID)
     {
-        return !string.IsNullOrEmpty(chunkID) && visitedChunkIDs.Contains(chunkID);
+        if (string.IsNullOrEmpty(chunkID))
+            return false;
+
+        return visitedChunkIDs.Contains(chunkID);
     }
 
     public bool IsChunkRegistered(string chunkID)
     {
-        return !string.IsNullOrEmpty(chunkID) &&
-               chunks.Exists(chunk => chunk != null &&
-                                      chunk.chunkObject != null &&
-                                      chunk.chunkID == chunkID);
+        if (string.IsNullOrEmpty(chunkID))
+            return false;
+
+        foreach (ChunkData chunk in chunks)
+        {
+            if (chunk != null && chunk.chunkObject != null && chunk.chunkID == chunkID)
+                return true;
+        }
+
+        return false;
     }
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            return;
+        }
+
+        Destroy(gameObject);
     }
 
     private void Start()
@@ -71,7 +92,7 @@ public class ChunkManager : MonoBehaviour
     {
         visitedChunkIDs.Clear();
 
-        foreach (var chunk in chunks)
+        foreach (ChunkData chunk in chunks)
         {
             if (chunk == null || chunk.chunkObject == null)
                 continue;
@@ -95,7 +116,16 @@ public class ChunkManager : MonoBehaviour
     {
         if (isTransitioning) return false;
 
-        ChunkData targetChunk = chunks.Find(c => c.chunkID == targetChunkID);
+        ChunkData targetChunk = null;
+        foreach (ChunkData chunk in chunks)
+        {
+            if (chunk.chunkID == targetChunkID)
+            {
+                targetChunk = chunk;
+                break;
+            }
+        }
+
         if (targetChunk == null || targetChunk.chunkObject == null) return false;
 
         StartCoroutine(PerformTransition(targetChunk, spawnPointIndex));

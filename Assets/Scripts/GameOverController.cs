@@ -33,7 +33,13 @@ public class GameOverController : MonoBehaviour
     private TMP_Text endingTitleText;
     private TMP_Text endingMessageText;
 
-    public bool IsGameOverStarted => gameOverStarted;
+    public bool IsGameOverStarted
+    {
+        get
+        {
+            return gameOverStarted;
+        }
+    }
 
     private void Awake()
     {

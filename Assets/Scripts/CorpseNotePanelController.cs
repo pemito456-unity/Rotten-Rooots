@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// Drives a note panel authored in the Unity scene hierarchy. It never creates UI.
+/// Controla o painel de anotações que já existe na cena.
 /// </summary>
 public class CorpseNotePanelController : MonoBehaviour
 {
@@ -24,7 +24,16 @@ public class CorpseNotePanelController : MonoBehaviour
     private float timeScaleBeforeOpen = 1f;
     private GameObject previousSelection;
 
-    public bool IsOpen => panelRoot != null && panelRoot.activeSelf;
+    public bool IsOpen
+    {
+        get
+        {
+            if (panelRoot == null)
+                return false;
+
+            return panelRoot.activeSelf;
+        }
+    }
 
     private void Awake()
     {
@@ -69,7 +78,12 @@ public class CorpseNotePanelController : MonoBehaviour
         currentPage = 0;
         panelRoot.SetActive(true);
         RefreshPage();
-        SelectButton(nextButton != null && nextButton.interactable ? nextButton : closeButton);
+        Button buttonToSelect = closeButton;
+        if (nextButton != null && nextButton.interactable)
+            buttonToSelect = nextButton;
+
+        if (buttonToSelect != null)
+            SelectGameObject(buttonToSelect.gameObject);
     }
 
     public void PreviousPage()
@@ -99,9 +113,10 @@ public class CorpseNotePanelController : MonoBehaviour
         currentCorpse = null;
         Time.timeScale = timeScaleBeforeOpen;
 
-        GameObject selection = previousSelection != null && previousSelection.activeInHierarchy
-            ? previousSelection
-            : null;
+        GameObject selection = null;
+        if (previousSelection != null && previousSelection.activeInHierarchy)
+            selection = previousSelection;
+
         SelectGameObject(selection);
         previousSelection = null;
     }
@@ -117,7 +132,12 @@ public class CorpseNotePanelController : MonoBehaviour
                 ? currentCorpse.corpseName
                 : page.title;
         if (bodyText != null)
-            bodyText.text = page.text ?? string.Empty;
+        {
+            if (page.text == null)
+                bodyText.text = string.Empty;
+            else
+                bodyText.text = page.text;
+        }
         if (pageCounterText != null)
             pageCounterText.text = $"{currentPage + 1} / {currentCorpse.pages.Count}";
 
@@ -125,11 +145,6 @@ public class CorpseNotePanelController : MonoBehaviour
             previousButton.interactable = currentPage > 0;
         if (nextButton != null)
             nextButton.interactable = currentPage < currentCorpse.pages.Count - 1;
-    }
-
-    private void SelectButton(Button button)
-    {
-        SelectGameObject(button != null ? button.gameObject : null);
     }
 
     private void SelectGameObject(GameObject target)
