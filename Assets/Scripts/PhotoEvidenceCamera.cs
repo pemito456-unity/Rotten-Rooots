@@ -4,8 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 
 /// <summary>
-/// Captures a unique evidence target in front of the player and plays the photo feedback.
-/// The gallery images are supplied on EvidencePhotoTarget components by the art team.
+/// Procura uma evidência à frente do jogador e tira a foto.
+/// A imagem da galeria é definida no componente EvidencePhotoTarget.
 /// </summary>
 public class PhotoEvidenceCamera : MonoBehaviour
 {

@@ -32,8 +32,10 @@ public class ChunkDoorTrigger : MonoBehaviour
             if (isLocked)
                 return true;
 
-            return useWrathBlocker &&
-                   ForestWrathManager.IsPassageBlocked(passageBlockerId);
+            if (!useWrathBlocker)
+                return false;
+
+            return ForestWrathManager.IsPassageBlocked(passageBlockerId);
         }
     }
 
@@ -46,7 +48,7 @@ public class ChunkDoorTrigger : MonoBehaviour
 
     private void Start()
     {
-        // Re-check after all scene singletons have completed Awake.
+        // Confere de novo depois que os objetos principais da cena inicializam.
         RefreshWrathBlocker();
     }
 
@@ -61,7 +63,8 @@ public class ChunkDoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") || playerInside) return;
+        if (!other.CompareTag("Player") || playerInside)
+            return;
 
         if (IsPassageBlocked)
         {
@@ -84,7 +87,15 @@ public class ChunkDoorTrigger : MonoBehaviour
 
     private void TryTransition(int spawnPointIndex)
     {
-        if (ChunkManager.Instance != null && ChunkManager.Instance.TransitionToChunk(targetChunkID, spawnPointIndex))
+        if (ChunkManager.Instance == null)
+            return;
+
+        bool transitionStarted = ChunkManager.Instance.TransitionToChunk(
+            targetChunkID,
+            spawnPointIndex
+        );
+
+        if (transitionStarted)
         {
             playerInside = true;
             waitingAtBlockedPassage = false;
@@ -138,9 +149,9 @@ public class ChunkDoorTrigger : MonoBehaviour
             return;
 
         float maxWrath = ForestWrathManager.Instance.maxWrath;
-        float wrathPercent = maxWrath > 0f
-            ? ForestWrathManager.Instance.currentWrath / maxWrath * 100f
-            : 0f;
+        float wrathPercent = 0f;
+        if (maxWrath > 0f)
+            wrathPercent = ForestWrathManager.Instance.currentWrath / maxWrath * 100f;
         if (wrathPercent >= wrathThresholdPercent)
             ForestWrathManager.MarkPassageBlocked(passageBlockerId);
 

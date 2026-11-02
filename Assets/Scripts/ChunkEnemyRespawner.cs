@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Recreates the configured enemy whenever this chunk is activated again.
-/// Attach this component to the chunk root; it is used only by B4.
+/// Recria o inimigo configurado quando a chunk é ativada novamente.
+/// Este componente fica na raiz da B4.
 /// </summary>
 public class ChunkEnemyRespawner : MonoBehaviour
 {

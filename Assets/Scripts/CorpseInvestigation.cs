@@ -4,8 +4,8 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Investigable corpse. Its note pages are authored directly in the Inspector.
-/// Note pages use the scene-authored panel; the proximity prompt is authored in the prefab.
+/// Permite abrir e ler as anotações do cadáver.
+/// Os textos são configurados no Inspector; o painel fica na cena e o aviso fica no prefab.
 /// </summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(EvidencePhotoTarget))]

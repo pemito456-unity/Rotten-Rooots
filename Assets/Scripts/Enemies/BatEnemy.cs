@@ -85,7 +85,7 @@ public class BatEnemy : MonoBehaviour, IDamageable
         {
             PlayerHealth healthScript = collision.gameObject.GetComponent<PlayerHealth>();
 
-            // Envia a posição para o PlayerHealth calcular o knockback e acionar o flash
+            // Envia a posição para PlayerHealth calcular o empurrão e mostrar o flash.
             if (healthScript != null)
             {
                 healthScript.TakeDamage(damage, transform.position, pushForce);

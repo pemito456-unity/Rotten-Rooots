@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Marks a scene object as a unique piece of evidence that can be photographed.
-/// Assign the final artwork to galleryImage when it is provided by the art team.
+/// Marca um objeto como evidência que pode ser fotografada.
+/// A imagem final da galeria é configurada no campo Gallery Image.
 /// </summary>
 public class EvidencePhotoTarget : MonoBehaviour
 {
@@ -23,14 +23,30 @@ public class EvidencePhotoTarget : MonoBehaviour
     [Tooltip("Ponto opcional para mirar a foto. Se vazio, usa a posição deste objeto.")]
     public Transform photoPoint;
 
-    public Vector2 PhotoPosition => photoPoint != null
-        ? (Vector2)photoPoint.position
-        : (Vector2)transform.position;
+    public Vector2 PhotoPosition
+    {
+        get
+        {
+            if (photoPoint != null)
+                return (Vector2)photoPoint.position;
 
-    public bool IsSupportedCategory =>
-        category == EvidenceCategory.MutantAnimal ||
-        category == EvidenceCategory.Corpse ||
-        category == EvidenceCategory.MutantTree;
+            return (Vector2)transform.position;
+        }
+    }
+
+    public bool IsSupportedCategory
+    {
+        get
+        {
+            if (category == EvidenceCategory.MutantAnimal)
+                return true;
+
+            if (category == EvidenceCategory.Corpse)
+                return true;
+
+            return category == EvidenceCategory.MutantTree;
+        }
+    }
 
     private void OnValidate()
     {

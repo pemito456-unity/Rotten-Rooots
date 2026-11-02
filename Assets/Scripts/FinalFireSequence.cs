@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Final sequence: static fire spreads through the A column and row 4,
-/// then through the B column after the player reaches D2.
-/// The fire is visual only in this prototype.
+/// Controla o incêndio final.
+/// O fogo começa na coluna A e na fileira 4, depois avança pela coluna B em D2.
+/// Neste protótipo, as chamas são apenas visuais.
 /// </summary>
 public class FinalFireSequence : MonoBehaviour
 {
@@ -62,8 +62,21 @@ public class FinalFireSequence : MonoBehaviour
     private static Sprite sharedFlameSprite;
     private static Texture2D sharedFlameTexture;
 
-    public bool IsSequenceActive => sequenceStarted && !outcomeTriggered;
-    public float RemainingTime => Mathf.Max(0f, escapeTimeLimit - elapsedTime);
+    public bool IsSequenceActive
+    {
+        get
+        {
+            return sequenceStarted && !outcomeTriggered;
+        }
+    }
+
+    public float RemainingTime
+    {
+        get
+        {
+            return Mathf.Max(0f, escapeTimeLimit - elapsedTime);
+        }
+    }
 
     private void Awake()
     {
@@ -84,7 +97,7 @@ public class FinalFireSequence : MonoBehaviour
             playerHealth = player.GetComponent<PlayerHealth>();
     }
 
-    /// <summary>Called when the player opens the notes on the final corpse.</summary>
+    /// <summary>Começa quando o jogador abre as anotações do último cadáver.</summary>
     public void BeginFinalSequence()
     {
         if (sequenceStarted || outcomeTriggered)
@@ -126,7 +139,9 @@ public class FinalFireSequence : MonoBehaviour
         // Usa o tempo de jogo: abrir menus ou as anotações pausa a contagem.
         elapsedTime += Time.deltaTime;
 
-        string currentChunk = chunkManager != null ? chunkManager.CurrentChunkID : null;
+        string currentChunk = null;
+        if (chunkManager != null)
+            currentChunk = chunkManager.CurrentChunkID;
         if (!secondStageStarted && currentChunk == secondFireStageChunkID)
         {
             secondStageStarted = true;
@@ -157,9 +172,18 @@ public class FinalFireSequence : MonoBehaviour
         if (chunkManager == null)
             chunkManager = ChunkManager.Instance;
 
-        ChunkManager.ChunkData chunk = chunkManager != null
-            ? chunkManager.chunks.Find(data => data != null && data.chunkID == chunkID)
-            : null;
+        ChunkManager.ChunkData chunk = null;
+        if (chunkManager != null)
+        {
+            foreach (ChunkManager.ChunkData data in chunkManager.chunks)
+            {
+                if (data != null && data.chunkID == chunkID)
+                {
+                    chunk = data;
+                    break;
+                }
+            }
+        }
 
         if (chunk == null || chunk.chunkObject == null)
         {

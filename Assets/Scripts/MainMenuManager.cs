@@ -74,10 +74,9 @@ public class MainMenuManager : MonoBehaviour
         if (controlsPanel != null)
             controlsPanel.SetActive(false);
 
-        GameObject selectionToRestore = previousMenuSelection != null &&
-            previousMenuSelection.activeInHierarchy
-            ? previousMenuSelection
-            : defaultMenuSelection;
+        GameObject selectionToRestore = defaultMenuSelection;
+        if (previousMenuSelection != null && previousMenuSelection.activeInHierarchy)
+            selectionToRestore = previousMenuSelection;
 
         SetSelectedMenuObject(selectionToRestore);
         previousMenuSelection = null;
@@ -91,7 +90,11 @@ public class MainMenuManager : MonoBehaviour
         if (settingsPanel != null)
             settingsPanel.SetActive(true);
 
-        SetSelectedMenuObject(settingsBackButton != null ? settingsBackButton.gameObject : null);
+        GameObject firstSettingsSelection = null;
+        if (settingsBackButton != null)
+            firstSettingsSelection = settingsBackButton.gameObject;
+
+        SetSelectedMenuObject(firstSettingsSelection);
     }
 
     public void CloseSettings()
@@ -101,10 +104,9 @@ public class MainMenuManager : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        GameObject selectionToRestore = previousMenuSelection != null &&
-            previousMenuSelection.activeInHierarchy
-            ? previousMenuSelection
-            : settingsButton;
+        GameObject selectionToRestore = settingsButton;
+        if (previousMenuSelection != null && previousMenuSelection.activeInHierarchy)
+            selectionToRestore = previousMenuSelection;
 
         SetSelectedMenuObject(selectionToRestore);
         previousMenuSelection = null;
@@ -148,7 +150,10 @@ public class MainMenuManager : MonoBehaviour
 
         if (audioMixer != null && !string.IsNullOrWhiteSpace(mixerParameter))
         {
-            float decibels = value <= 0.0001f ? -80f : Mathf.Log10(value) * 20f;
+            float decibels = -80f;
+            if (value > 0.0001f)
+                decibels = Mathf.Log10(value) * 20f;
+
             audioMixer.SetFloat(mixerParameter, decibels);
         }
     }

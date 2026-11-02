@@ -93,8 +93,10 @@ public class InventoryUIManager : MonoBehaviour
                     }
                     else
                     {
-                        uiSlots[i].countText.text =
-                            slotData.amount > 1 ? $"x{slotData.amount}" : "";
+                        if (slotData.amount > 1)
+                            uiSlots[i].countText.text = $"x{slotData.amount}";
+                        else
+                            uiSlots[i].countText.text = "";
                     }
                 }
 
