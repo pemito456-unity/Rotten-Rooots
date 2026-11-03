@@ -180,6 +180,7 @@ public class GameOverController : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        ForestWrathManager.ResetForNewRun();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -194,6 +195,16 @@ public class GameOverController : MonoBehaviour
         }
 
         SceneManager.LoadScene(menuSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Time.timeScale = 1f;
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void OnDestroy()

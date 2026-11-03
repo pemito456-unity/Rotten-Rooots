@@ -94,6 +94,16 @@ public class ForestWrathManager : MonoBehaviour
         currentWrath -= amount;
     }
 
+    public static void ResetForNewRun()
+    {
+        persistentWrath = 0f;
+        activePassages.Clear();
+        clearedPassages.Clear();
+
+        if (Instance != null)
+            Instance.UpdateUI();
+    }
+
     public void UpdateUI()
     {
         float wrathRatio = 0f;
