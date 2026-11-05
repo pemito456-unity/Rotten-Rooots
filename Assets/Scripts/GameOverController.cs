@@ -181,12 +181,14 @@ public class GameOverController : MonoBehaviour
     {
         Time.timeScale = 1f;
         ForestWrathManager.ResetForNewRun();
+        PhotoEvidenceGallery.ResetProgress();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
+        PhotoEvidenceGallery.ResetProgress();
 
         if (string.IsNullOrWhiteSpace(menuSceneName))
         {
