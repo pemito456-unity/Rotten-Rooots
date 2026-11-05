@@ -33,9 +33,12 @@ public class MainMenuManager : MonoBehaviour
     private const string MasterPreferenceKey = "RottenRoots.MasterVolume";
     private const string MusicPreferenceKey = "RottenRoots.MusicVolume";
     private const string SfxPreferenceKey = "RottenRoots.SFXVolume";
+    private const string VolumeDefaultsVersionKey = "RottenRoots.VolumeDefaults50Applied";
 
     private void Start()
     {
+        ApplyInitialVolumeDefaults();
+
         if (controlsPanel != null)
             controlsPanel.SetActive(false);
 
@@ -50,6 +53,19 @@ public class MainMenuManager : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(defaultMenuSelection);
         }
+    }
+
+    private void ApplyInitialVolumeDefaults()
+    {
+        // Aplica 50% uma vez, inclusive em instalações que já tinham valores antigos salvos.
+        if (PlayerPrefs.GetInt(VolumeDefaultsVersionKey, 0) != 0)
+            return;
+
+        PlayerPrefs.SetFloat(MasterPreferenceKey, 0.5f);
+        PlayerPrefs.SetFloat(MusicPreferenceKey, 0.5f);
+        PlayerPrefs.SetFloat(SfxPreferenceKey, 0.5f);
+        PlayerPrefs.SetInt(VolumeDefaultsVersionKey, 1);
+        PlayerPrefs.Save();
     }
 
     public void PlayGame()
@@ -130,7 +146,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void ConfigureSlider(Slider slider, string preferenceKey, string mixerParameter)
     {
-        float savedValue = Mathf.Clamp01(PlayerPrefs.GetFloat(preferenceKey, 1f));
+        // Começa em 50% na primeira execução; valores salvos pelo jogador continuam valendo.
+        float savedValue = Mathf.Clamp01(PlayerPrefs.GetFloat(preferenceKey, 0.5f));
 
         if (slider != null)
         {
