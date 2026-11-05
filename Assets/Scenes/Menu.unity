@@ -2900,9 +2900,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Teclado\n\n\u2022 Mover: WASD ou setas direcionais.\n\n\u2022 Coletar
-    item: E.\n\n\u2022 Trocar item da hotbar: teclas 1 a 8.\n\n\u2022 Atirar ou usar
-    item equipado: Espa\xE7o.\n\n\u2022 Recarregar a lanterna: R.\n\n\u2022 Derrubar
-    item equipado: G."
+    item: F.\n\n\u2022 Trocar item da hotbar: teclas 1 a 8, Q e E.\n\n\u2022 Atirar
+    ou usar item equipado: Espa\xE7o.\n\n\u2022 Recarregar a lanterna: R.\n\n\u2022
+    Derrubar item equipado: G."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}

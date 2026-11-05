@@ -55,7 +55,7 @@ public class PlayerController2D : MonoBehaviour
         if (CorpseInvestigation.TryOpenNearby(transform.position))
             return;
 
-        Debug.Log("[Coleta] E/interação recebido pelo PlayerController2D.");
+        Debug.Log("[Coleta] F/interação recebido pelo PlayerController2D.");
 
         PlayerInventory inventory = GetComponent<PlayerInventory>();
 
