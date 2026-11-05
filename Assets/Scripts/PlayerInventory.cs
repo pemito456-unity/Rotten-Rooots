@@ -79,7 +79,6 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         flashlightController = GetComponentInChildren<FlashlightController>(true);
-        ApplySelectedItem();
         RefreshInventoryUI();
     }
 
@@ -361,20 +360,7 @@ public class PlayerInventory : MonoBehaviour
             index = 0;
 
         selectedSlotIndex = index;
-        ApplySelectedItem();
         RefreshInventoryUI();
-    }
-
-    private void ApplySelectedItem()
-    {
-        if (flashlightController == null)
-            flashlightController = GetComponentInChildren<FlashlightController>(true);
-
-        if (flashlightController == null)
-            return;
-
-        InventorySlotData selectedSlot = SelectedSlot;
-        flashlightController.isOn = selectedSlot != null && selectedSlot.isFlashlight;
     }
 
     public void OnDropItem(InputAction.CallbackContext context)
@@ -438,7 +424,6 @@ public class PlayerInventory : MonoBehaviour
         );
 
         UpdateGunState();
-        ApplySelectedItem();
         RefreshInventoryUI();
 
         if (ForestWrathManager.Instance != null)

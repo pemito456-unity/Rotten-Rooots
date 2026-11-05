@@ -117,26 +117,17 @@ public class PlayerCombatAndItems : MonoBehaviour
         }
     }
 
-    // A pistola não recarrega.
-    // Este callback fica disponível para a recarga futura da lanterna.
+    // R/X recarrega a lanterna mesmo quando outro item está selecionado.
     public void OnReload(InputAction.CallbackContext context)
     {
         if (!context.performed || inventory == null)
             return;
 
-        InventorySlotData selectedSlot = inventory.SelectedSlot;
-
-        if (selectedSlot != null && selectedSlot.isFlashlight)
-        {
-            FlashlightController flashlight = inventory.FlashlightController;
-            if (flashlight != null)
-                flashlight.RegisterRechargePress();
-            else
-                Debug.LogWarning("FlashlightController não foi encontrado no Player.");
-            return;
-        }
-
-        Debug.Log("A pistola não é recarregável.");
+        FlashlightController flashlight = inventory.FlashlightController;
+        if (flashlight != null)
+            flashlight.RegisterRechargePress();
+        else
+            Debug.LogWarning("FlashlightController não foi encontrado no Player.");
     }
 
     private void TryShoot(InventorySlotData pistolSlot)

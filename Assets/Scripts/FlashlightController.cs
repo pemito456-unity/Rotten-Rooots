@@ -19,6 +19,7 @@ public class FlashlightController : MonoBehaviour
 
     private PlayerController2D playerController;
     private float batteryAtRechargeStart;
+    private bool isRecharging;
     private bool depletionFeedbackPlayed;
     private bool depletionFlickerActive;
     private float depletionFlickerTimer;
@@ -41,6 +42,8 @@ public class FlashlightController : MonoBehaviour
     {
         playerController = GetComponentInParent<PlayerController2D>();
 
+        // A lanterna fica equipada durante toda a partida.
+        isOn = true;
         batteryDurationSeconds = Mathf.Max(1f, batteryDurationSeconds);
         batteryRemainingSeconds = batteryDurationSeconds;
 
@@ -53,12 +56,17 @@ public class FlashlightController : MonoBehaviour
         if (flashlightLight == null)
             return;
 
-        if (isOn && rechargePresses == 0 && batteryRemainingSeconds > 0f)
+        if (isOn && !isRecharging && batteryRemainingSeconds > 0f)
         {
             batteryRemainingSeconds = Mathf.Max(
                 0f,
                 batteryRemainingSeconds - Time.deltaTime
             );
+
+            // Depois da recarga completa, libera um novo ciclo só quando
+            // a bateria já tiver começado a ser usada de verdade.
+            if (rechargePresses >= PressesToRecharge && BatteryNormalized < 0.99f)
+                rechargePresses = 0;
         }
 
         if (batteryRemainingSeconds <= 0f)
@@ -72,18 +80,22 @@ public class FlashlightController : MonoBehaviour
 
         depletionFeedbackPlayed = false;
         depletionFlickerActive = false;
-        flashlightLight.enabled = isOn && rechargePresses == 0;
+        flashlightLight.enabled = isOn && !isRecharging;
 
-        if (isOn && rechargePresses == 0)
+        if (isOn && !isRecharging)
             UpdateDirection();
     }
 
     public bool RegisterRechargePress()
     {
-        if (!isOn)
+        // A quarta pressão completa a carga. Toques extras não iniciam
+        // outra recarga nem desligam a lanterna.
+        if (rechargePresses >= PressesToRecharge)
         {
-            Debug.Log("Selecione a lanterna para recarregá-la.");
-            return false;
+            if (BatteryNormalized >= 0.99f)
+                return false;
+
+            rechargePresses = 0;
         }
 
         if (rechargePresses == 0)
@@ -95,6 +107,7 @@ public class FlashlightController : MonoBehaviour
             }
 
             batteryAtRechargeStart = batteryRemainingSeconds;
+            isRecharging = true;
             depletionFlickerActive = false;
             if (flashlightLight != null)
                 flashlightLight.enabled = false;
@@ -111,8 +124,13 @@ public class FlashlightController : MonoBehaviour
 
         if (rechargePresses >= PressesToRecharge)
         {
-            rechargePresses = 0;
+            rechargePresses = PressesToRecharge;
             batteryRemainingSeconds = batteryDurationSeconds;
+            isRecharging = false;
+            depletionFeedbackPlayed = false;
+            depletionFlickerActive = false;
+            if (flashlightLight != null)
+                flashlightLight.enabled = isOn;
             Debug.Log("Lanterna recarregada.");
         }
 
@@ -178,8 +196,4 @@ public class FlashlightController : MonoBehaviour
         );
     }
 
-    public void ToggleFlashlight()
-    {
-        isOn = !isOn;
-    }
 }
