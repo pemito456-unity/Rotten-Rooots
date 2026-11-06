@@ -19,8 +19,8 @@ public class PhotoEvidenceCamera : MonoBehaviour
     public AudioClip shutterSound;
     public AudioMixerGroup shutterMixerGroup;
     [Range(0f, 1f)] public float shutterVolume = 0.8f;
-    [Min(0.05f)] public float edgeFlashDuration = 0.25f;
-    [Range(0f, 1f)] public float edgeFlashAlpha = 0.9f;
+    [Min(0.05f)] public float edgeFlashDuration = 0.18f;
+    [Range(0f, 1f)] public float edgeFlashAlpha = 0.58f;
 
     private PlayerController2D playerController;
     private AudioSource audioSource;
@@ -225,7 +225,7 @@ public class PhotoEvidenceCamera : MonoBehaviour
     private Sprite CreateEdgeGradientSprite()
     {
         const int size = 128;
-        const float fadeWidth = 0.12f;
+        const float fadeWidth = 0.075f;
         edgeFlashTexture = new Texture2D(size, size, TextureFormat.RGBA32, false);
         edgeFlashTexture.name = "GeneratedPhotoFlashEdges";
         edgeFlashTexture.wrapMode = TextureWrapMode.Clamp;
@@ -277,7 +277,8 @@ public class PhotoEvidenceCamera : MonoBehaviour
         while (elapsed < edgeFlashDuration && edgeFlashImage != null)
         {
             float t = Mathf.Clamp01(elapsed / edgeFlashDuration);
-            float alpha = Mathf.Lerp(edgeFlashAlpha, 0f, t);
+            float easedFade = Mathf.SmoothStep(0f, 1f, t);
+            float alpha = Mathf.Lerp(edgeFlashAlpha, 0f, easedFade);
             edgeFlashImage.color = new Color(1f, 1f, 1f, alpha);
             elapsed += Time.unscaledDeltaTime;
             yield return null;
