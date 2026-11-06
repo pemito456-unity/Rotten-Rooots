@@ -9,7 +9,8 @@ public class ItemPickup2D : MonoBehaviour
         DecontamKit,
         Gun,
         PhotoCamera,
-        Knife
+        Knife,
+        MedKit
     }
 
     [Header("Configurações do item")]
@@ -45,7 +46,7 @@ public class ItemPickup2D : MonoBehaviour
             promptCanvas.SetActive(false);
 
         if (promptText != null)
-            promptText.text = $"{itemName}\n[E / Y] Coletar";
+            promptText.text = $"{itemName}\n[F / Y] Coletar";
     }
 
     private void OnTriggerEnter2D(Collider2D other)

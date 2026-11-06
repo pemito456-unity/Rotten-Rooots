@@ -35,6 +35,9 @@ public class PlayerCombatAndItems : MonoBehaviour
     public float wrathReductionPerKit = 25f;
     public float decontamKitUseRange = 2.25f;
 
+    [Header("Configurações do kit médico")]
+    [Min(1f)] public float medKitHealingAmount = 40f;
+
     private PlayerController2D playerController;
     private AudioSource shotAudioSource;
     private AudioSource meleeAudioSource;
@@ -105,6 +108,10 @@ public class PlayerCombatAndItems : MonoBehaviour
 
             case ItemPickup2D.ItemType.DecontamKit:
                 TryUseDecontamKit(selectedSlot);
+                break;
+
+            case ItemPickup2D.ItemType.MedKit:
+                TryUseMedKit(selectedSlot);
                 break;
 
             case ItemPickup2D.ItemType.Knife:
@@ -198,6 +205,34 @@ public class PlayerCombatAndItems : MonoBehaviour
         Debug.Log(nearbyTree != null
             ? "Kit de descontaminação usado. A árvore sinistra foi removida e a ira diminuiu."
             : "Kit usado. A ira da floresta diminuiu.");
+    }
+
+    private void TryUseMedKit(InventorySlotData medKitSlot)
+    {
+        if (medKitSlot == null || medKitSlot.amount <= 0)
+            return;
+
+        PlayerHealth health = GetComponent<PlayerHealth>();
+        if (health == null)
+        {
+            Debug.LogWarning("PlayerHealth não foi encontrado no Player.");
+            return;
+        }
+
+        if (health.currentHealth >= health.maxHealth)
+        {
+            Debug.Log("A vida já está cheia. O kit médico não foi consumido.");
+            return;
+        }
+
+        health.Heal(medKitHealingAmount);
+        medKitSlot.amount--;
+
+        if (medKitSlot.amount <= 0)
+            inventory.slots.Remove(medKitSlot);
+
+        inventory.RefreshInventoryUI();
+        Debug.Log($"Kit médico usado. Vida: {health.currentHealth}/{health.maxHealth}.");
     }
 
     private ArvoreSinistra FindNearbyTreeForKit()

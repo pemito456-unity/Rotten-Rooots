@@ -40,6 +40,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject decontamKitPickupPrefab;
     public GameObject gunPickupPrefab;
     public GameObject knifePickupPrefab;
+    public GameObject medKitPickupPrefab;
     public float dropDistance = 0.8f;
     public float wrathOnDrop = 5f;
 
@@ -442,6 +443,8 @@ public class PlayerInventory : MonoBehaviour
                 return gunPickupPrefab;
             case ItemPickup2D.ItemType.Knife:
                 return knifePickupPrefab;
+            case ItemPickup2D.ItemType.MedKit:
+                return medKitPickupPrefab;
             default:
                 return null;
         }
