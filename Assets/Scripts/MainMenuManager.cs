@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
@@ -28,7 +29,15 @@ public class MainMenuManager : MonoBehaviour
     public string musicVolumeParameter = "MusicVolume";
     public string sfxVolumeParameter = "SFXVolume";
 
+    [Header("Trilha sonora do menu")]
+    public AudioClip[] menuMusicTracks;
+    public AudioSource menuMusicSource;
+    public AudioMixerGroup musicMixerGroup;
+
     private GameObject previousMenuSelection;
+    private readonly List<AudioClip> menuPlaylist = new List<AudioClip>();
+    private int nextMenuTrackIndex;
+    private AudioClip lastMenuTrack;
 
     private const string MasterPreferenceKey = "RottenRoots.MasterVolume";
     private const string MusicPreferenceKey = "RottenRoots.MusicVolume";
@@ -46,6 +55,7 @@ public class MainMenuManager : MonoBehaviour
             settingsPanel.SetActive(false);
 
         ConfigureSettingsPanel();
+        SetupMenuMusic();
 
         if (EventSystem.current != null &&
             EventSystem.current.currentSelectedGameObject == null &&
@@ -53,6 +63,87 @@ public class MainMenuManager : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(defaultMenuSelection);
         }
+    }
+
+    private void Update()
+    {
+        ContinueMenuMusic();
+    }
+
+    private void SetupMenuMusic()
+    {
+        if (menuMusicSource == null)
+        {
+            Debug.LogWarning("MainMenuManager: atribua o AudioSource da música do menu.");
+            return;
+        }
+
+        menuMusicSource.playOnAwake = false;
+        menuMusicSource.loop = false;
+        menuMusicSource.spatialBlend = 0f;
+        menuMusicSource.volume = 1f;
+        menuMusicSource.outputAudioMixerGroup = musicMixerGroup;
+
+        menuPlaylist.Clear();
+        if (menuMusicTracks != null)
+        {
+            foreach (AudioClip track in menuMusicTracks)
+            {
+                if (track != null)
+                    menuPlaylist.Add(track);
+            }
+        }
+
+        ShuffleMenuPlaylist();
+        PlayNextMenuTrack();
+    }
+
+    private void ContinueMenuMusic()
+    {
+        if (menuMusicSource == null || menuPlaylist.Count == 0 || menuMusicSource.isPlaying)
+            return;
+
+        if (nextMenuTrackIndex >= menuPlaylist.Count)
+        {
+            ShuffleMenuPlaylist();
+            nextMenuTrackIndex = 0;
+        }
+
+        PlayNextMenuTrack();
+    }
+
+    private void ShuffleMenuPlaylist()
+    {
+        for (int i = menuPlaylist.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            AudioClip temporary = menuPlaylist[i];
+            menuPlaylist[i] = menuPlaylist[randomIndex];
+            menuPlaylist[randomIndex] = temporary;
+        }
+
+        if (menuPlaylist.Count > 1 && menuPlaylist[0] == lastMenuTrack)
+        {
+            AudioClip temporary = menuPlaylist[0];
+            menuPlaylist[0] = menuPlaylist[1];
+            menuPlaylist[1] = temporary;
+        }
+    }
+
+    private void PlayNextMenuTrack()
+    {
+        if (menuPlaylist.Count == 0)
+        {
+            Debug.LogWarning("MainMenuManager: nenhuma faixa de menu foi configurada.");
+            return;
+        }
+
+        if (nextMenuTrackIndex >= menuPlaylist.Count)
+            nextMenuTrackIndex = 0;
+
+        lastMenuTrack = menuPlaylist[nextMenuTrackIndex++];
+        menuMusicSource.clip = lastMenuTrack;
+        menuMusicSource.Play();
     }
 
     private void ApplyInitialVolumeDefaults()
