@@ -3,12 +3,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PauseMenuController : MonoBehaviour
 {
     [Header("Interface")]
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject settingsButton;
+    [SerializeField] private Button settingsButtonComponent;
+    [SerializeField] private Button settingsBackButton;
+
+    [Header("Sliders de volume")]
+    [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private AudioMixer audioMixer;
 
     [Header("Input do jogador")]
     [SerializeField] private PlayerInput playerInput;
@@ -26,6 +38,10 @@ public class PauseMenuController : MonoBehaviour
     private GameObject selectionBeforePause;
     private PhotoEvidenceGallery photoEvidenceGallery;
 
+    private const string MasterPreferenceKey = "RottenRoots.MasterVolume";
+    private const string MusicPreferenceKey = "RottenRoots.MusicVolume";
+    private const string SfxPreferenceKey = "RottenRoots.SFXVolume";
+
     private void Awake()
     {
         // Evita carregar a cena já pausada.
@@ -33,6 +49,11 @@ public class PauseMenuController : MonoBehaviour
 
         if (pausePanel != null)
             pausePanel.SetActive(false);
+
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
+
+        ConfigureSettingsPanel();
 
         if (playerInput == null)
             playerInput = FindObjectOfType<PlayerInput>();
@@ -85,6 +106,8 @@ public class PauseMenuController : MonoBehaviour
             selectionBeforePause = EventSystem.current.currentSelectedGameObject;
 
         pausePanel.SetActive(true);
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
         Time.timeScale = 0f;
 
         DisableGameplayActions();
@@ -99,6 +122,9 @@ public class PauseMenuController : MonoBehaviour
         if (photoEvidenceGallery != null && photoEvidenceGallery.IsOpen)
             photoEvidenceGallery.CloseGalleryWithoutChangingSelection();
 
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
+
         pausePanel.SetActive(false);
         Time.timeScale = timeScaleBeforePause;
 
@@ -112,6 +138,27 @@ public class PauseMenuController : MonoBehaviour
 
         SetSelectedButton(selectionToRestore);
         selectionBeforePause = null;
+    }
+
+    public void OpenSettings()
+    {
+        if (!isPaused || settingsPanel == null)
+            return;
+
+        settingsPanel.SetActive(true);
+        GameObject selection = masterVolumeSlider != null
+            ? masterVolumeSlider.gameObject
+            : settingsBackButton != null ? settingsBackButton.gameObject : null;
+        SetSelectedButton(selection);
+    }
+
+    public void CloseSettings()
+    {
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
+
+        PlayerPrefs.Save();
+        SetSelectedButton(settingsButton);
     }
 
     public void ReturnToMenu()
@@ -189,6 +236,47 @@ public class PauseMenuController : MonoBehaviour
 
         if (button != null && button.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    private void ConfigureSettingsPanel()
+    {
+        if (settingsButtonComponent != null)
+            settingsButtonComponent.onClick.AddListener(OpenSettings);
+
+        if (settingsBackButton != null)
+            settingsBackButton.onClick.AddListener(CloseSettings);
+
+        ConfigureVolumeSlider(masterVolumeSlider, MasterPreferenceKey, "MasterVolume");
+        ConfigureVolumeSlider(musicVolumeSlider, MusicPreferenceKey, "MusicVolume");
+        ConfigureVolumeSlider(sfxVolumeSlider, SfxPreferenceKey, "SFXVolume");
+    }
+
+    private void ConfigureVolumeSlider(Slider slider, string preferenceKey, string mixerParameter)
+    {
+        float value = Mathf.Clamp01(PlayerPrefs.GetFloat(preferenceKey, 0.5f));
+
+        if (slider != null)
+        {
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.value = value;
+            slider.onValueChanged.AddListener(
+                newValue => SetVolume(preferenceKey, mixerParameter, newValue));
+        }
+
+        SetVolume(preferenceKey, mixerParameter, value);
+    }
+
+    private void SetVolume(string preferenceKey, string mixerParameter, float value)
+    {
+        value = Mathf.Clamp01(value);
+        PlayerPrefs.SetFloat(preferenceKey, value);
+
+        if (audioMixer == null)
+            return;
+
+        float decibels = value > 0.0001f ? Mathf.Log10(value) * 20f : -80f;
+        audioMixer.SetFloat(mixerParameter, decibels);
     }
 
     private void OnDestroy()

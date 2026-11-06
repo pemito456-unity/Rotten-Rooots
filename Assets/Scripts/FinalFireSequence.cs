@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Controla o incêndio final.
@@ -14,6 +15,19 @@ public class FinalFireSequence : MonoBehaviour
     [SerializeField, Min(1f)] private float escapeTimeLimit = 120f;
     [SerializeField] private string secondFireStageChunkID = "D2";
     [SerializeField] private string escapeChunkID = "C1";
+
+    [Header("Música da gameplay e do incêndio")]
+    [SerializeField] private AudioClip[] gameplayTracks;
+    [SerializeField] private AudioClip[] fireTracks;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField, Range(0f, 1f)] private float gameplayMusicVolume = 0.25f;
+
+    private AudioSource musicAudioSource;
+    private readonly List<AudioClip> musicPlaylist = new List<AudioClip>();
+    private int nextTrackIndex;
+    private bool fireMusicStarted;
+    private bool musicPausedForGame;
+    private AudioClip lastPlayedTrack;
 
     [Header("Chunks atingidas pelo incêndio")]
     [SerializeField] private string[] initialBurningChunkIDs =
@@ -95,6 +109,9 @@ public class FinalFireSequence : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
+
+        SetupMusic();
+        StartMusicPlaylist(gameplayTracks);
     }
 
     /// <summary>Começa quando o jogador abre as anotações do último cadáver.</summary>
@@ -116,6 +133,7 @@ public class FinalFireSequence : MonoBehaviour
 
         sequenceStarted = true;
         elapsedTime = 0f;
+        StartFireMusic();
 
         foreach (string chunkID in initialBurningChunkIDs)
             SetChunkBurning(chunkID);
@@ -126,15 +144,21 @@ public class FinalFireSequence : MonoBehaviour
 
     private void Update()
     {
-        if (!sequenceStarted || outcomeTriggered)
+        if (outcomeTriggered)
             return;
 
         if (GameOverController.Instance != null && GameOverController.Instance.IsGameOverStarted)
         {
             StopScreenWarning();
+            StopMusic();
             outcomeTriggered = true;
             return;
         }
+
+        ContinueMusicPlaylist();
+
+        if (!sequenceStarted)
+            return;
 
         // Usa o tempo de jogo: abrir menus ou as anotações pausa a contagem.
         elapsedTime += Time.deltaTime;
@@ -162,6 +186,127 @@ public class FinalFireSequence : MonoBehaviour
 
         if (currentChunk == escapeChunkID)
             TriggerEnding(true);
+    }
+
+    private void SetupMusic()
+    {
+        musicAudioSource = GetComponent<AudioSource>();
+        if (musicAudioSource == null)
+            musicAudioSource = gameObject.AddComponent<AudioSource>();
+
+        musicAudioSource.playOnAwake = false;
+        musicAudioSource.loop = false;
+        musicAudioSource.spatialBlend = 0f;
+        // Mantém a trilha de fundo abaixo dos batimentos cardíacos do PlayerHealth.
+        musicAudioSource.volume = gameplayMusicVolume;
+        musicAudioSource.outputAudioMixerGroup = musicMixerGroup;
+    }
+
+    private void StartFireMusic()
+    {
+        if (fireMusicStarted)
+            return;
+
+        fireMusicStarted = true;
+        StartMusicPlaylist(fireTracks);
+    }
+
+    private void StartMusicPlaylist(AudioClip[] tracks)
+    {
+        if (musicAudioSource == null)
+            SetupMusic();
+
+        musicAudioSource.Stop();
+        musicPlaylist.Clear();
+        nextTrackIndex = 0;
+
+        if (tracks != null)
+        {
+            foreach (AudioClip track in tracks)
+            {
+                if (track != null)
+                    musicPlaylist.Add(track);
+            }
+        }
+
+        ShufflePlaylist();
+        PlayNextTrack();
+    }
+
+    private void ContinueMusicPlaylist()
+    {
+        if (musicAudioSource == null)
+            return;
+
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        bool readingCorpseNotes = notePanel != null && notePanel.IsOpen;
+
+        if (Time.timeScale <= 0f && !readingCorpseNotes)
+        {
+            if (!musicPausedForGame)
+                musicAudioSource.Pause();
+
+            musicPausedForGame = true;
+            return;
+        }
+
+        if (musicPausedForGame)
+        {
+            musicAudioSource.UnPause();
+            musicPausedForGame = false;
+        }
+
+        if (musicPlaylist.Count == 0 || musicAudioSource.isPlaying)
+            return;
+
+        if (nextTrackIndex >= musicPlaylist.Count)
+        {
+            ShufflePlaylist();
+            nextTrackIndex = 0;
+        }
+
+        PlayNextTrack();
+    }
+
+    private void ShufflePlaylist()
+    {
+        for (int i = musicPlaylist.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            AudioClip temporary = musicPlaylist[i];
+            musicPlaylist[i] = musicPlaylist[randomIndex];
+            musicPlaylist[randomIndex] = temporary;
+        }
+
+        // Evita que a mesma faixa toque duas vezes seguidas ao reiniciar o ciclo.
+        if (musicPlaylist.Count > 1 && musicPlaylist[0] == lastPlayedTrack)
+        {
+            AudioClip temporary = musicPlaylist[0];
+            musicPlaylist[0] = musicPlaylist[1];
+            musicPlaylist[1] = temporary;
+        }
+    }
+
+    private void PlayNextTrack()
+    {
+        if (musicPlaylist.Count == 0)
+        {
+            Debug.LogWarning("FinalFireSequence: nenhuma faixa de música foi configurada.", this);
+            return;
+        }
+
+        if (nextTrackIndex >= musicPlaylist.Count)
+            nextTrackIndex = 0;
+
+        lastPlayedTrack = musicPlaylist[nextTrackIndex++];
+        musicAudioSource.clip = lastPlayedTrack;
+        musicAudioSource.Play();
+    }
+
+    private void StopMusic()
+    {
+        if (musicAudioSource != null)
+            musicAudioSource.Stop();
     }
 
     private void SetChunkBurning(string chunkID)
@@ -279,6 +424,7 @@ public class FinalFireSequence : MonoBehaviour
 
         outcomeTriggered = true;
         StopScreenWarning();
+        StopMusic();
 
         if (GameOverController.Instance == null)
         {

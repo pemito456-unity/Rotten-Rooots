@@ -332,10 +332,15 @@ public class PlayerHealth : MonoBehaviour
     {
         if (heartbeatAudioSource == null) return;
 
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        bool readingCorpseNotes = notePanel != null && notePanel.IsOpen;
+        if (Time.timeScale <= 0f && !readingCorpseNotes)
+            return;
+
         float healthPercent = currentHealth / maxHealth;
         float currentInterval = Mathf.Lerp(minHeartbeatInterval, maxHeartbeatInterval, healthPercent);
 
-        heartbeatTimer += Time.deltaTime;
+        heartbeatTimer += readingCorpseNotes ? Time.unscaledDeltaTime : Time.deltaTime;
 
         if (heartbeatTimer >= currentInterval)
         {
