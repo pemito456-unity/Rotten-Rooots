@@ -22,7 +22,8 @@ public class PlayerHealth : MonoBehaviour
     public float flashDuration = 0.1f;
 
     [Header("Vinheta vermelha ao receber dano")]
-    public Color screenDamageColor = new Color(1f, 0f, 0f, 0.72f);
+    public Color screenDamageColor = new Color(0.96f, 0.025f, 0.02f, 0.5f);
+    [Range(0.03f, 0.2f)] public float screenDamageEdgeWidth = 0.1f;
     [Min(0.05f)] public float screenDamagePulseDuration = 0.18f;
     [Min(1)] public int screenDamagePulseCount = 2;
 
@@ -207,7 +208,7 @@ public class PlayerHealth : MonoBehaviour
     private Sprite CreateVignetteSprite()
     {
         const int textureSize = 256;
-        const float fadeWidth = 0.16f;
+        float fadeWidth = Mathf.Clamp(screenDamageEdgeWidth, 0.03f, 0.2f);
         screenDamageTexture = new Texture2D(textureSize, textureSize, TextureFormat.RGBA32, false);
         screenDamageTexture.name = "GeneratedRedDamageVignette";
         screenDamageTexture.wrapMode = TextureWrapMode.Clamp;
@@ -239,7 +240,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void TriggerScreenDamageFlash()
     {
-        if (screenDamageImage == null || fireWarningActive) return;
+        if (screenDamageImage == null) return;
 
         if (screenDamageCoroutine != null)
             StopCoroutine(screenDamageCoroutine);
@@ -268,7 +269,7 @@ public class PlayerHealth : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            float t = Mathf.Clamp01(elapsed / duration);
+            float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / duration));
             float alpha = Mathf.Lerp(startAlpha, endAlpha, t);
             screenDamageImage.color = new Color(screenDamageColor.r, screenDamageColor.g,
                 screenDamageColor.b, alpha);
@@ -288,13 +289,9 @@ public class PlayerHealth : MonoBehaviour
         fireWarningIntensity = Mathf.Clamp01(intensity);
         fireWarningPulseSpeed = Mathf.Max(0f, pulseSpeed);
 
-        if (active && screenDamageCoroutine != null)
-        {
-            StopCoroutine(screenDamageCoroutine);
-            screenDamageCoroutine = null;
-        }
-
-        if (!active && screenDamageImage != null)
+        // Um flash de dano temporário fica por cima do alerta laranja.
+        // Quando termina, o alerta do incêndio volta a aparecer.
+        if (!active && screenDamageImage != null && screenDamageCoroutine == null)
         {
             screenDamageImage.color = new Color(screenDamageColor.r,
                 screenDamageColor.g, screenDamageColor.b, 0f);
@@ -303,7 +300,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateFireWarningOverlay()
     {
-        if (!fireWarningActive || screenDamageImage == null)
+        if (!fireWarningActive || screenDamageImage == null || screenDamageCoroutine != null)
             return;
 
         float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * fireWarningPulseSpeed * Mathf.PI * 2f);

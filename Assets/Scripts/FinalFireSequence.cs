@@ -47,8 +47,8 @@ public class FinalFireSequence : MonoBehaviour
 
     [Header("Alerta nas bordas da tela")]
     [SerializeField] private Color warningColor = new Color(1f, 0.32f, 0.025f, 1f);
-    [SerializeField, Range(0f, 1f)] private float startingWarningIntensity = 0.22f;
-    [SerializeField, Range(0f, 1f)] private float maximumWarningIntensity = 0.68f;
+    [SerializeField, Range(0f, 1f)] private float startingWarningIntensity = 0.16f;
+    [SerializeField, Range(0f, 1f)] private float maximumWarningIntensity = 0.46f;
     [SerializeField, Min(0f)] private float startingPulseSpeed = 1.2f;
     [SerializeField, Min(0f)] private float maximumPulseSpeed = 3.8f;
     [SerializeField, Min(1f)] private float urgencyWindowSeconds = 40f;
@@ -383,12 +383,12 @@ public class FinalFireSequence : MonoBehaviour
 
             float wave = Mathf.Sin(time * 5.5f + flame.phase);
             flame.transform.localScale = new Vector3(
-                flame.baseScale.x * (1f + wave * 0.09f),
-                flame.baseScale.y * (1f + Mathf.Sin(time * 7f + flame.phase) * 0.12f),
+                flame.baseScale.x * (1f + wave * 0.055f),
+                flame.baseScale.y * (1f + Mathf.Sin(time * 7f + flame.phase) * 0.075f),
                 flame.baseScale.z);
             flame.renderer.color = Color.Lerp(
-                new Color(1f, 0.48f, 0.08f, 0.9f),
-                new Color(1f, 0.9f, 0.28f, 1f),
+                new Color(0.96f, 0.28f, 0.035f, 0.84f),
+                new Color(1f, 0.72f, 0.2f, 0.96f),
                 (wave + 1f) * 0.5f);
         }
     }

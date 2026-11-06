@@ -12190,7 +12190,8 @@ MonoBehaviour:
   playerSprite: {fileID: 2024336244}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
-  screenDamageColor: {r: 1, g: 0, b: 0, a: 0.72}
+  screenDamageColor: {r: 0.96, g: 0.025, b: 0.02, a: 0.5}
+  screenDamageEdgeWidth: 0.1
   screenDamagePulseDuration: 0.18
   screenDamagePulseCount: 2
   defaultKnockbackForce: 15
@@ -14934,8 +14935,8 @@ MonoBehaviour:
   - {x: 3, y: -1.15}
   flameScale: 1.15
   warningColor: {r: 1, g: 0.32, b: 0.025, a: 1}
-  startingWarningIntensity: 0.22
-  maximumWarningIntensity: 0.68
+  startingWarningIntensity: 0.16
+  maximumWarningIntensity: 0.46
   startingPulseSpeed: 1.2
   maximumPulseSpeed: 3.8
   urgencyWindowSeconds: 40
