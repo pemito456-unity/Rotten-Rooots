@@ -24,7 +24,7 @@ public class PlayerCombatAndItems : MonoBehaviour
     public float meleeReach = 0.8f;
     public float meleeRadius = 0.75f;
     public float meleeCooldown = 0.45f;
-    public float wrathPerMeleeHit = 2f;
+    public float wrathPerMeleeHit = 10f;
     public AudioClip meleeSwingSound;
     public AudioClip meleeHitSound;
     public AudioMixerGroup meleeMixerGroup;

@@ -1529,8 +1529,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: GAME OVER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
+  m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6743,7 +6743,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1055581276
 RectTransform:
@@ -10590,8 +10590,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: TENTAR NOVAMENTE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
+  m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11549,8 +11549,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "A floresta tomou voc\xEA."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
+  m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12063,7 +12063,7 @@ MonoBehaviour:
   meleeReach: 0.8
   meleeRadius: 0.75
   meleeCooldown: 0.45
-  wrathPerMeleeHit: 2
+  wrathPerMeleeHit: 10
   meleeSwingSound: {fileID: 8300000, guid: 25ba5765956dee34b8bcff9d6e19426a, type: 3}
   meleeHitSound: {fileID: 0}
   meleeMixerGroup: {fileID: 0}
@@ -20849,7 +20849,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -167.1, y: 69.7}
+  m_AnchoredPosition: {x: -149.1, y: 69.7}
   m_SizeDelta: {x: 150, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8810000000000000010
@@ -20986,7 +20986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -167.1, y: 17.7}
+  m_AnchoredPosition: {x: -149.1, y: 17.7}
   m_SizeDelta: {x: 150, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8810000000000000014
@@ -21123,7 +21123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -167.1, y: -41.8}
+  m_AnchoredPosition: {x: -149.1, y: -41.8}
   m_SizeDelta: {x: 150, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8810000000000000018
@@ -21519,7 +21519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.8, y: 72}
+  m_AnchoredPosition: {x: 90, y: 72}
   m_SizeDelta: {x: 270, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8810000000000000031
@@ -21758,7 +21758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.8, y: 18}
+  m_AnchoredPosition: {x: 90, y: 18}
   m_SizeDelta: {x: 270, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8810000000000000042
@@ -21997,7 +21997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.8, y: -36}
+  m_AnchoredPosition: {x: 90, y: -36}
   m_SizeDelta: {x: 270, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8810000000000000053

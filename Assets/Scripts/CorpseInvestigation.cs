@@ -50,7 +50,7 @@ public class CorpseInvestigation : MonoBehaviour
         if (promptCanvas != null)
             promptCanvas.SetActive(false);
         if (promptText != null)
-            promptText.text = $"{corpseName}\n[E / Y] Examinar";
+            promptText.text = $"{corpseName}\n[F / Y] Examinar";
 
         FindPlayer();
     }

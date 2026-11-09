@@ -136,6 +136,14 @@ public class ChunkManager : MonoBehaviour
     {
         isTransitioning = true;
 
+        // Projéteis não devem continuar voando depois que o jogador troca de chunk.
+        MonkeyStone[] activeStones = FindObjectsOfType<MonkeyStone>();
+        foreach (MonkeyStone stone in activeStones)
+        {
+            if (stone != null)
+                Destroy(stone.gameObject);
+        }
+
         targetChunk.chunkObject.SetActive(true);
 
         if (playerRb == null) FindPlayer(); // garante referência

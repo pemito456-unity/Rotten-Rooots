@@ -162,6 +162,8 @@ public class MainMenuManager : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Iniciando o jogo...");
+        ForestWrathManager.ResetForNewRun();
+        PhotoEvidenceGallery.ResetProgress();
         SceneManager.LoadScene(firstChunkSceneName);
     }
 
