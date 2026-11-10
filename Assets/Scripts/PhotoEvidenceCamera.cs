@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
@@ -9,6 +10,7 @@ using UnityEngine.Audio;
 /// </summary>
 public class PhotoEvidenceCamera : MonoBehaviour
 {
+    public event Action<EvidencePhotoTarget> EvidencePhotographed;
     [Header("Área de reconhecimento")]
     [Min(0.1f)] public float maxPhotoDistance = 8.5f;
     [Range(1f, 120f)] public float fieldOfViewDegrees = 35f;
@@ -76,7 +78,14 @@ public class PhotoEvidenceCamera : MonoBehaviour
             return;
         }
 
+        if (target.evidenceIndex < 1 || target.evidenceIndex > gallery.EvidenceSlotCount)
+        {
+            gallery.TryUnlockEvidence(target);
+            return;
+        }
+
         bool wasNewEvidence = gallery.TryUnlockEvidence(target);
+        EvidencePhotographed?.Invoke(target);
         if (wasNewEvidence)
         {
             ShowNotice(
@@ -88,6 +97,12 @@ public class PhotoEvidenceCamera : MonoBehaviour
         {
             ShowNotice(target.PhotoPosition, "Evidência já coletada");
         }
+    }
+
+    /// <summary>Retorna a evidência que está enquadrada no momento.</summary>
+    public EvidencePhotoTarget GetTargetInFrame()
+    {
+        return FindTargetInFrame();
     }
 
     private EvidencePhotoTarget FindTargetInFrame()
