@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>Ensina o jogador a registrar a primeira evidência fotográfica.</summary>
 public class PhotoEvidenceTutorialController : MonoBehaviour
@@ -12,20 +13,18 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
     [SerializeField, Min(0f)] private float fadeDuration = 0.25f;
 
     [Header("Interface")]
-    [SerializeField] private Canvas uiCanvas;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private CanvasGroup tutorialGroup;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI instructionText;
     [SerializeField] private TextMeshProUGUI controlsText;
-    [SerializeField] private GameObject targetIndicator;
-    [SerializeField] private RectTransform targetIndicatorRect;
-    [SerializeField] private TextMeshProUGUI targetIndicatorText;
+    [SerializeField] private Light2D evidenceGlowLight;
+    [SerializeField, Min(0f)] private float evidenceGlowIntensity = 0.9f;
+    [SerializeField, Min(0.01f)] private float evidenceGlowTransitionSpeed = 5f;
 
     private ChunkManager chunkManager;
     private PhotoEvidenceCamera photoCamera;
     private PlayerInventory playerInventory;
-    private Camera gameplayCamera;
     private EvidencePhotoTarget currentTarget;
     private Coroutine fadeCoroutine;
     private Coroutine successCoroutine;
@@ -33,6 +32,7 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
     private bool completed;
     private bool targetPromptShown;
     private bool initialMessageHidden;
+    private bool evidenceGlowRequested;
     private float startedAt;
     private float nextTargetCheck;
 
@@ -41,12 +41,13 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
         if (tutorialPanel != null)
             tutorialPanel.SetActive(false);
 
-        if (targetIndicator != null)
-            targetIndicator.SetActive(false);
+        SetEvidenceGlow(false);
     }
 
     private void Update()
     {
+        UpdateEvidenceGlowFade();
+
         if (completed)
             return;
 
@@ -119,8 +120,7 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
         if (selectedSlot == null || !selectedSlot.isCamera)
         {
             currentTarget = null;
-            if (targetIndicator != null)
-                targetIndicator.SetActive(false);
+            SetEvidenceGlow(false);
             return;
         }
 
@@ -132,8 +132,7 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
 
         if (currentTarget == null)
         {
-            if (targetIndicator != null)
-                targetIndicator.SetActive(false);
+            SetEvidenceGlow(false);
             return;
         }
 
@@ -148,46 +147,40 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
             ShowPanel();
         }
 
-        UpdateTargetIndicator(currentTarget);
+        UpdateEvidenceGlow(currentTarget);
     }
 
-    private void UpdateTargetIndicator(EvidencePhotoTarget target)
+    private void UpdateEvidenceGlow(EvidencePhotoTarget target)
     {
-        if (targetIndicator == null || targetIndicatorRect == null)
+        if (evidenceGlowLight == null || target == null)
             return;
 
-        if (gameplayCamera == null)
-            gameplayCamera = Camera.main;
+        Vector2 targetPosition = target.PhotoPosition;
+        evidenceGlowLight.transform.position = new Vector3(targetPosition.x, targetPosition.y, 0f);
+        SetEvidenceGlow(true);
+    }
 
-        if (gameplayCamera == null)
+    private void SetEvidenceGlow(bool visible)
+    {
+        evidenceGlowRequested = visible;
+        if (visible && evidenceGlowLight != null)
+            evidenceGlowLight.enabled = true;
+    }
+
+    private void UpdateEvidenceGlowFade()
+    {
+        if (evidenceGlowLight == null)
             return;
 
-        Vector3 screenPoint = gameplayCamera.WorldToScreenPoint(target.PhotoPosition);
-        if (screenPoint.z <= 0f || screenPoint.x < 0f || screenPoint.x > Screen.width ||
-            screenPoint.y < 0f || screenPoint.y > Screen.height)
-        {
-            targetIndicator.SetActive(false);
-            return;
-        }
+        float targetIntensity = evidenceGlowRequested ? evidenceGlowIntensity : 0f;
+        evidenceGlowLight.intensity = Mathf.MoveTowards(
+            evidenceGlowLight.intensity,
+            targetIntensity,
+            evidenceGlowTransitionSpeed * Time.unscaledDeltaTime
+        );
 
-        RectTransform canvasRect = uiCanvas != null
-            ? uiCanvas.transform as RectTransform
-            : targetIndicatorRect.parent as RectTransform;
-        Camera uiCamera = uiCanvas != null && uiCanvas.renderMode != RenderMode.ScreenSpaceOverlay
-            ? uiCanvas.worldCamera
-            : null;
-        if (canvasRect != null && RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                screenPoint,
-                uiCamera,
-                out Vector2 localPoint))
-        {
-            targetIndicatorRect.anchoredPosition = localPoint;
-            targetIndicator.SetActive(true);
-        }
-
-        if (targetIndicatorText != null)
-            targetIndicatorText.text = "EVIDÊNCIA";
+        if (!evidenceGlowRequested && evidenceGlowLight.intensity <= 0f)
+            evidenceGlowLight.enabled = false;
     }
 
     private void OnEvidencePhotographed(EvidencePhotoTarget target)
@@ -207,8 +200,7 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
 
     private IEnumerator ShowSuccessMessage()
     {
-        if (targetIndicator != null)
-            targetIndicator.SetActive(false);
+        SetEvidenceGlow(false);
 
         SetMessage(
             "FOTO REGISTRADA",
@@ -226,8 +218,7 @@ public class PhotoEvidenceTutorialController : MonoBehaviour
     private void FinishTutorial()
     {
         completed = true;
-        if (targetIndicator != null)
-            targetIndicator.SetActive(false);
+        SetEvidenceGlow(false);
         HidePanel();
     }
 
