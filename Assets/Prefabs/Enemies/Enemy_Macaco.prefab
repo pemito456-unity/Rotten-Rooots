@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonkeyEnemy
   health: 20
-  aggroDistance: 5
+  aggroDistance: 4.5
   isAggroed: 0
   stonePrefab: {fileID: 231123075645921645, guid: 63d785f13f6561c4cbebd7ec40659040, type: 3}
   throwPoint: {fileID: 6394119853641375968}
