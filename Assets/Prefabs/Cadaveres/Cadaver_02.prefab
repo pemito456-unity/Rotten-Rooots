@@ -54,13 +54,37 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: af7d5439b3af4a77948cb745f098af04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -79,6 +103,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -105,6 +130,14 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.15}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1.1, y: 0.55}
   m_EdgeRadius: 0
@@ -122,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EvidencePhotoTarget
   category: 1
   evidenceIndex: 6
-  evidenceName: "Relatório de membro Ian da equipe Delta"
+  evidenceName: "Cad\xE1ver 2 \u2014 Ian, equipe Delta"
   galleryImage: {fileID: 0}
   photoPoint: {fileID: 0}
 --- !u!114 &11400001
@@ -137,17 +170,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c67ccf0b6eb4705a52dfac6106f2163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
-  corpseName: "Cadáver 2 — Ian, equipe Delta"
+  corpseName: "Cad\xE1ver 2 \u2014 Ian, equipe Delta"
   interactionRange: 1.5
+  startsFinalFire: 0
   pages:
-  - title: "Página 1 — 21:12"
-    text: "21:12- Parece que as mutações estão em crescimento tanto em área, quanto em mutações, as deformidades observadas tanto na flora quanto na fauna parece estar tornando os seres observados mais violentos do que o normal, animais aparentam estar mais territorialistas e a floresta parece estar ficando mais densa com o passar do tempo, mais análises em andamento."
-  - title: "Página 2 — 21:56"
-    text: "21:56- Sobraram apenas dois de nós, parece que o resto do time se perdeu ou coisa pior, sei que parece loucura… mas parece que a inteligência das mutações também aumentou, mas não pode ser possível, a floresta parece que esta nos caçando e nos prendendo aqui, devo estar ficando louco tem que ser, isso não estava nos avisos mandados pela empresa , não recebi o suficiente para isso, vou procurar junto ao Leo, deve ter uma saída em algum lugar, essa floresta não está viva ,não é real."
-  photoEvidence: {fileID: 11400000}
+  - title: "P\xE1gina 1 \u2014 21:12"
+    text: "21:12- Parece que as muta\xE7\xF5es est\xE3o em crescimento tanto em \xE1rea,
+      quanto em muta\xE7\xF5es, as deformidades observadas tanto na flora quanto
+      na fauna parece estar tornando os seres observados mais violentos do que o
+      normal, animais aparentam estar mais territorialistas e a floresta parece estar
+      ficando mais densa com o passar do tempo, mais an\xE1lises em andamento."
+  - title: "P\xE1gina 2 \u2014 21:56"
+    text: "21:56- Sobraram apenas dois de n\xF3s, parece que o resto do time se perdeu
+      ou coisa pior, sei que parece loucura\u2026 mas parece que a intelig\xEAncia
+      das muta\xE7\xF5es tamb\xE9m aumentou, mas n\xE3o pode ser poss\xEDvel, a floresta
+      parece que esta nos ca\xE7ando e nos prendendo aqui, devo estar ficando louco
+      tem que ser, isso n\xE3o estava nos avisos mandados pela empresa , n\xE3o recebi
+      o suficiente para isso, vou procurar junto ao Leo, deve ter uma sa\xEDda em
+      algum lugar, essa floresta n\xE3o est\xE1 viva ,n\xE3o \xE9 real."
   promptCanvas: {fileID: 9000000000000000200}
   promptText: {fileID: 9000000000000000223}
-
+  photoEvidence: {fileID: 11400000}
 --- !u!1 &9000000000000000200
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +210,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -188,7 +230,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1.58, y: 0}
   m_SizeDelta: {x: 601, y: 338}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!223 &9000000000000000202
 Canvas:
   m_ObjectHideFlags: 0
@@ -212,7 +253,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
-
 --- !u!114 &9000000000000000203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +276,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
-
 --- !u!114 &9000000000000000204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +293,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-
 --- !u!1 &9000000000000000210
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +311,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -294,7 +331,6 @@ RectTransform:
   m_AnchoredPosition: {x: 52.9, y: 22.1}
   m_SizeDelta: {x: 64.59, y: 18.3}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000212
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -303,7 +339,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000210}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +369,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-
 --- !u!1 &9000000000000000220
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +387,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -373,7 +406,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000222
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -382,7 +414,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000220}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Examinar anotações"
+  m_text: "Examinar anota\xE7\xF5es"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
   m_sharedMaterial: {fileID: -6894112168266142605, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
@@ -475,4 +506,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-

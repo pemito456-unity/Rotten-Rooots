@@ -54,13 +54,37 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 35f8826a8ff3e9c4cb73e787973ac0fb, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: af7d5439b3af4a77948cb745f098af04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -79,6 +103,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -105,6 +130,14 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.15}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1.1, y: 0.55}
   m_EdgeRadius: 0
@@ -122,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EvidencePhotoTarget
   category: 1
   evidenceIndex: 8
-  evidenceName: "Relatório de membro da equipe de segurança"
+  evidenceName: "Cad\xE1ver 4 \u2014 Seguran\xE7a"
   galleryImage: {fileID: 0}
   photoPoint: {fileID: 0}
 --- !u!114 &11400001
@@ -137,32 +170,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c67ccf0b6eb4705a52dfac6106f2163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
-  corpseName: "Cadáver 4 — Segurança"
+  corpseName: "Cad\xE1ver 4 \u2014 Seguran\xE7a"
   interactionRange: 1.5
   startsFinalFire: 1
   pages:
-  - title: "Página 1 — 22:48"
-    text: "22:48
-
-Eu avisei a eles. Eu disse ao Chefe de Segurança que as raízes da Espécie-7 não estavam crescendo aleatoriamente para fora do vaso. Elas estavam seguindo a fiação elétrica. Buscando energia, calor.
-
-Hoje à noite, o mutagênico atingiu o sistema radicular de um carvalho próximo a zona central da contaminação . As plantas agora respondem a estímulos nervosos parecidos com os de répteis. Quando tentei podar uma amostra da Vinha V-2, o caule se contraiu e expeliu um líquido, aparentemente ácido diretamente no rosto do meu parceiro."
-  - title: "Página 2 — 22:51"
-    text: "22:51
-
-Ele ainda está gritando de dor na mata, estou carregando ele até onde posso , o resto da equipe se perdeu ou foi atacada por essas aberrações também,  mas a voz dele não soa mais como humana. Os pulmões dele devem estar se enchendo de esporos.Tenho que sair daqui, antes que me torne o próximo."
-  - title: "Página 3 — 23:05"
-    text: "23:05
-
-É provável que meu parceiro não resista,pobre coitado, mas levarei ele até o resgate mesmo que fique exausto, não consegui  contato  com o líder da equipe , mas parece que tem outros sobreviventes de outras equipes ainda vivos aqui , temos que nos reagrupar e sair daqui."
-  - title: "Página 4 — 23:12"
-    text: "23:12
-
-Ps: Recebi pelo rádio, parece que outros membros da equipe de segurança ainda estão vivos e acharam uma saída na zona c-1,deixei meu parceiro descansando atrás de uma pedra,falei que voltaria com o resgate mas acho  que os dois sabiam que isso não era verdade, vou tentar sair daqui por esse caminho com quem seja lá que tenha sobrevivido. Que Deus me ajude."
-  photoEvidence: {fileID: 11400000}
+  - title: "P\xE1gina 1 \u2014 22:48"
+    text: "22:48\nEu avisei a eles. Eu disse ao Chefe de Seguran\xE7a que as ra\xEDzes
+      da Esp\xE9cie-7 n\xE3o estavam crescendo aleatoriamente para fora do vaso.
+      Elas estavam seguindo a fia\xE7\xE3o el\xE9trica. Buscando energia, calor.\nHoje
+      \xE0 noite, o mutag\xEAnico atingiu o sistema radicular de um carvalho pr\xF3ximo
+      a zona central da contamina\xE7\xE3o . As plantas agora respondem a est\xEDmulos
+      nervosos parecidos com os de r\xE9pteis. Quando tentei podar uma amostra da
+      Vinha V-2, o caule se contraiu e expeliu um l\xEDquido, aparentemente \xE1cido
+      diretamente no rosto do meu parceiro."
+  - title: "P\xE1gina 2 \u2014 22:51"
+    text: "22:51\nEle ainda est\xE1 gritando de dor na mata, estou carregando ele
+      at\xE9 onde posso , o resto da equipe se perdeu ou foi atacada por essas aberra\xE7\xF5es
+      tamb\xE9m,  mas a voz dele n\xE3o soa mais como humana. Os pulm\xF5es dele
+      devem estar se enchendo de esporos.Tenho que sair daqui, antes que me torne
+      o pr\xF3ximo."
+  - title: "P\xE1gina 3 \u2014 23:05"
+    text: "23:05\n\xC9 prov\xE1vel que meu parceiro n\xE3o resista,pobre coitado,
+      mas levarei ele at\xE9 o resgate mesmo que fique exausto, n\xE3o consegui 
+      contato  com o l\xEDder da equipe , mas parece que tem outros sobreviventes
+      de outras equipes ainda vivos aqui , temos que nos reagrupar e sair daqui."
+  - title: "P\xE1gina 4 \u2014 23:12"
+    text: "23:12\nPs: Recebi pelo r\xE1dio, parece que outros membros da equipe de
+      seguran\xE7a ainda est\xE3o vivos e acharam uma sa\xEDda na zona c-1,deixei
+      meu parceiro descansando atr\xE1s de uma pedra,falei que voltaria com o resgate
+      mas acho  que os dois sabiam que isso n\xE3o era verdade, vou tentar sair daqui
+      por esse caminho com quem seja l\xE1 que tenha sobrevivido. Que Deus me ajude."
   promptCanvas: {fileID: 9000000000000000400}
   promptText: {fileID: 9000000000000000423}
-
+  photoEvidence: {fileID: 11400000}
 --- !u!1 &9000000000000000400
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +222,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -203,7 +242,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1.58, y: 0}
   m_SizeDelta: {x: 601, y: 338}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!223 &9000000000000000402
 Canvas:
   m_ObjectHideFlags: 0
@@ -227,7 +265,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
-
 --- !u!114 &9000000000000000403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +288,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
-
 --- !u!114 &9000000000000000404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +305,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-
 --- !u!1 &9000000000000000410
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +323,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -309,7 +343,6 @@ RectTransform:
   m_AnchoredPosition: {x: 52.9, y: 22.1}
   m_SizeDelta: {x: 64.59, y: 18.3}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000412
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -318,7 +351,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000410}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +381,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-
 --- !u!1 &9000000000000000420
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +399,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -388,7 +418,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -397,7 +426,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000420}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Examinar anotações"
+  m_text: "Examinar anota\xE7\xF5es"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
   m_sharedMaterial: {fileID: -6894112168266142605, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
@@ -490,4 +518,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-

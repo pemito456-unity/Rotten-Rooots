@@ -366,7 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::JaguarEnemy
   health: 30
   moveSpeed: 3
-  detectionRadius: 6
+  detectionRadius: 4
   damage: 25
   attackCooldown: 1
   aggroSound: {fileID: 8300000, guid: f4b23bdb2ba62854095ba5fc181914a1, type: 3}
