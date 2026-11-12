@@ -10079,6 +10079,8 @@ MonoBehaviour:
     chunkObject: {fileID: 1734214278}
     spawnPoints:
     - {fileID: 1356842527}
+    - {fileID: 1377965158}
+    - {fileID: 1210692911}
   - chunkID: C4
     chunkObject: {fileID: 393545239}
     spawnPoints:
