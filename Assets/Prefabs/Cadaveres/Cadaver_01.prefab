@@ -54,13 +54,37 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: af7d5439b3af4a77948cb745f098af04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -79,6 +103,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -105,6 +130,14 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.15}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1.1, y: 0.55}
   m_EdgeRadius: 0
@@ -122,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EvidencePhotoTarget
   category: 1
   evidenceIndex: 5
-  evidenceName: "Funcionário desconhecido"
+  evidenceName: "Cad\xE1ver 1"
   galleryImage: {fileID: 0}
   photoPoint: {fileID: 0}
 --- !u!114 &11400001
@@ -137,19 +170,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c67ccf0b6eb4705a52dfac6106f2163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
-  corpseName: "Cadáver 1"
+  corpseName: "Cad\xE1ver 1"
   interactionRange: 1.5
+  startsFinalFire: 0
   pages:
-  - title: "Página 1 — Relato do funcionário"
-    text: "A diretoria disse que seria simples. \"Despeje os resíduos na zona norte”, pague a multa insignificante e você já sabe com quem falar para não alertar a polícia ambiental. Foi o que disseram.
-
-Mas a floresta não morreu. Ela começou a mudar. O lixo tóxico não matou a fauna e a flora como nos ensinaram nos relatórios... ele deu uma nova vida a essa droga de lugar. Uma vida perversa, irracional. Os macacos e os morcegos que se alimentam da flora já não parecem mais animais comuns. E a vegetação... ela está viva demais. Se a matriz descobrir o que está acontecendo aqui embaixo, vão transformar isso em armas biológicas antes que possamos piscar."
-  - title: "Página 2 — Anotação borrada com sangue"
-    text: "Anotação borrada com sangue: Ouvi tiros perto do perímetro oeste. Estão nos caçando aparentemente, não quero morrer aqui."
-  photoEvidence: {fileID: 11400000}
+  - title: "P\xE1gina 1 \u2014 Relato do funcion\xE1rio"
+    text: "A diretoria disse que seria simples. \"Despeje os res\xEDduos na zona
+      norte\u201D, pague a multa insignificante e voc\xEA j\xE1 sabe com quem falar
+      para n\xE3o alertar a pol\xEDcia ambiental. Foi o que disseram.\nMas a floresta
+      n\xE3o morreu. Ela come\xE7ou a mudar. O lixo t\xF3xico n\xE3o matou a fauna
+      e a flora como nos ensinaram nos relat\xF3rios... ele deu uma nova vida a essa
+      droga de lugar. Uma vida perversa, irracional. Os macacos e os morcegos que
+      se alimentam da flora j\xE1 n\xE3o parecem mais animais comuns. E a vegeta\xE7\xE3o...
+      ela est\xE1 viva demais. Se a matriz descobrir o que est\xE1 acontecendo aqui
+      embaixo, v\xE3o transformar isso em armas biol\xF3gicas antes que possamos
+      piscar."
+  - title: "P\xE1gina 2 \u2014 Anota\xE7\xE3o borrada com sangue"
+    text: "Anota\xE7\xE3o borrada com sangue: Ouvi tiros perto do per\xEDmetro oeste.
+      Est\xE3o nos ca\xE7ando aparentemente, n\xE3o quero morrer aqui."
   promptCanvas: {fileID: 9000000000000000100}
   promptText: {fileID: 9000000000000000123}
-
+  photoEvidence: {fileID: 11400000}
 --- !u!1 &9000000000000000100
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +210,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -190,7 +230,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1.58, y: 0}
   m_SizeDelta: {x: 601, y: 338}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!223 &9000000000000000102
 Canvas:
   m_ObjectHideFlags: 0
@@ -214,7 +253,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
-
 --- !u!114 &9000000000000000103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +276,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
-
 --- !u!114 &9000000000000000104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +293,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-
 --- !u!1 &9000000000000000110
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +311,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000111
 RectTransform:
   m_ObjectHideFlags: 0
@@ -296,7 +331,6 @@ RectTransform:
   m_AnchoredPosition: {x: 52.9, y: 22.1}
   m_SizeDelta: {x: 64.59, y: 18.3}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000112
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -305,7 +339,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000110}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +369,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-
 --- !u!1 &9000000000000000120
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +387,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-
 --- !u!224 &9000000000000000121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -375,7 +406,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
-
 --- !u!222 &9000000000000000122
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -384,7 +414,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000000000000000120}
   m_CullTransparentMesh: 1
-
 --- !u!114 &9000000000000000123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Examinar anotações"
+  m_text: "Examinar anota\xE7\xF5es"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
   m_sharedMaterial: {fileID: -6894112168266142605, guid: 354df4b42eb92cb4daf64fd519b33fbd, type: 2}
@@ -477,4 +506,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-
