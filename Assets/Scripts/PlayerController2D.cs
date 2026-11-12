@@ -15,8 +15,6 @@ public class PlayerController2D : MonoBehaviour
     private PlayerHealth playerHealth;
     private Animator animator;
 
-    public Joystick joystick;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -101,7 +99,6 @@ public class PlayerController2D : MonoBehaviour
 
     private void Update()
     {
-        AndroidJoystickUpdate();
 
         if (animator == null)
             return;
@@ -118,25 +115,5 @@ public class PlayerController2D : MonoBehaviour
         animator.SetFloat("MoveX", facing.x);
         animator.SetFloat("MoveY", facing.y);
         animator.SetBool("IsMoving", !movementBlocked && moveInput.sqrMagnitude > 0.01f);
-    }
-
-    private void AndroidJoystickUpdate()
-    {
-        // Se houver um joystick virtual, atualize o movimento com base nele.
-        if (joystick != null)
-        {
-            Vector2 joystickInput = new(joystick.Horizontal, joystick.Vertical);
-
-            // Mantém apenas o eixo predominante para bloquear diagonais.
-            if (Mathf.Abs(joystickInput.x) > Mathf.Abs(joystickInput.y))
-                moveInput = new Vector2(Mathf.Sign(joystickInput.x), 0f);
-            else if (Mathf.Abs(joystickInput.y) > 0.01f)
-                moveInput = new Vector2(0f, Mathf.Sign(joystickInput.y));
-            else
-                moveInput = Vector2.zero;
-
-            if (moveInput != Vector2.zero)
-                lastFacingDirection = moveInput;
-        }
     }
 }
