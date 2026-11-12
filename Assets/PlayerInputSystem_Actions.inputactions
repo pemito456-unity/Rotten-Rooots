@@ -275,6 +275,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5a52fc39-c136-44aa-94e7-bc7e25b9e134",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1c04ea5f-b012-41d1-a6f7-02e963b52893",
                     "path": "<Keyboard>/f",
                     "interactions": "",
