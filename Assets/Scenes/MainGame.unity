@@ -8418,7 +8418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &463315734
 Transform:
   m_ObjectHideFlags: 0
@@ -15186,7 +15186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &945838518
 Transform:
   m_ObjectHideFlags: 0
@@ -24428,6 +24428,7 @@ MonoBehaviour:
     spawnPoints:
     - {fileID: 1167071167}
     - {fileID: 1100377650}
+    - {fileID: 1138100777}
   - chunkID: B3
     chunkObject: {fileID: 129193000}
     spawnPoints:
