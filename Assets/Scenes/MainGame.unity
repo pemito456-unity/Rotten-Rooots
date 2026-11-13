@@ -172,6 +172,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &2270226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -568,6 +570,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &13526203
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2639,6 +2643,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &160052123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3813,6 +3819,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &226342553
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4609,6 +4617,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &288146148
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6291,6 +6301,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &373995748
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8802,6 +8814,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &470866868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9608,6 +9622,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &565772033
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9810,6 +9826,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &579383500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10958,6 +10976,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &649714035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11264,6 +11284,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &653430755
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11500,6 +11522,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &678322643
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12653,6 +12677,7 @@ GameObject:
   - component: {fileID: 749673587}
   - component: {fileID: 749673589}
   - component: {fileID: 749673588}
+  - component: {fileID: 7700000000000000100}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -12806,6 +12831,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &784066353
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13188,7 +13215,9 @@ MonoBehaviour:
   wrathThresholdPercent: 60
   passageBlockerId: C1-SAIDA
   hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-  blockerOnlyRemovableByKit: 0
+  blockerOnlyRemovableByKit: 1
+  blockerCannotBeRemovedByKit: 1
+  isFinalEndingExit: 1
 --- !u!61 &829738484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13421,6 +13450,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &842050044
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13520,6 +13551,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &849864566
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14563,6 +14596,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &887725449
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17667,6 +17702,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1134631792
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19002,6 +19039,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1235199623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19207,6 +19246,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1240657742
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19579,6 +19620,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1250790259
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20453,6 +20496,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1265094838
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21225,6 +21270,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1308603838
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22279,6 +22326,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1376086438
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22806,6 +22855,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1424807414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25384,6 +25435,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1589305909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25780,6 +25833,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1590919423
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26331,6 +26386,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &1680713417
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31416,6 +31473,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &2008012851
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31515,6 +31574,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &2008250840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32876,6 +32937,8 @@ MonoBehaviour:
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
   blockerOnlyRemovableByKit: 0
+  blockerCannotBeRemovedByKit: 0
+  isFinalEndingExit: 0
 --- !u!61 &2065098792
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -35960,7 +36023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea4a61c07df4e84ab251ae8858b0c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalFireSequence
-  escapeTimeLimit: 120
+  escapeTimeLimit: 1.0083333
   secondFireStageChunkID: D2
   escapeChunkID: C1
   gameplayTracks:
@@ -35996,13 +36059,10 @@ MonoBehaviour:
   startingPulseSpeed: 1.2
   maximumPulseSpeed: 3.8
   urgencyWindowSeconds: 40
-  goodEndingRevealDelay: 0.75
-  goodEndingTitle: "VOC\xCA ESCAPOU"
-  goodEndingMessage: "Voc\xEA alcan\xE7ou a rota de fuga em C1 antes que o inc\xEAndio
-    tomasse a reserva."
-  badEndingTitle: FIM DE JOGO
-  badEndingMessage: "O inc\xEAndio consumiu a reserva antes que voc\xEA alcan\xE7asse
-    C1."
+  goodEndingSceneName: GoodEnding
+  badEndingSceneName: BadEnding
+  endingFadeGroup: {fileID: 7700000000000000100}
+  endingFadeDuration: 1.2
 --- !u!1 &6500000000000000001
 GameObject:
   m_ObjectHideFlags: 0
@@ -40176,6 +40236,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7700000000000000100
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749673586}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &8000000000000001000
 GameObject:
   m_ObjectHideFlags: 0

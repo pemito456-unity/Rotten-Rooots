@@ -189,8 +189,7 @@ public class PlayerCombatAndItems : MonoBehaviour
             return;
 
         ArvoreSinistra nearbyTree = FindNearbyTreeForKit();
-        if (nearbyTree != null)
-            nearbyTree.DispelByKit();
+        bool treeRemoved = nearbyTree != null && nearbyTree.DispelByKit();
 
         kitSlot.amount--;
 
@@ -202,9 +201,12 @@ public class PlayerCombatAndItems : MonoBehaviour
 
         inventory.RefreshInventoryUI();
 
-        Debug.Log(nearbyTree != null
-            ? "Kit de descontaminação usado. A árvore sinistra foi removida e a ira diminuiu."
-            : "Kit usado. A ira da floresta diminuiu.");
+        if (treeRemoved)
+            Debug.Log("Kit de descontaminação usado. A árvore sinistra foi removida e a ira diminuiu.");
+        else if (nearbyTree != null)
+            Debug.Log("Kit usado. A ira diminuiu, mas esta árvore sinistra não pode ser removida.");
+        else
+            Debug.Log("Kit usado. A ira da floresta diminuiu.");
     }
 
     private void TryUseMedKit(InventorySlotData medKitSlot)

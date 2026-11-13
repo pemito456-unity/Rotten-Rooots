@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Controla o incêndio final.
@@ -53,16 +56,11 @@ public class FinalFireSequence : MonoBehaviour
     [SerializeField, Min(0f)] private float maximumPulseSpeed = 3.8f;
     [SerializeField, Min(1f)] private float urgencyWindowSeconds = 40f;
 
-    [Header("Telas finais")]
-    [SerializeField, Min(0f)] private float goodEndingRevealDelay = 0.75f;
-    [SerializeField] private string goodEndingTitle = "VOCÊ ESCAPOU";
-    [TextArea(2, 4)]
-    [SerializeField] private string goodEndingMessage =
-        "Você alcançou a rota de fuga em C1 antes que o incêndio tomasse a reserva.";
-    [SerializeField] private string badEndingTitle = "FIM DE JOGO";
-    [TextArea(2, 4)]
-    [SerializeField] private string badEndingMessage =
-        "O incêndio consumiu a reserva antes que você alcançasse C1.";
+    [Header("Transição para as cenas finais")]
+    [SerializeField] private string goodEndingSceneName = "GoodEnding";
+    [SerializeField] private string badEndingSceneName = "BadEnding";
+    [SerializeField] private CanvasGroup endingFadeGroup;
+    [SerializeField, Min(0f)] private float endingFadeDuration = 1.2f;
 
     private readonly HashSet<string> burningChunks = new HashSet<string>();
     private readonly List<FlameVisual> flameVisuals = new List<FlameVisual>();
@@ -184,8 +182,21 @@ public class FinalFireSequence : MonoBehaviour
             return;
         }
 
-        if (currentChunk == escapeChunkID)
-            TriggerEnding(true);
+    }
+
+    /// <summary>Chamado pela saída de C1 quando o jogador tenta atravessá-la.</summary>
+    public void ResolveFinalExitAttempt(bool passageBlocked)
+    {
+        if (!IsSequenceActive)
+            return;
+
+        if (chunkManager == null)
+            chunkManager = ChunkManager.Instance;
+
+        if (chunkManager == null || chunkManager.CurrentChunkID != escapeChunkID)
+            return;
+
+        TriggerEnding(!passageBlocked);
     }
 
     private void SetupMusic()
@@ -425,23 +436,62 @@ public class FinalFireSequence : MonoBehaviour
         outcomeTriggered = true;
         StopScreenWarning();
         StopMusic();
+        StartCoroutine(FadeAndLoadEnding(escaped));
+    }
 
-        if (GameOverController.Instance == null)
+    private IEnumerator FadeAndLoadEnding(bool escaped)
+    {
+        Time.timeScale = 1f;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            Debug.LogError("FinalFireSequence: GameOverController não foi encontrado.", this);
-            return;
+            PlayerController2D controller = player.GetComponent<PlayerController2D>();
+            if (controller != null)
+                controller.enabled = false;
+
+            PlayerInput playerInput = player.GetComponent<PlayerInput>();
+            if (playerInput != null)
+                playerInput.enabled = false;
+
+            Rigidbody2D body = player.GetComponent<Rigidbody2D>();
+            if (body != null)
+                body.linearVelocity = Vector2.zero;
         }
 
-        if (escaped)
+        if (endingFadeGroup != null)
         {
-            GameOverController.Instance.TriggerEnding(
-                goodEndingTitle, goodEndingMessage, false, goodEndingRevealDelay);
+            // Reaproveita o painel preto da hierarquia, escondendo seus textos e botões.
+            for (int i = 0; i < endingFadeGroup.transform.childCount; i++)
+                endingFadeGroup.transform.GetChild(i).gameObject.SetActive(false);
+
+            endingFadeGroup.gameObject.SetActive(true);
+            endingFadeGroup.alpha = 0f;
+            endingFadeGroup.interactable = false;
+            endingFadeGroup.blocksRaycasts = true;
+
+            float elapsed = 0f;
+            while (elapsed < endingFadeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float progress = endingFadeDuration <= 0f ? 1f : Mathf.Clamp01(elapsed / endingFadeDuration);
+                endingFadeGroup.alpha = Mathf.SmoothStep(0f, 1f, progress);
+                yield return null;
+            }
+
+            endingFadeGroup.alpha = 1f;
         }
-        else
+
+        string sceneName = escaped ? goodEndingSceneName : badEndingSceneName;
+        if (string.IsNullOrWhiteSpace(sceneName))
         {
-            GameOverController.Instance.TriggerEnding(
-                badEndingTitle, badEndingMessage, true, 0f);
+            Debug.LogError("FinalFireSequence: nome da cena final não foi configurado.", this);
+            yield break;
         }
+
+        AsyncOperation load = SceneManager.LoadSceneAsync(sceneName);
+        if (load == null)
+            Debug.LogError($"FinalFireSequence: não foi possível carregar a cena '{sceneName}'.", this);
     }
 
     private static void EnsureFlameSprite()

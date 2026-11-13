@@ -27,6 +27,8 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     public bool isPassageBlocker;
     [Tooltip("Quando ativo, arma de fogo e faca não causam dano; só o kit remove a árvore.")]
     public bool onlyRemovableByKit;
+    [Tooltip("Bloqueios permanentes não podem ser removidos nem pelo kit.")]
+    public bool cannotBeRemovedByKit;
     private string passageId;
     private bool isBeingRemoved;
 
@@ -165,17 +167,22 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
             DestroyTree();
     }
 
-    public void ConfigureAsPassageBlocker(string id, bool kitOnly)
+    public void ConfigureAsPassageBlocker(string id, bool kitOnly, bool cannotBeRemovedByKit)
     {
         isPassageBlocker = true;
         passageId = id;
         onlyRemovableByKit = kitOnly;
+        this.cannotBeRemovedByKit = cannotBeRemovedByKit;
     }
 
     public bool DispelByKit()
     {
-        if (isBeingRemoved)
+        if (isBeingRemoved || cannotBeRemovedByKit)
+        {
+            if (cannotBeRemovedByKit)
+                Debug.Log("[Árvore Sinistra] Este bloqueio é permanente e não pode ser removido pelo kit.");
             return false;
+        }
 
         RemoveTree(false);
         return true;

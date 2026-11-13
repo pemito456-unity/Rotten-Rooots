@@ -17,8 +17,14 @@ public class ChunkDoorTrigger : MonoBehaviour
     [Tooltip("Use o mesmo ID nos dois lados da passagem, por exemplo C3-C4.")]
     public string passageBlockerId;
     public GameObject hostileTreePrefab;
-    [Tooltip("Ative apenas na árvore especial de 60%, que só pode ser removida com kit.")]
+    [Tooltip("Armas e faca não causam dano; se o kit também não puder remover, ligue a opção permanente abaixo.")]
     public bool blockerOnlyRemovableByKit;
+    [Tooltip("Impede que o kit remova a árvore deste bloqueio.")]
+    public bool blockerCannotBeRemovedByKit;
+
+    [Header("Saída final")]
+    [Tooltip("Este trigger decide o final em vez de trocar de chunk.")]
+    public bool isFinalEndingExit;
 
     private bool playerInside = false;
     private bool waitingAtBlockedPassage;
@@ -70,6 +76,14 @@ public class ChunkDoorTrigger : MonoBehaviour
         {
             waitingAtBlockedPassage = true;
             LogBlockedNotice();
+            if (isFinalEndingExit)
+                ResolveFinalExitAttempt();
+            return;
+        }
+
+        if (isFinalEndingExit)
+        {
+            ResolveFinalExitAttempt();
             return;
         }
 
@@ -78,11 +92,28 @@ public class ChunkDoorTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (isFinalEndingExit)
+        {
+            if (FinalFireSequence.Instance != null && FinalFireSequence.Instance.IsSequenceActive)
+                ResolveFinalExitAttempt();
+            return;
+        }
+
         // Permite atravessar logo que a árvore seja removida, sem exigir que o jogador
         // saia e entre novamente no trigger.
-        if (other.CompareTag("Player") && waitingAtBlockedPassage &&
-            !playerInside && !IsPassageBlocked)
+        if (waitingAtBlockedPassage && !playerInside && !IsPassageBlocked)
             TryTransition(spawnPointIndex);
+    }
+
+    private void ResolveFinalExitAttempt()
+    {
+        if (FinalFireSequence.Instance == null)
+            return;
+
+        FinalFireSequence.Instance.ResolveFinalExitAttempt(IsPassageBlocked);
     }
 
     private void TryTransition(int spawnPointIndex)
@@ -107,7 +138,8 @@ public class ChunkDoorTrigger : MonoBehaviour
         if (blockedNoticeShown)
             return;
 
-        Debug.Log($"A passagem para {targetChunkID} está bloqueada por uma árvore sinistra!");
+        string destination = isFinalEndingExit ? "a saída final" : $"a chunk {targetChunkID}";
+        Debug.Log($"A passagem para {destination} está bloqueada por uma árvore sinistra!");
         blockedNoticeShown = true;
     }
 
@@ -184,7 +216,8 @@ public class ChunkDoorTrigger : MonoBehaviour
 
         spawnedBlocker.ConfigureAsPassageBlocker(
             passageBlockerId,
-            blockerOnlyRemovableByKit
+            blockerOnlyRemovableByKit,
+            blockerCannotBeRemovedByKit
         );
     }
 }
