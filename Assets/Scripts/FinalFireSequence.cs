@@ -15,7 +15,7 @@ public class FinalFireSequence : MonoBehaviour
     public static FinalFireSequence Instance { get; private set; }
 
     [Header("Rota e tempo")]
-    [SerializeField, Min(1f)] private float escapeTimeLimit = 120f;
+    [SerializeField, Min(1f)] private float escapeTimeLimit = 90f;
     [SerializeField] private string secondFireStageChunkID = "D2";
     [SerializeField] private string escapeChunkID = "C1";
 
@@ -137,7 +137,7 @@ public class FinalFireSequence : MonoBehaviour
             SetChunkBurning(chunkID);
 
         UpdateScreenWarning();
-        Debug.Log("Incêndio final iniciado. O jogador tem 2 minutos para chegar à chunk C1.", this);
+        Debug.Log("Incêndio final iniciado. O jogador tem 90 segundos (1 minuto e 30 segundos) para escapar.", this);
     }
 
     private void Update()
@@ -175,7 +175,7 @@ public class FinalFireSequence : MonoBehaviour
 
         UpdateScreenWarning();
 
-        // A condição de derrota vence se o prazo terminar antes da chegada a C1.
+        // Se o tempo acabar antes da fuga, o fogo alcança o jornalista.
         if (elapsedTime >= escapeTimeLimit)
         {
             TriggerEnding(false);
