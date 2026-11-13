@@ -333,7 +333,7 @@ MonoBehaviour:
   interactionRange: 1.5
   startsFinalFire: 0
   pages:
-  - title: "P\xE1gina 1 \u2014 Relato do funcion\xE1rio"
+  - title: 
     text: "A diretoria disse que seria simples. \"Despeje os res\xEDduos na zona
       norte\u201D, pague a multa insignificante e voc\xEA j\xE1 sabe com quem falar
       para n\xE3o alertar a pol\xEDcia ambiental. Foi o que disseram.\nMas a floresta
@@ -344,9 +344,9 @@ MonoBehaviour:
       ela est\xE1 viva demais. Se a matriz descobrir o que est\xE1 acontecendo aqui
       embaixo, v\xE3o transformar isso em armas biol\xF3gicas antes que possamos
       piscar."
-  - title: "P\xE1gina 2 \u2014 Anota\xE7\xE3o borrada com sangue"
-    text: "Anota\xE7\xE3o borrada com sangue: Ouvi tiros perto do per\xEDmetro oeste.
-      Est\xE3o nos ca\xE7ando aparentemente, n\xE3o quero morrer aqui."
+  - title: 
+    text: "Ouvi tiros perto do per\xEDmetro oeste. Est\xE3o nos ca\xE7ando aparentemente,
+      n\xE3o quero morrer aqui."
   promptCanvas: {fileID: 9000000000000000100}
   promptText: {fileID: 9000000000000000123}
   photoEvidence: {fileID: 11400000}

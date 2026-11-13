@@ -174,7 +174,7 @@ MonoBehaviour:
   interactionRange: 1.5
   startsFinalFire: 1
   pages:
-  - title: "P\xE1gina 1 \u2014 22:48"
+  - title: 
     text: "22:48\nEu avisei a eles. Eu disse ao Chefe de Seguran\xE7a que as ra\xEDzes
       da Esp\xE9cie-7 n\xE3o estavam crescendo aleatoriamente para fora do vaso.
       Elas estavam seguindo a fia\xE7\xE3o el\xE9trica. Buscando energia, calor.\nHoje
@@ -183,18 +183,18 @@ MonoBehaviour:
       nervosos parecidos com os de r\xE9pteis. Quando tentei podar uma amostra da
       Vinha V-2, o caule se contraiu e expeliu um l\xEDquido, aparentemente \xE1cido
       diretamente no rosto do meu parceiro."
-  - title: "P\xE1gina 2 \u2014 22:51"
+  - title: 
     text: "22:51\nEle ainda est\xE1 gritando de dor na mata, estou carregando ele
       at\xE9 onde posso , o resto da equipe se perdeu ou foi atacada por essas aberra\xE7\xF5es
       tamb\xE9m,  mas a voz dele n\xE3o soa mais como humana. Os pulm\xF5es dele
       devem estar se enchendo de esporos.Tenho que sair daqui, antes que me torne
       o pr\xF3ximo."
-  - title: "P\xE1gina 3 \u2014 23:05"
+  - title: 
     text: "23:05\n\xC9 prov\xE1vel que meu parceiro n\xE3o resista,pobre coitado,
       mas levarei ele at\xE9 o resgate mesmo que fique exausto, n\xE3o consegui 
       contato  com o l\xEDder da equipe , mas parece que tem outros sobreviventes
       de outras equipes ainda vivos aqui , temos que nos reagrupar e sair daqui."
-  - title: "P\xE1gina 4 \u2014 23:12"
+  - title: 
     text: "23:12\nPs: Recebi pelo r\xE1dio, parece que outros membros da equipe de
       seguran\xE7a ainda est\xE3o vivos e acharam uma sa\xEDda na zona c-1,deixei
       meu parceiro descansando atr\xE1s de uma pedra,falei que voltaria com o resgate

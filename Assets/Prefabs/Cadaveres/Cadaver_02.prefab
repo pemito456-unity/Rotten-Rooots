@@ -174,13 +174,13 @@ MonoBehaviour:
   interactionRange: 1.5
   startsFinalFire: 0
   pages:
-  - title: "P\xE1gina 1 \u2014 21:12"
+  - title: 
     text: "21:12- Parece que as muta\xE7\xF5es est\xE3o em crescimento tanto em \xE1rea,
       quanto em muta\xE7\xF5es, as deformidades observadas tanto na flora quanto
       na fauna parece estar tornando os seres observados mais violentos do que o
       normal, animais aparentam estar mais territorialistas e a floresta parece estar
       ficando mais densa com o passar do tempo, mais an\xE1lises em andamento."
-  - title: "P\xE1gina 2 \u2014 21:56"
+  - title: 
     text: "21:56- Sobraram apenas dois de n\xF3s, parece que o resto do time se perdeu
       ou coisa pior, sei que parece loucura\u2026 mas parece que a intelig\xEAncia
       das muta\xE7\xF5es tamb\xE9m aumentou, mas n\xE3o pode ser poss\xEDvel, a floresta
