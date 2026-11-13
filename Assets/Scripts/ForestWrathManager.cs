@@ -10,8 +10,10 @@ public class ForestWrathManager : MonoBehaviour
 
     [Header("Configurações de Ira")]
     public float maxWrath = 100f;
-    [Tooltip("Imagem Filled da árvore. A árvore esvazia conforme a ira aumenta.")]
-    public Image wrathFillImage;
+    [Tooltip("Imagem que mostra o estado atual da ira da floresta.")]
+    public Image wrathLevelImage;
+    [Tooltip("Sprites em ordem: níveis de ira 1 a 5 (0–19%, 20–39%, 40–59%, 60–79%, 80–100%).")]
+    public Sprite[] wrathLevelSprites = new Sprite[5];
     public TextMeshProUGUI wrathText;
 
     // --- DADO PERSISTENTE ENTRE CENAS ---
@@ -106,21 +108,21 @@ public class ForestWrathManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        float wrathRatio = 0f;
+        float wrathPercent = 0f;
         if (maxWrath > 0f)
-            wrathRatio = Mathf.Clamp01(persistentWrath / maxWrath);
+            wrathPercent = Mathf.Clamp01(persistentWrath / maxWrath) * 100f;
 
-        if (wrathFillImage != null)
-            wrathFillImage.fillAmount = 1f - wrathRatio;
+        if (wrathLevelImage != null && wrathLevelSprites != null && wrathLevelSprites.Length > 0)
+        {
+            int levelIndex = Mathf.Clamp(Mathf.FloorToInt(wrathPercent / 20f), 0, 4);
+            if (levelIndex < wrathLevelSprites.Length && wrathLevelSprites[levelIndex] != null)
+                wrathLevelImage.sprite = wrathLevelSprites[levelIndex];
+        }
 
         if (wrathText != null)
         {
             wrathText.text = $"{Mathf.RoundToInt(persistentWrath)}%";
         }
-
-        float wrathPercent = 0f;
-        if (maxWrath > 0f)
-            wrathPercent = Mathf.Clamp01(persistentWrath / maxWrath) * 100f;
 
         if (persistentWrath >= maxWrath && GameOverController.Instance != null)
             GameOverController.Instance.TriggerGameOver();

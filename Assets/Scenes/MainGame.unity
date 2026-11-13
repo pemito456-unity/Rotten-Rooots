@@ -6974,7 +6974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &393545240
 Transform:
   m_ObjectHideFlags: 0
@@ -13136,6 +13136,105 @@ Transform:
   m_Children: []
   m_Father: {fileID: 463315734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &829738481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 829738482}
+  - component: {fileID: 829738484}
+  - component: {fileID: 829738483}
+  m_Layer: 0
+  m_Name: C1_Saida
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &829738482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829738481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 5.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1014621206}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &829738483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829738481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383be088d880f4244bf69735f21264b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChunkDoorTrigger
+  targetChunkID: 
+  spawnPointIndex: 0
+  isLocked: 0
+  useWrathBlocker: 1
+  wrathThresholdPercent: 50
+  passageBlockerId: C1-SAIDA
+  hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
+  blockerOnlyRemovableByKit: 0
+--- !u!61 &829738484
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829738481}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.26602733, y: 0.18216884}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 3.737769, y: 2.834007}
+  m_EdgeRadius: 0
 --- !u!1 &835263661
 GameObject:
   m_ObjectHideFlags: 0
@@ -16011,7 +16110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1014621206
 Transform:
   m_ObjectHideFlags: 0
@@ -16027,6 +16126,7 @@ Transform:
   m_Children:
   - {fileID: 61977244}
   - {fileID: 1308603836}
+  - {fileID: 829738482}
   - {fileID: 1421699418}
   - {fileID: 1223594368}
   - {fileID: 789134555}
@@ -24336,7 +24436,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1532490237}
   - component: {fileID: 1532490238}
-  - component: {fileID: 1532490239}
   m_Layer: 0
   m_Name: ForestWrathManager
   m_TagString: Untagged
@@ -24372,22 +24471,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
   maxWrath: 100
-  wrathFillImage: {fileID: 7000000000000006003}
-  wrathText: {fileID: 0}
---- !u!114 &1532490239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532490236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9f87b3826478a499f571914de3622d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
-  maxWrath: 100
-  wrathFillImage: {fileID: 7000000000000006003}
+  wrathLevelImage: {fileID: 7000000000000006003}
+  wrathLevelSprites:
+  - {fileID: 21300000, guid: 3d9de3b8dd003af43a6a9b9e154216aa, type: 3}
+  - {fileID: 21300000, guid: 45a9ede4a0725cb4997c086e495a1352, type: 3}
+  - {fileID: 21300000, guid: 0cdf8462ce8b6884e849285e932190ef, type: 3}
+  - {fileID: 21300000, guid: 5c1d565f3e2c89748ba5df0136d7ea30, type: 3}
+  - {fileID: 21300000, guid: fa9e2972929c68e42914f1e8c39f6efe, type: 3}
   wrathText: {fileID: 0}
 --- !u!1 &1550453482
 GameObject:
@@ -40023,7 +40113,7 @@ GameObject:
   - component: {fileID: 7000000000000006002}
   - component: {fileID: 7000000000000006003}
   m_Layer: 5
-  m_Name: WrathTreeFill
+  m_Name: WrathLevelImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40077,7 +40167,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 3d9de3b8dd003af43a6a9b9e154216aa, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 1
