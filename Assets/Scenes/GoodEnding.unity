@@ -239,18 +239,19 @@ RectTransform:
   m_GameObject: {fileID: 6000000000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6000000011}
+  - {fileID: 6000000201}
   - {fileID: 6000000021}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!223 &6000000002
 Canvas:
   m_ObjectHideFlags: 0
@@ -284,7 +285,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
@@ -307,14 +308,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-
 --- !u!1 &6000000010
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -390,7 +390,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-
 --- !u!1 &6000000020
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +423,7 @@ RectTransform:
   m_Father: {fileID: 6000000001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08, y: 0.08}
-  m_AnchorMax: {x: 0.92, y: 0.92}
+  m_AnchorMax: {x: 0.92, y: 0.66}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -446,7 +445,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -456,7 +455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ""
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
@@ -478,7 +477,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -528,7 +527,79 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
-
+--- !u!1 &6000000030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6000000031}
+  - component: {fileID: 6000000032}
+  m_Layer: 0
+  m_Name: GoodEndingSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6000000031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000000030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6000000032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000000030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2a8df20bca4f019d64c21c6c885c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoodEndingSequence
+  dialogueText: {fileID: 6000000023}
+  charactersPerSecond: 28
+  endingLines:
+  - text: "Jornalista: Eu consegui\u2026 Argh! Eu sa\xED! Eu sa\xED daquele inferno!"
+    pauseAfter: 1.6
+  - text: "Jornalista: C-1 ao norte\u2026 Aquele coitado n\xE3o mentiu no relat\xF3rio.
+      Se n\xE3o fosse por ele, eu teria virado cinzas junto com o resto das v\xEDtimas
+      da Poison Tech."
+    pauseAfter: 1.8
+  - text: "Jornalista: Podem jogar todo o napalm do mundo, seus desgra\xE7ados\u2026
+      N\xE3o vai adiantar nada! Podem queimar a floresta, podem encobrir os corpos,
+      mas n\xE3o v\xE3o apagar isso aqui!"
+    pauseAfter: 1.8
+  - text: "Jornalista: Eles achavam que tudo viraria \u201Cperda colateral\u201D.
+      Acharam que podiam matar a flora, matar a pr\xF3pria equipe de seguran\xE7a
+      e fingir que nada aconteceu. Que os monstros eram as criaturas l\xE1 dentro\u2026
+      Quando os verdadeiros monstros vestem terno e gravata."
+    pauseAfter: 2
+  - text: "Jornalista: Est\xE1 tudo documentado. As fotos das muta\xE7\xF5es, os
+      corpos, os relat\xF3rios confidenciais\u2026 O mundo inteiro vai saber o que
+      a Poison Tech fez! N\xE3o sou mais um corpo naquela terra. N\xE3o virei parte
+      da flora maldita deles. Eu sobrevivi."
+    pauseAfter: 0
+  typingAudioSource: {fileID: 6000000043}
+  typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}
+  sfxMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
+  typingVolume: 0.65
+  silenceBeforeMenu: 2
+  menuSceneName: Menu
 --- !u!1 &6000000040
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +729,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &6000000030
+--- !u!1 &6000000200
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -666,61 +737,73 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6000000031}
-  - component: {fileID: 6000000032}
-  m_Layer: 0
-  m_Name: GoodEndingSequence
+  - component: {fileID: 6000000201}
+  - component: {fileID: 6000000202}
+  - component: {fileID: 6000000203}
+  m_Layer: 5
+  m_Name: JornalistaIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6000000031
-Transform:
+--- !u!224 &6000000201
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000000030}
-  serializedVersion: 2
+  m_GameObject: {fileID: 6000000200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6000000001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6000000032
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -260}
+  m_SizeDelta: {x: 140, y: 270}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &6000000202
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000000200}
+  m_CullTransparentMesh: 1
+--- !u!114 &6000000203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000000030}
+  m_GameObject: {fileID: 6000000200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f2a8df20bca4f019d64c21c6c885c12, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::GoodEndingSequence
-  dialogueText: {fileID: 6000000023}
-  charactersPerSecond: 28
-  endingLines:
-  - text: "Jornalista: Eu consegui… Argh! Eu saí! Eu saí daquele inferno!"
-    pauseAfter: 1.6
-  - text: "Jornalista: C-1 ao norte… Aquele coitado não mentiu no relatório. Se não fosse por ele, eu teria virado cinzas junto com o resto das vítimas da Poison Tech."
-    pauseAfter: 1.8
-  - text: "Jornalista: Podem jogar todo o napalm do mundo, seus desgraçados… Não vai adiantar nada! Podem queimar a floresta, podem encobrir os corpos, mas não vão apagar isso aqui!"
-    pauseAfter: 1.8
-  - text: "Jornalista: Eles achavam que tudo viraria “perda colateral”. Acharam que podiam matar a flora, matar a própria equipe de segurança e fingir que nada aconteceu. Que os monstros eram as criaturas lá dentro… Quando os verdadeiros monstros vestem terno e gravata."
-    pauseAfter: 2
-  - text: "Jornalista: Está tudo documentado. As fotos das mutações, os corpos, os relatórios confidenciais… O mundo inteiro vai saber o que a Poison Tech fez! Não sou mais um corpo naquela terra. Não virei parte da flora maldita deles. Eu sobrevivi."
-    pauseAfter: 0
-  typingAudioSource: {fileID: 6000000043}
-  typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}
-  sfxMixerGroup: {fileID: 24300008, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
-  typingVolume: 0.65
-  silenceBeforeMenu: 2
-  menuSceneName: Menu
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: e7d96a3b78727c949b172e1dc7457dd6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
