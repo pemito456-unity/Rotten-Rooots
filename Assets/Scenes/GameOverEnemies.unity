@@ -574,9 +574,9 @@ MonoBehaviour:
   dialogueText: {fileID: 6000000023}
   charactersPerSecond: 28
   endingLines:
-  - text: "Jornalista: Argh\u2026 esse machucado, est\u00e1 queimando como \u00e1cido, meu corpo est\u00e1\u2026 n\u00e3o posso acabar assim\u2026 por favor\u2026"
+  - text: "Argh\u2026 esse machucado, est\u00e1 queimando como \u00e1cido, meu corpo est\u00e1\u2026 n\u00e3o posso acabar assim\u2026 por favor\u2026"
     pauseAfter: 1.7
-  - text: "Jornalista: Ahh\u2026 n\u00e3o pode ser\u2026 d\u00f3i muito\u2026 essas coisas\u2026 n\u00e3o posso morrer aqui com eles\u2026 n\u00e3o\u2026"
+  - text: "Ahh\u2026 n\u00e3o pode ser\u2026 d\u00f3i muito\u2026 essas coisas\u2026 n\u00e3o posso morrer aqui com eles\u2026 n\u00e3o\u2026"
     pauseAfter: 0
   typingAudioSource: {fileID: 6000000043}
   typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}

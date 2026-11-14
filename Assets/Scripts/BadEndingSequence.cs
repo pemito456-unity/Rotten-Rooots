@@ -26,7 +26,7 @@ public class BadEndingSequence : MonoBehaviour
     {
         new EndingBeat
         {
-            text = "Jornalista: Não... Não, não, não! O setor C-1... era logo ali! Por que o caminho está bloqueado? Essa vegetação... ela cresceu de novo, mais rápido do que deveria! Parece que está... me bloqueando de propósito.",
+            text = "Não... Não, não, não! O setor C-1... era logo ali! Por que o caminho está bloqueado? Essa vegetação... ela cresceu de novo, mais rápido do que deveria! Parece que está... me bloqueando de propósito.",
             pauseAfter = 1.6f
         },
         new EndingBeat
@@ -38,7 +38,7 @@ public class BadEndingSequence : MonoBehaviour
         },
         new EndingBeat
         {
-            text = "Jornalista: Eu consegui... Os relatórios estão aqui. As fotos da mutação, os crimes da Poison Tech... está tudo gravado. O mundo finalmente ia saber o que eles fizeram...",
+            text = "Eu consegui... Os relatórios estão aqui. As fotos da mutação, os crimes da Poison Tech... está tudo gravado. O mundo finalmente ia saber o que eles fizeram...",
             pauseAfter = 1.6f
         },
         new EndingBeat
@@ -47,7 +47,7 @@ public class BadEndingSequence : MonoBehaviour
         },
         new EndingBeat
         {
-            text = "Jornalista: Então é isso. Nenhuma saída. O plano deles funcionou perfeitamente: a floresta vai queimar, as provas vão virar cinzas... e eu também. Vão dizer que fui apenas mais um aventureiro imprudente, uma perda colateral.",
+            text = "Então é isso. Nenhuma saída. O plano deles funcionou perfeitamente: a floresta vai queimar, as provas vão virar cinzas... e eu também. Vão dizer que fui apenas mais um aventureiro imprudente, uma perda colateral.",
             pauseAfter = 0f
         }
     };

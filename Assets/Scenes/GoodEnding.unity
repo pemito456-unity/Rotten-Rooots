@@ -574,22 +574,22 @@ MonoBehaviour:
   dialogueText: {fileID: 6000000023}
   charactersPerSecond: 28
   endingLines:
-  - text: "Jornalista: Eu consegui\u2026 Argh! Eu sa\xED! Eu sa\xED daquele inferno!"
+  - text: "Eu consegui\u2026 Argh! Eu sa\xED! Eu sa\xED daquele inferno!"
     pauseAfter: 1.6
-  - text: "Jornalista: C-1 ao norte\u2026 Aquele coitado n\xE3o mentiu no relat\xF3rio.
+  - text: "C-1 ao norte\u2026 Aquele coitado n\xE3o mentiu no relat\xF3rio.
       Se n\xE3o fosse por ele, eu teria virado cinzas junto com o resto das v\xEDtimas
       da Poison Tech."
     pauseAfter: 1.8
-  - text: "Jornalista: Podem jogar todo o napalm do mundo, seus desgra\xE7ados\u2026
+  - text: "Podem jogar todo o napalm do mundo, seus desgra\xE7ados\u2026
       N\xE3o vai adiantar nada! Podem queimar a floresta, podem encobrir os corpos,
       mas n\xE3o v\xE3o apagar isso aqui!"
     pauseAfter: 1.8
-  - text: "Jornalista: Eles achavam que tudo viraria \u201Cperda colateral\u201D.
+  - text: "Eles achavam que tudo viraria \u201Cperda colateral\u201D.
       Acharam que podiam matar a flora, matar a pr\xF3pria equipe de seguran\xE7a
       e fingir que nada aconteceu. Que os monstros eram as criaturas l\xE1 dentro\u2026
       Quando os verdadeiros monstros vestem terno e gravata."
     pauseAfter: 2
-  - text: "Jornalista: Est\xE1 tudo documentado. As fotos das muta\xE7\xF5es, os
+  - text: "Est\xE1 tudo documentado. As fotos das muta\xE7\xF5es, os
       corpos, os relat\xF3rios confidenciais\u2026 O mundo inteiro vai saber o que
       a Poison Tech fez! N\xE3o sou mais um corpo naquela terra. N\xE3o virei parte
       da flora maldita deles. Eu sobrevivi."

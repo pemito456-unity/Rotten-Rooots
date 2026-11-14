@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>Mostra a introdução da história antes de iniciar a gameplay.</summary>
@@ -17,6 +18,8 @@ public class StoryIntroSequence : MonoBehaviour
 
     [Header("Texto")]
     [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private TMP_Text skipPromptText;
+    [SerializeField] private string skipPrompt = "ESPAÇO / ENTER / START / OPTIONS PARA PULAR";
     [SerializeField, Min(1f)] private float charactersPerSecond = 28f;
     [SerializeField] private IntroParagraph[] paragraphs =
     {
@@ -43,6 +46,8 @@ public class StoryIntroSequence : MonoBehaviour
     [SerializeField] private string gameplaySceneName = "MainGame";
 
     private bool sequenceStarted;
+    private bool gameplayLoadStarted;
+    private Coroutine introductionCoroutine;
 
     private void Awake()
     {
@@ -68,7 +73,35 @@ public class StoryIntroSequence : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlayIntroduction());
+        if (skipPromptText != null)
+            skipPromptText.text = skipPrompt;
+
+        introductionCoroutine = StartCoroutine(PlayIntroduction());
+    }
+
+    private void Update()
+    {
+        if (gameplayLoadStarted || !SkipInputPressed())
+            return;
+
+        LoadGameplay(true);
+    }
+
+    private bool SkipInputPressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard != null &&
+            (keyboard.spaceKey.wasPressedThisFrame ||
+             keyboard.enterKey.wasPressedThisFrame ||
+             keyboard.escapeKey.wasPressedThisFrame))
+        {
+            return true;
+        }
+
+        Gamepad gamepad = Gamepad.current;
+        return gamepad != null &&
+               (gamepad.startButton.wasPressedThisFrame ||
+                gamepad.selectButton.wasPressedThisFrame);
     }
 
     private IEnumerator PlayIntroduction()
@@ -91,16 +124,30 @@ public class StoryIntroSequence : MonoBehaviour
                 yield return new WaitForSecondsRealtime(paragraph.pauseAfter);
         }
 
-        StopTypingAudio();
-
         if (silenceBeforeGameplay > 0f)
             yield return new WaitForSecondsRealtime(silenceBeforeGameplay);
+
+        LoadGameplay(false);
+    }
+
+    private void LoadGameplay(bool wasSkipped)
+    {
+        if (gameplayLoadStarted)
+            return;
 
         if (string.IsNullOrWhiteSpace(gameplaySceneName))
         {
             Debug.LogError("StoryIntroSequence: configure o nome da cena MainGame.", this);
-            yield break;
+            return;
         }
+
+        gameplayLoadStarted = true;
+        if (wasSkipped && introductionCoroutine != null)
+            StopCoroutine(introductionCoroutine);
+
+        StopTypingAudio();
+        if (skipPromptText != null)
+            skipPromptText.gameObject.SetActive(false);
 
         SceneManager.LoadSceneAsync(gameplaySceneName);
     }

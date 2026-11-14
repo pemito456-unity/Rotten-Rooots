@@ -574,11 +574,11 @@ MonoBehaviour:
   dialogueText: {fileID: 6000000023}
   charactersPerSecond: 28
   endingLines:
-  - text: "Jornalista: N\u00e3o... por favor, n\u00e3o quero morrer aqui\u2026 me tornar algo descart\u00e1vel e esquecido como o que aconteceu aqui na floresta\u2026 n\u00e3o."
+  - text: "N\u00e3o... por favor, n\u00e3o quero morrer aqui\u2026 me tornar algo descart\u00e1vel e esquecido como o que aconteceu aqui na floresta\u2026 n\u00e3o."
     pauseAfter: 1.7
-  - text: "Jornalista: Argh\u2026 n\u00e3o\u2026 n\u00e3o pode terminar assim, eles precisam pagar pelo que fizerem\u2026 eles\u2026"
+  - text: "Argh\u2026 n\u00e3o\u2026 n\u00e3o pode terminar assim, eles precisam pagar pelo que fizerem\u2026 eles\u2026"
     pauseAfter: 1.7
-  - text: "Jornalista: Cofff\u2026 Cofffff\u2026 isso n\u00e3o pode acabar assim\u2026 malditos da Poison Tech\u2026 eles\u2026 n\u00e3o\u2026 v\u00e3o\u2026"
+  - text: "Cofff\u2026 Cofffff\u2026 isso n\u00e3o pode acabar assim\u2026 malditos da Poison Tech\u2026 eles\u2026 n\u00e3o\u2026 v\u00e3o\u2026"
     pauseAfter: 0
   typingAudioSource: {fileID: 6000000043}
   typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}

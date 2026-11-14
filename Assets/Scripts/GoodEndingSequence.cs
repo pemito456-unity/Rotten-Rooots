@@ -22,27 +22,27 @@ public class GoodEndingSequence : MonoBehaviour
     {
         new EndingLine
         {
-            text = "Jornalista: Eu consegui… Argh! Eu saí! Eu saí daquele inferno!",
+            text = "Eu consegui… Argh! Eu saí! Eu saí daquele inferno!",
             pauseAfter = 1.6f
         },
         new EndingLine
         {
-            text = "Jornalista: C-1 ao norte… Aquele coitado não mentiu no relatório. Se não fosse por ele, eu teria virado cinzas junto com o resto das vítimas da Poison Tech.",
+            text = "C-1 ao norte… Aquele coitado não mentiu no relatório. Se não fosse por ele, eu teria virado cinzas junto com o resto das vítimas da Poison Tech.",
             pauseAfter = 1.8f
         },
         new EndingLine
         {
-            text = "Jornalista: Podem jogar todo o napalm do mundo, seus desgraçados… Não vai adiantar nada! Podem queimar a floresta, podem encobrir os corpos, mas não vão apagar isso aqui!",
+            text = "Podem jogar todo o napalm do mundo, seus desgraçados… Não vai adiantar nada! Podem queimar a floresta, podem encobrir os corpos, mas não vão apagar isso aqui!",
             pauseAfter = 1.8f
         },
         new EndingLine
         {
-            text = "Jornalista: Eles achavam que tudo viraria “perda colateral”. Acharam que podiam matar a flora, matar a própria equipe de segurança e fingir que nada aconteceu. Que os monstros eram as criaturas lá dentro… Quando os verdadeiros monstros vestem terno e gravata.",
+            text = "Eles achavam que tudo viraria “perda colateral”. Acharam que podiam matar a flora, matar a própria equipe de segurança e fingir que nada aconteceu. Que os monstros eram as criaturas lá dentro… Quando os verdadeiros monstros vestem terno e gravata.",
             pauseAfter = 2f
         },
         new EndingLine
         {
-            text = "Jornalista: Está tudo documentado. As fotos das mutações, os corpos, os relatórios confidenciais… O mundo inteiro vai saber o que a Poison Tech fez! Não sou mais um corpo naquela terra. Não virei parte da flora maldita deles. Eu sobrevivi.",
+            text = "Está tudo documentado. As fotos das mutações, os corpos, os relatórios confidenciais… O mundo inteiro vai saber o que a Poison Tech fez! Não sou mais um corpo naquela terra. Não virei parte da flora maldita deles. Eu sobrevivi.",
             pauseAfter = 0f
         }
     };

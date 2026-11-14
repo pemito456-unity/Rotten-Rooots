@@ -47,7 +47,7 @@ MonoBehaviour:
   dialogueText: {fileID: 0}
   charactersPerSecond: 28
   endingBeats:
-  - text: "Jornalista: N\xE3o... N\xE3o, n\xE3o, n\xE3o! O setor C-1... era logo
+  - text: "N\xE3o... N\xE3o, n\xE3o, n\xE3o! O setor C-1... era logo
       ali! Por que o caminho est\xE1 bloqueado? Essa vegeta\xE7\xE3o... ela cresceu
       de novo, mais r\xE1pido do que deveria! Parece que est\xE1... me bloqueando
       de prop\xF3sito."
@@ -62,7 +62,7 @@ MonoBehaviour:
     showSmokeDuringTyping: 1
     pauseAfter: 1.2
     playFireCueAfter: 0
-  - text: "Jornalista: Eu consegui... Os relat\xF3rios est\xE3o aqui. As fotos da
+  - text: "Eu consegui... Os relat\xF3rios est\xE3o aqui. As fotos da
       muta\xE7\xE3o, os crimes da Poison Tech... est\xE1 tudo gravado. O mundo finalmente
       ia saber o que eles fizeram..."
     narration: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     showSmokeDuringTyping: 0
     pauseAfter: 0
     playFireCueAfter: 1
-  - text: "Jornalista: Ent\xE3o \xE9 isso. Nenhuma sa\xEDda. O plano deles funcionou
+  - text: "Ent\xE3o \xE9 isso. Nenhuma sa\xEDda. O plano deles funcionou
       perfeitamente: a floresta vai queimar, as provas v\xE3o virar cinzas... e eu
       tamb\xE9m. V\xE3o dizer que fui apenas mais um aventureiro imprudente, uma
       perda colateral."
