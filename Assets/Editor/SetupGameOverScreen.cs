@@ -11,12 +11,6 @@ public static class SetupGameOverScreen
 {
     private const string ScenePath = "Assets/Scenes/MainGame.unity";
 
-    [InitializeOnLoadMethod]
-    private static void SetupAfterScriptsReload()
-    {
-        EditorApplication.delayCall += SetupIfNeeded;
-    }
-
     [MenuItem("Tools/Rotten Roots/Criar tela de Game Over")]
     private static void SetupIfNeeded()
     {

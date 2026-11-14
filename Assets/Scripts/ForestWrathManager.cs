@@ -8,6 +8,8 @@ public class ForestWrathManager : MonoBehaviour
 {
     public static ForestWrathManager Instance;
 
+    private const float StartingWrath = 30f;
+
     [Header("Configurações de Ira")]
     public float maxWrath = 100f;
     [Tooltip("Imagem que mostra o estado atual da ira da floresta.")]
@@ -67,7 +69,7 @@ public class ForestWrathManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void ResetWrathOnPlay()
     {
-        persistentWrath = 0f;
+        persistentWrath = StartingWrath;
         activePassages.Clear();
         clearedPassages.Clear();
         WrathChanged = null;
@@ -98,7 +100,7 @@ public class ForestWrathManager : MonoBehaviour
 
     public static void ResetForNewRun()
     {
-        persistentWrath = 0f;
+        persistentWrath = StartingWrath;
         activePassages.Clear();
         clearedPassages.Clear();
 
@@ -123,9 +125,6 @@ public class ForestWrathManager : MonoBehaviour
         {
             wrathText.text = $"{Mathf.RoundToInt(persistentWrath)}%";
         }
-
-        if (persistentWrath >= maxWrath && GameOverController.Instance != null)
-            GameOverController.Instance.TriggerGameOver();
 
         if (WrathChanged != null)
             WrathChanged.Invoke(wrathPercent);

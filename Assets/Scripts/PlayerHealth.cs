@@ -354,13 +354,10 @@ public class PlayerHealth : MonoBehaviour
         deathStarted = true;
         Debug.Log("Player morreu!");
 
-        if (GameOverController.Instance != null)
-        {
-            GameOverController.Instance.TriggerGameOver();
-            return;
-        }
-
         PrepareForGameOver();
+        if (animator != null)
+            animator.SetBool("IsDead", true);
+
         StartCoroutine(ReloadAfterDeathAnimation());
     }
 
@@ -382,7 +379,7 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator ReloadAfterDeathAnimation()
     {
         // Death tem 5 quadros a 6 FPS (aprox. 0,83 s); a margem deixa o último quadro visível.
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -145,14 +145,6 @@ public class FinalFireSequence : MonoBehaviour
         if (outcomeTriggered)
             return;
 
-        if (GameOverController.Instance != null && GameOverController.Instance.IsGameOverStarted)
-        {
-            StopScreenWarning();
-            StopMusic();
-            outcomeTriggered = true;
-            return;
-        }
-
         ContinueMusicPlaylist();
 
         if (!sequenceStarted)
