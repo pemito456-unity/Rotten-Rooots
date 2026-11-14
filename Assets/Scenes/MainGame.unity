@@ -12882,7 +12882,7 @@ MonoBehaviour:
   passageBlockerId: C1-SAIDA
   hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
   blockerOnlyRemovableByKit: 1
-  blockerCannotBeRemovedByKit: 1
+  blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 1
 --- !u!61 &829738484
 BoxCollider2D:

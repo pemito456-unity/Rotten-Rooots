@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d297e224c640b2446a0c7160931ba373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArvoreSinistra
-  maxHealth: 30
+  maxHealth: 20
   moveSpeed: 3.5
   detectionRadius: 6
   damage: 25
