@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Configuração da Cena Inicial")]
-    public string firstChunkSceneName = "J1_PrimeiraChunk";
+    public string introSceneName = "StoryIntro";
 
     [Header("Painéis do Menu")]
     public GameObject controlsPanel;
@@ -164,7 +164,7 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Iniciando o jogo...");
         ForestWrathManager.ResetForNewRun();
         PhotoEvidenceGallery.ResetProgress();
-        SceneManager.LoadScene(firstChunkSceneName);
+        SceneManager.LoadScene(introSceneName);
     }
 
     public void OpenControls()

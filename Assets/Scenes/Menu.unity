@@ -3689,7 +3689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ae55e6f0d64974aa660e6a2ccd64ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
-  firstChunkSceneName: MainGame
+  introSceneName: StoryIntro
   controlsPanel: {fileID: 564963243}
   defaultMenuSelection: {fileID: 749364967}
   controlsPanelSelection: {fileID: 1257079150}
