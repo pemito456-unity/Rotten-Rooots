@@ -12881,7 +12881,8 @@ MonoBehaviour:
   wrathThresholdPercent: 60
   passageBlockerId: C1-SAIDA
   hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-  blockerOnlyRemovableByKit: 1
+  blockerSpawnOffset: {x: 0, y: -0.5}
+  blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 1
 --- !u!61 &829738484

@@ -17,6 +17,8 @@ public class ChunkDoorTrigger : MonoBehaviour
     [Tooltip("Use o mesmo ID nos dois lados da passagem, por exemplo C3-C4.")]
     public string passageBlockerId;
     public GameObject hostileTreePrefab;
+    [Tooltip("Deslocamento da árvore em relação ao centro da passagem.")]
+    public Vector2 blockerSpawnOffset;
     [Tooltip("Armas e faca não causam dano; se o kit também não puder remover, ligue a opção permanente abaixo.")]
     public bool blockerOnlyRemovableByKit;
     [Tooltip("Impede que o kit remova a árvore deste bloqueio.")]
@@ -201,7 +203,7 @@ public class ChunkDoorTrigger : MonoBehaviour
 
         GameObject treeObject = Instantiate(
             hostileTreePrefab,
-            transform.position,
+            transform.position + (Vector3)blockerSpawnOffset,
             Quaternion.identity,
             transform.parent
         );
