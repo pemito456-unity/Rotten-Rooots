@@ -40,6 +40,12 @@ public class PlayerHealth : MonoBehaviour
     [Header("Final ao morrer para uma mutação")]
     [SerializeField] private string enemyDeathEndingSceneName = "GameOverEnemies";
 
+    [Header("Transição para a cena de final")]
+    [SerializeField] private CanvasGroup endingFadeGroup;
+    [SerializeField, Min(0f)] private float endingFadeDuration = 1.2f;
+    [SerializeField, Min(0f)] private float deathAnimationFallbackDuration = 1f;
+    [SerializeField, Min(0.1f)] private float deathAnimationTimeout = 4f;
+
     private float heartbeatTimer = 0f;
     private Rigidbody2D rb;
     private Color originalColor;
@@ -416,8 +422,8 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator LoadEndingAfterDeath(string endingSceneName)
     {
-        // Death tem 5 quadros a 6 FPS (aprox. 0,83 s); dá tempo para ver a animação.
-        yield return new WaitForSecondsRealtime(1f);
+        yield return WaitForDeathAnimation();
+        yield return FadeToBlack();
 
         if (string.IsNullOrWhiteSpace(endingSceneName))
         {
@@ -432,5 +438,57 @@ public class PlayerHealth : MonoBehaviour
             Debug.LogError($"PlayerHealth: não foi possível carregar '{endingSceneName}'.", this);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        if (animator == null)
+        {
+            yield return new WaitForSecondsRealtime(deathAnimationFallbackDuration);
+            yield break;
+        }
+
+        float elapsed = 0f;
+        bool enteredDeathState = false;
+        while (elapsed < deathAnimationTimeout)
+        {
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+            if (state.IsName("Death"))
+            {
+                enteredDeathState = true;
+                if (state.normalizedTime >= 1f)
+                    yield break;
+            }
+
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (!enteredDeathState && deathAnimationFallbackDuration > 0f)
+            yield return new WaitForSecondsRealtime(deathAnimationFallbackDuration);
+    }
+
+    private IEnumerator FadeToBlack()
+    {
+        if (endingFadeGroup == null)
+            yield break;
+
+        endingFadeGroup.gameObject.SetActive(true);
+        endingFadeGroup.alpha = 0f;
+        endingFadeGroup.interactable = false;
+        endingFadeGroup.blocksRaycasts = true;
+
+        float elapsed = 0f;
+        while (elapsed < endingFadeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = endingFadeDuration <= 0f
+                ? 1f
+                : Mathf.Clamp01(elapsed / endingFadeDuration);
+            endingFadeGroup.alpha = Mathf.SmoothStep(0f, 1f, progress);
+            yield return null;
+        }
+
+        endingFadeGroup.alpha = 1f;
     }
 }
