@@ -24,6 +24,12 @@ EditorBuildSettings:
     path: Assets/Scenes/BadEnding.unity
     guid: 4e3b469cd039e8443b589df2c072f017
   - enabled: 1
+    path: Assets/Scenes/GameOverWrath.unity
+    guid: a445ceedf854afd46a12804ae0ffce60
+  - enabled: 1
+    path: Assets/Scenes/GameOverEnemies.unity
+    guid: 4ceed40159ad486469beaf0e433c531d
+  - enabled: 1
     path: Assets/Scenes/CreditsTextRoll.unity
     guid: 99b0c9d6bdf61a346b5b06f0d0e4adad
   m_configObjects:

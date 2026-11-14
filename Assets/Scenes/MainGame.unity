@@ -23923,6 +23923,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
   maxWrath: 100
+  wrathDeathThresholdPercent: 80
+  wrathEndingSceneName: GameOverWrath
   wrathLevelImage: {fileID: 7000000000000006003}
   wrathLevelSprites:
   - {fileID: 21300000, guid: 3d9de3b8dd003af43a6a9b9e154216aa, type: 3}
@@ -31123,6 +31125,7 @@ MonoBehaviour:
   knockbackDuration: 0.15
   maxHeartbeatInterval: 1.2
   minHeartbeatInterval: 0.3
+  enemyDeathEndingSceneName: GameOverEnemies
 --- !u!114 &2024336250
 MonoBehaviour:
   m_ObjectHideFlags: 0

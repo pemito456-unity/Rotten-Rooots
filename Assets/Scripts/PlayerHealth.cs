@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -36,6 +37,9 @@ public class PlayerHealth : MonoBehaviour
     public float maxHeartbeatInterval = 1.2f;
     public float minHeartbeatInterval = 0.3f;
 
+    [Header("Final ao morrer para uma mutação")]
+    [SerializeField] private string enemyDeathEndingSceneName = "GameOverEnemies";
+
     private float heartbeatTimer = 0f;
     private Rigidbody2D rb;
     private Color originalColor;
@@ -51,6 +55,11 @@ public class PlayerHealth : MonoBehaviour
     private Color fireWarningColor;
     private float fireWarningIntensity;
     private float fireWarningPulseSpeed;
+
+    public bool IsDying
+    {
+        get { return deathStarted; }
+    }
 
     private void Awake()
     {
@@ -82,6 +91,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float amount, Vector2 damageSourcePosition = default, float knockbackForce = -1f)
     {
+        if (deathStarted)
+            return;
+
         currentHealth = Mathf.Clamp(currentHealth - amount, 0f, maxHealth);
 
         PlayDamageSound();
@@ -348,17 +360,43 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        BeginDeathEnding(enemyDeathEndingSceneName);
+    }
+
+    public void DieFromForestWrath(string endingSceneName)
+    {
+        BeginDeathEnding(endingSceneName);
+    }
+
+    private void BeginDeathEnding(string endingSceneName)
+    {
         if (deathStarted)
             return;
 
         deathStarted = true;
-        Debug.Log("Player morreu!");
+        Debug.Log($"Player morreu. Carregando o final {endingSceneName}.");
 
         PrepareForGameOver();
         if (animator != null)
             animator.SetBool("IsDead", true);
 
-        StartCoroutine(ReloadAfterDeathAnimation());
+        PlayerController2D controller = GetComponent<PlayerController2D>();
+        if (controller != null)
+            controller.enabled = false;
+
+        PlayerController2DAndroid androidController = GetComponent<PlayerController2DAndroid>();
+        if (androidController != null)
+            androidController.enabled = false;
+
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        if (playerInput != null)
+            playerInput.enabled = false;
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        Time.timeScale = 1f;
+        StartCoroutine(LoadEndingAfterDeath(endingSceneName));
     }
 
     public void PrepareForGameOver()
@@ -376,10 +414,23 @@ public class PlayerHealth : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
     }
 
-    private IEnumerator ReloadAfterDeathAnimation()
+    private IEnumerator LoadEndingAfterDeath(string endingSceneName)
     {
-        // Death tem 5 quadros a 6 FPS (aprox. 0,83 s); a margem deixa o último quadro visível.
+        // Death tem 5 quadros a 6 FPS (aprox. 0,83 s); dá tempo para ver a animação.
         yield return new WaitForSecondsRealtime(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (string.IsNullOrWhiteSpace(endingSceneName))
+        {
+            Debug.LogError("PlayerHealth: nome da cena de final não configurado.", this);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            yield break;
+        }
+
+        AsyncOperation load = SceneManager.LoadSceneAsync(endingSceneName);
+        if (load == null)
+        {
+            Debug.LogError($"PlayerHealth: não foi possível carregar '{endingSceneName}'.", this);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

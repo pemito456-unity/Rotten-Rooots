@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ForestWrathManager : MonoBehaviour
 {
     public static ForestWrathManager Instance;
 
     private const float StartingWrath = 30f;
+    private static bool wrathEndingStarted;
 
     [Header("Configurações de Ira")]
     public float maxWrath = 100f;
+    [Header("Final por ira")]
+    [SerializeField, Range(0f, 100f)] private float wrathDeathThresholdPercent = 80f;
+    [SerializeField] private string wrathEndingSceneName = "GameOverWrath";
     [Tooltip("Imagem que mostra o estado atual da ira da floresta.")]
     public Image wrathLevelImage;
     [Tooltip("Sprites em ordem: níveis de ira 1 a 5 (0–19%, 20–39%, 40–59%, 60–79%, 80–100%).")]
@@ -70,6 +75,7 @@ public class ForestWrathManager : MonoBehaviour
     static void ResetWrathOnPlay()
     {
         persistentWrath = StartingWrath;
+        wrathEndingStarted = false;
         activePassages.Clear();
         clearedPassages.Clear();
         WrathChanged = null;
@@ -101,6 +107,7 @@ public class ForestWrathManager : MonoBehaviour
     public static void ResetForNewRun()
     {
         persistentWrath = StartingWrath;
+        wrathEndingStarted = false;
         activePassages.Clear();
         clearedPassages.Clear();
 
@@ -128,5 +135,19 @@ public class ForestWrathManager : MonoBehaviour
 
         if (WrathChanged != null)
             WrathChanged.Invoke(wrathPercent);
+
+        if (wrathPercent >= wrathDeathThresholdPercent && !wrathEndingStarted)
+        {
+            wrathEndingStarted = true;
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            PlayerHealth health = player != null ? player.GetComponent<PlayerHealth>() : null;
+            if (health != null)
+                health.DieFromForestWrath(wrathEndingSceneName);
+            else if (!string.IsNullOrWhiteSpace(wrathEndingSceneName))
+                SceneManager.LoadSceneAsync(wrathEndingSceneName);
+            else
+                Debug.LogError("ForestWrathManager: nome da cena GameOverWrath não configurado.", this);
+        }
     }
 }

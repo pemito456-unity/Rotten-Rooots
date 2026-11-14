@@ -145,6 +145,14 @@ public class FinalFireSequence : MonoBehaviour
         if (outcomeTriggered)
             return;
 
+        if (playerHealth != null && playerHealth.IsDying)
+        {
+            StopScreenWarning();
+            StopMusic();
+            outcomeTriggered = true;
+            return;
+        }
+
         ContinueMusicPlaylist();
 
         if (!sequenceStarted)
@@ -180,6 +188,9 @@ public class FinalFireSequence : MonoBehaviour
     public void ResolveFinalExitAttempt(bool passageBlocked)
     {
         if (!IsSequenceActive)
+            return;
+
+        if (playerHealth != null && playerHealth.IsDying)
             return;
 
         if (chunkManager == null)
