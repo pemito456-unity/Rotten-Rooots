@@ -25,12 +25,12 @@ public class StoryIntroSequence : MonoBehaviour
     {
         new IntroParagraph
         {
-            text = "Você, um jornalista, descobre uma área de descarte de lixo tóxico da empresa Poison Tech, a expectativa da diretoria da corporação era simples: matar a flora local, pagar uma multa irrelevante e comprar a terra a preço de banana. Eles só não esperavam que a floresta resistisse. E se adaptasse.",
+            text = "Você, um jornalista, descobre uma área de descarte de lixo tóxico da empresa Poison Tech. A expectativa da diretoria da corporação era simples: descartar o máximo de resíduos possível, pagar uma multa irrelevante e fazer um acordo com o governo para fingir que nada aconteceu. Eles só não esperavam que a floresta resistisse. E se adaptasse.",
             pauseAfter = 1.5f
         },
         new IntroParagraph
         {
-            text = "Você, Miguel Silva Cortez, se prepara e arruma a alça da câmera no pescoço e verifica o kit de descontaminação no bolso da jaqueta. Como jornalista independente, seu objetivo é direto: penetrar no perímetro, documentar as mutações, recuperar os relatórios confidenciais da Poison Tech e sair vivo.",
+            text = "Você, um jornalista investigativo chamado Miguel Silva Cortez, se prepara e arruma a alça da câmera no pescoço e verifica o kit de descontaminação no bolso da jaqueta. Como jornalista independente, seu objetivo é direto: penetrar no perímetro, documentar as mutações, recuperar os relatórios confidenciais da Poison Tech e sair vivo.",
             pauseAfter = 0f
         }
     };

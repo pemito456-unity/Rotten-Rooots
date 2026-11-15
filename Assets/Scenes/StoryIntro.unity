@@ -714,9 +714,9 @@ MonoBehaviour:
   skipPrompt: "ESPAÇO / ENTER / START / OPTIONS PARA PULAR"
   charactersPerSecond: 28
   paragraphs:
-  - text: "Voc\u00ea, um jornalista, descobre uma \u00e1rea de descarte de lixo t\u00f3xico da empresa Poison Tech, a expectativa da diretoria da corpora\u00e7\u00e3o era simples: matar a flora local, pagar uma multa irrelevante e comprar a terra a pre\u00e7o de banana. Eles s\u00f3 n\u00e3o esperavam que a floresta resistisse. E se adaptasse."
+  - text: "Você, um jornalista, descobre uma área de descarte de lixo tóxico da empresa Poison Tech. A expectativa da diretoria da corporação era simples: descartar o máximo de resíduos possível, pagar uma multa irrelevante e fazer um acordo com o governo para fingir que nada aconteceu. Eles só não esperavam que a floresta resistisse. E se adaptasse."
     pauseAfter: 1.5
-  - text: "Voc\u00ea, Miguel Silva Cortez, se prepara e arruma a al\u00e7a da c\u00e2mera no pesco\u00e7o e verifica o kit de descontamina\u00e7\u00e3o no bolso da jaqueta. Como jornalista independente, seu objetivo \u00e9 direto: penetrar no per\u00edmetro, documentar as muta\u00e7\u00f5es, recuperar os relat\u00f3rios confidenciais da Poison Tech e sair vivo."
+  - text: "Você, um jornalista investigativo chamado Miguel Silva Cortez, se prepara e arruma a alça da câmera no pescoço e verifica o kit de descontaminação no bolso da jaqueta. Como jornalista independente, seu objetivo é direto: penetrar no perímetro, documentar as mutações, recuperar os relatórios confidenciais da Poison Tech e sair vivo."
     pauseAfter: 0
   typingAudioSource: {fileID: 6000000043}
   typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}
