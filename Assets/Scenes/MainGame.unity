@@ -171,6 +171,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -569,6 +570,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -2508,6 +2510,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -3684,6 +3687,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -4345,6 +4349,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -5927,6 +5932,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -8440,6 +8446,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -9248,6 +9255,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -9452,6 +9460,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -10064,7 +10073,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.06
+  m_Intensity: 0.04
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000fb209623
@@ -10722,6 +10731,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -11030,6 +11040,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -11268,6 +11279,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -12496,6 +12508,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -12983,6 +12996,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -13084,6 +13098,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -14129,6 +14144,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -17235,6 +17251,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -18435,6 +18452,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -18642,6 +18660,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -19016,6 +19035,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -19892,6 +19912,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -20666,6 +20687,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -21722,6 +21744,7 @@ MonoBehaviour:
   wrathThresholdPercent: 30
   passageBlockerId: C4-C3
   hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -22255,6 +22278,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -24838,6 +24862,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -25236,6 +25261,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -25789,6 +25815,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -30602,6 +30629,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -30703,6 +30731,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
@@ -32070,6 +32099,7 @@ MonoBehaviour:
   wrathThresholdPercent: 50
   passageBlockerId: 
   hostileTreePrefab: {fileID: 0}
+  blockerSpawnOffset: {x: 0, y: 0}
   blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
