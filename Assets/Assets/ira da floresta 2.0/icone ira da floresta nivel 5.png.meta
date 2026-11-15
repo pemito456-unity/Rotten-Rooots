@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 45a9ede4a0725cb4997c086e495a1352
+guid: 64e817c7f83bd57478fa525c5975a134
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1984490903207064902
-    second: icone ira da floresta nivel 2_0
+      213: 7380151548961738086
+    second: icone ira da floresta nivel 5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icone ira da floresta nivel 2_0
+      name: icone ira da floresta nivel 5_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 707
-        height: 730
+        width: 661
+        height: 699
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 645b6a156f35a8b10800000000000000
-      internalID: 1984490903207064902
+      spriteID: 66dc9686bb09b6660800000000000000
+      internalID: 7380151548961738086
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      icone ira da floresta nivel 2_0: 1984490903207064902
+      icone ira da floresta nivel 5_0: 7380151548961738086
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

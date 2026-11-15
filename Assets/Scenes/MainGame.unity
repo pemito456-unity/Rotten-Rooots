@@ -31539,11 +31539,11 @@ MonoBehaviour:
   wrathEndingSceneName: GameOverWrath
   wrathLevelImage: {fileID: 7000000000000006003}
   wrathLevelSprites:
-  - {fileID: 21300000, guid: 3d9de3b8dd003af43a6a9b9e154216aa, type: 3}
-  - {fileID: 21300000, guid: 45a9ede4a0725cb4997c086e495a1352, type: 3}
-  - {fileID: 21300000, guid: 0cdf8462ce8b6884e849285e932190ef, type: 3}
-  - {fileID: 21300000, guid: 5c1d565f3e2c89748ba5df0136d7ea30, type: 3}
-  - {fileID: 21300000, guid: fa9e2972929c68e42914f1e8c39f6efe, type: 3}
+  - {fileID: 21300000, guid: ff45a8b9c172af34395177211b59a145, type: 3}
+  - {fileID: 21300000, guid: b79c2042befd62749ac639db098dadbc, type: 3}
+  - {fileID: 21300000, guid: ff927097e543d714eb1d9d3c60d864c6, type: 3}
+  - {fileID: 21300000, guid: 214b9e2d5580b2e4a994345ecee96777, type: 3}
+  - {fileID: 21300000, guid: 64e817c7f83bd57478fa525c5975a134, type: 3}
   wrathText: {fileID: 0}
 --- !u!1 &1550453482
 GameObject:
@@ -56985,7 +56985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3d9de3b8dd003af43a6a9b9e154216aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff45a8b9c172af34395177211b59a145, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
