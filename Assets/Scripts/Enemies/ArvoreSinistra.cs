@@ -17,7 +17,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     [Header("Ataque")]
     public float damage = 25f;
     public float attackCooldown = 1f;
-    public float attackRange = 1.4f;
+    public float attackRange = 0.45f;
 
     [Header("Ira da Floresta")]
     public float wrathOnDestroy = 15f;
@@ -57,6 +57,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private Rigidbody2D rb;
+    private Collider2D bodyCollider;
     private EnemyNametag nametag;
     private float lastAttackTime;
     private bool playerWasInSoundRange;
@@ -65,6 +66,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        bodyCollider = GetComponent<Collider2D>();
         if (rb != null)
         {
             rb.constraints |= RigidbodyConstraints2D.FreezePositionX |
@@ -109,16 +111,28 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
                 return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-        UpdateProximitySound(distanceToPlayer);
+        float centerDistance = Vector2.Distance(transform.position, playerTransform.position);
+        float edgeDistance = GetDistanceFromPlayerToTree(playerTransform.position);
+        UpdateProximitySound(centerDistance);
 
-        if (distanceToPlayer <= attackRange &&
+        if (edgeDistance <= attackRange &&
             Time.time >= lastAttackTime + attackCooldown &&
             playerHealth != null)
         {
             playerHealth.TakeDamage(damage, transform.position);
             lastAttackTime = Time.time;
         }
+    }
+
+    private float GetDistanceFromPlayerToTree(Vector2 playerPosition)
+    {
+        if (spriteRenderer != null)
+            return Vector2.Distance(playerPosition, spriteRenderer.bounds.ClosestPoint(playerPosition));
+
+        if (bodyCollider != null)
+            return Vector2.Distance(playerPosition, bodyCollider.ClosestPoint(playerPosition));
+
+        return Vector2.Distance(playerPosition, transform.position);
     }
 
     private void UpdateProximitySound(float distanceToPlayer)

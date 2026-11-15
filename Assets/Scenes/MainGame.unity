@@ -21722,7 +21722,7 @@ MonoBehaviour:
   wrathThresholdPercent: 30
   passageBlockerId: C4-C3
   hostileTreePrefab: {fileID: 870308999364150352, guid: c33cf1f712ea5ce479e8e7a76aa04d50, type: 3}
-  blockerOnlyRemovableByKit: 1
+  blockerOnlyRemovableByKit: 0
   blockerCannotBeRemovedByKit: 0
   isFinalEndingExit: 0
 --- !u!61 &1376086438
@@ -30998,7 +30998,6 @@ MonoBehaviour:
   meleeVolume: 0.8
   meleeSlashColor: {r: 0.8, g: 1, b: 0.75, a: 1}
   wrathReductionPerKit: 25
-  decontamKitUseRange: 2.25
   medKitHealingAmount: 40
 --- !u!82 &2024336248
 AudioSource:

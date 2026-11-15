@@ -141,7 +141,7 @@ MonoBehaviour:
   detectionRadius: 6
   damage: 25
   attackCooldown: 1
-  attackRange: 1.4
+  attackRange: 0.45
   wrathOnDestroy: 15
   isPassageBlocker: 0
   onlyRemovableByKit: 0

@@ -33,7 +33,6 @@ public class PlayerCombatAndItems : MonoBehaviour
 
     [Header("Configurações do kit de descontaminação")]
     public float wrathReductionPerKit = 25f;
-    public float decontamKitUseRange = 2.25f;
 
     [Header("Configurações do kit médico")]
     [Min(1f)] public float medKitHealingAmount = 40f;
@@ -188,7 +187,7 @@ public class PlayerCombatAndItems : MonoBehaviour
         if (kitSlot == null || kitSlot.amount <= 0)
             return;
 
-        ArvoreSinistra nearbyTree = FindNearbyTreeForKit();
+        ArvoreSinistra nearbyTree = FindTreeInCurrentChunkForKit();
         bool treeRemoved = nearbyTree != null && nearbyTree.DispelByKit();
 
         kitSlot.amount--;
@@ -237,25 +236,19 @@ public class PlayerCombatAndItems : MonoBehaviour
         Debug.Log($"Kit médico usado. Vida: {health.currentHealth}/{health.maxHealth}.");
     }
 
-    private ArvoreSinistra FindNearbyTreeForKit()
+    private ArvoreSinistra FindTreeInCurrentChunkForKit()
     {
-        ArvoreSinistra nearestTree = null;
-        float nearestDistance = decontamKitUseRange;
+        ChunkManager chunks = ChunkManager.Instance;
+        if (chunks == null)
+            return null;
 
         foreach (ArvoreSinistra tree in FindObjectsOfType<ArvoreSinistra>())
         {
-            if (tree == null)
-                continue;
-
-            float distance = Vector2.Distance(transform.position, tree.transform.position);
-            if (distance <= nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestTree = tree;
-            }
+            if (tree != null && chunks.IsInCurrentChunk(tree.transform))
+                return tree;
         }
 
-        return nearestTree;
+        return null;
     }
 
     private void TryMeleeAttack()
@@ -301,6 +294,33 @@ public class PlayerCombatAndItems : MonoBehaviour
                 continue;
 
             target.TakeDamage(meleeDamage);
+            hitSomething = true;
+        }
+
+        // Árvores grandes podem ter o centro fora do pequeno arco da arma, mesmo
+        // quando o jogador está encostado no sprite. Para elas, aceita o golpe
+        // dentro do alcance total da pancada, inclusive por baixo ou pelos lados.
+        float treeHitDistance = meleeRadius;
+        foreach (ArvoreSinistra tree in FindObjectsOfType<ArvoreSinistra>())
+        {
+            if (tree == null || tree.OnlyRemovableByKit ||
+                !hitTargets.Add(tree.GetInstanceID()))
+            {
+                continue;
+            }
+
+            SpriteRenderer treeSprite = tree.GetComponent<SpriteRenderer>();
+            Collider2D treeCollider = tree.GetComponent<Collider2D>();
+            Vector2 closestPoint = treeSprite != null
+                ? (Vector2)treeSprite.bounds.ClosestPoint(transform.position)
+                : treeCollider != null
+                    ? treeCollider.ClosestPoint((Vector2)transform.position)
+                    : (Vector2)tree.transform.position;
+
+            if (Vector2.Distance(transform.position, closestPoint) > treeHitDistance)
+                continue;
+
+            tree.TakeDamage(meleeDamage);
             hitSomething = true;
         }
 

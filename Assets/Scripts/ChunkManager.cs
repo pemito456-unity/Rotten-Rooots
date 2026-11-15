@@ -60,6 +60,15 @@ public class ChunkManager : MonoBehaviour
         return false;
     }
 
+    public bool IsInCurrentChunk(Transform target)
+    {
+        if (target == null || currentActiveChunk == null || currentActiveChunk.chunkObject == null)
+            return false;
+
+        Transform chunkRoot = currentActiveChunk.chunkObject.transform;
+        return target == chunkRoot || target.IsChildOf(chunkRoot);
+    }
+
     private void Awake()
     {
         if (Instance == null)
