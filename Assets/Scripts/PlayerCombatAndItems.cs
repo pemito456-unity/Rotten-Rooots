@@ -123,10 +123,25 @@ public class PlayerCombatAndItems : MonoBehaviour
         }
     }
 
-    // R/X recarrega a lanterna mesmo quando outro item está selecionado.
+    // R no teclado ou B no controle recarrega a lanterna; B também fecha as notas abertas.
     public void OnReload(InputAction.CallbackContext context)
     {
-        if (!context.performed || inventory == null)
+        if (!context.performed)
+            return;
+
+        CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
+        if (notePanel != null && notePanel.IsOpen)
+        {
+            bool pressedGamepadB = context.control != null &&
+                                   context.control.device is Gamepad &&
+                                   context.control.name == "buttonEast";
+            if (pressedGamepadB)
+                notePanel.Close();
+
+            return;
+        }
+
+        if (inventory == null)
             return;
 
         FlashlightController flashlight = inventory.FlashlightController;

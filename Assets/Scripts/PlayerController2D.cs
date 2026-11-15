@@ -47,10 +47,7 @@ public class PlayerController2D : MonoBehaviour
 
         CorpseNotePanelController notePanel = CorpseNotePanelController.Instance;
         if (notePanel != null && notePanel.IsOpen)
-        {
-            notePanel.Close();
             return;
-        }
 
         if (CorpseInvestigation.TryOpenNearby(transform.position))
             return;

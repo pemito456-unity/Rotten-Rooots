@@ -3780,10 +3780,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Gamepad\n\n\u2022 Mover: anal\xF3gico esquerdo ou setas direcionais.\n\n\u2022
-    Coletar item: Y (Xbox) ou \u25B3 (PlayStation).\n\n\u2022 Trocar item da hotbar:
+    Coletar item: A (Xbox) ou \u2715 (PlayStation).\n\n\u2022 Trocar item da hotbar:
     LB/RB (Xbox) ou L1/R1 (PlayStation).\n\n\u2022 Atirar ou usar item equipado:
-    A (Xbox) ou \u2715 (PlayStation).\n\n\u2022 Recarregar a lanterna: X (Xbox) ou
-    \u25A1 (PlayStation).\n\n\u2022 Derrubar item equipado: B (Xbox) ou \u25CB (PlayStation)."
+    X (Xbox) ou \u25A1 (PlayStation).\n\n\u2022 Recarregar a lanterna e fechar anota\xE7\xF5es:
+    B (Xbox) ou \u25CB (PlayStation).\n\n\u2022 Derrubar item equipado: Y (Xbox) ou \u25B3 (PlayStation)."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
   m_sharedMaterial: {fileID: -7974847907611219215, guid: a1b596ddef6f15743a45358732b275f3, type: 2}
