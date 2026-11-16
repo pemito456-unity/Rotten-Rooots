@@ -70,8 +70,12 @@ public static class CreateGameplayDialogueUI
         Undo.RegisterCreatedObjectUndo(canvasObject, "Criar balões de diálogo");
 
         Canvas canvas = canvasObject.GetComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 150;
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
+        canvas.planeDistance = 100f;
+        canvas.overrideSorting = true;
+        canvas.sortingLayerName = "UI";
+        canvas.sortingOrder = 500;
 
         CanvasScaler scaler = canvasObject.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -110,7 +114,7 @@ public static class CreateGameplayDialogueUI
         Assign(serialized, "thoughtGroup", thought.GetComponent<CanvasGroup>());
         Assign(serialized, "thoughtRect", thought.GetComponent<RectTransform>());
         Assign(serialized, "thoughtText", thought.GetComponentInChildren<TextMeshProUGUI>());
-        GameObject hotbar = GameObject.Find("InventoryHotbar");
+        GameObject hotbar = GameObject.Find("InventoryPanel");
         if (hotbar != null)
             Assign(serialized, "hotbarRect", hotbar.GetComponent<RectTransform>());
         serialized.ApplyModifiedPropertiesWithoutUndo();

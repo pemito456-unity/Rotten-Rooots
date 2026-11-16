@@ -214,7 +214,9 @@ public class GameplayDialogueManager : MonoBehaviour
         if (hotbarRect != null)
             return;
 
-        GameObject hotbar = GameObject.Find("InventoryHotbar");
+        // InventoryHotbar é o Canvas de tela inteira. InventoryPanel é o
+        // RectTransform que delimita a área real dos slots na parte inferior.
+        GameObject hotbar = GameObject.Find("InventoryPanel");
         if (hotbar != null)
             hotbarRect = hotbar.GetComponent<RectTransform>();
     }

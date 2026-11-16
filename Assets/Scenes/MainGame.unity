@@ -17091,7 +17091,7 @@ MonoBehaviour:
   thoughtGroup: {fileID: 1570197678}
   thoughtRect: {fileID: 1570197677}
   thoughtText: {fileID: 1989242472}
-  hotbarRect: {fileID: 1055581276}
+  hotbarRect: {fileID: 2122585023}
   hotbarGap: 14
   maximumBubbleWidth: 1450
   horizontalPadding: 64
@@ -17191,19 +17191,19 @@ Canvas:
   m_GameObject: {fileID: 849595446}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 150
+  m_SortingLayerID: 597041403
+  m_SortingOrder: 500
   m_TargetDisplay: 0
 --- !u!224 &849595450
 RectTransform:
