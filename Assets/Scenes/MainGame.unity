@@ -17091,14 +17091,16 @@ MonoBehaviour:
   thoughtGroup: {fileID: 1570197678}
   thoughtRect: {fileID: 1570197677}
   thoughtText: {fileID: 1989242472}
-  bubbleBottomOffset: 370
+  hotbarRect: {fileID: 1055581276}
+  hotbarGap: 14
   maximumBubbleWidth: 1450
   horizontalPadding: 64
   verticalPadding: 40
-  fadeDuration: 0.18
-  charactersPerSecond: 19
-  extraReadingTime: 1.2
-  minimumReadingTime: 2.8
+  fadeDuration: 0.1
+  charactersPerSecond: 35
+  extraReadingTime: 0.3
+  minimumReadingTime: 1
+  maximumReadingTime: 5
   a2Journalist: "De acordo com minhas fontes esse \xE9 o lugar de descarte, a apar\xEAncia
     est\xE1 pior do que eu pensei."
   a2Thought: "Vou tirar algumas fotos e ver se consigo achar alguma evid\xEAncia
@@ -44939,7 +44941,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

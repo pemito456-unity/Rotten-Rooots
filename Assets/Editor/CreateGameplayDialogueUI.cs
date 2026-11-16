@@ -110,6 +110,9 @@ public static class CreateGameplayDialogueUI
         Assign(serialized, "thoughtGroup", thought.GetComponent<CanvasGroup>());
         Assign(serialized, "thoughtRect", thought.GetComponent<RectTransform>());
         Assign(serialized, "thoughtText", thought.GetComponentInChildren<TextMeshProUGUI>());
+        GameObject hotbar = GameObject.Find("InventoryHotbar");
+        if (hotbar != null)
+            Assign(serialized, "hotbarRect", hotbar.GetComponent<RectTransform>());
         serialized.ApplyModifiedPropertiesWithoutUndo();
 
         speech.SetActive(false);
@@ -144,7 +147,7 @@ public static class CreateGameplayDialogueUI
         bubbleRect.anchorMin = new Vector2(0.5f, 0f);
         bubbleRect.anchorMax = new Vector2(0.5f, 0f);
         bubbleRect.pivot = new Vector2(0.5f, 0f);
-        bubbleRect.anchoredPosition = new Vector2(0f, 370f);
+        bubbleRect.anchoredPosition = new Vector2(0f, 165f);
         bubbleRect.sizeDelta = new Vector2(700f, 140f);
 
         Image background = bubble.GetComponent<Image>();

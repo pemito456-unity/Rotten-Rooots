@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Exibe falas e pensamentos em sequência durante a gameplay sem pausar o jogo.
+/// Exibe falas e pensamentos durante a gameplay sem pausar o jogo.
 /// Os objetos de interface ficam na hierarquia da cena MainGame.
+/// Um novo evento interrompe o diálogo atual e o substitui imediatamente.
 /// </summary>
 public class GameplayDialogueManager : MonoBehaviour
 {
@@ -23,6 +24,18 @@ public class GameplayDialogueManager : MonoBehaviour
         }
     }
 
+    private struct DialogueEvent
+    {
+        public string ID;
+        public DialogueLine[] Lines;
+
+        public DialogueEvent(string id, DialogueLine[] lines)
+        {
+            ID = id;
+            Lines = lines;
+        }
+    }
+
     public static GameplayDialogueManager Instance { get; private set; }
 
     [Header("Balões da cena")]
@@ -34,16 +47,18 @@ public class GameplayDialogueManager : MonoBehaviour
     [SerializeField] private CanvasGroup thoughtGroup;
     [SerializeField] private RectTransform thoughtRect;
     [SerializeField] private TextMeshProUGUI thoughtText;
+    [SerializeField] private RectTransform hotbarRect;
 
     [Header("Layout e leitura")]
-    [SerializeField, Min(0f)] private float bubbleBottomOffset = 370f;
+    [SerializeField, Min(0f)] private float hotbarGap = 14f;
     [SerializeField, Min(200f)] private float maximumBubbleWidth = 1450f;
     [SerializeField, Min(0f)] private float horizontalPadding = 64f;
     [SerializeField, Min(0f)] private float verticalPadding = 40f;
-    [SerializeField, Min(0f)] private float fadeDuration = 0.18f;
-    [SerializeField, Min(1f)] private float charactersPerSecond = 19f;
-    [SerializeField, Min(0f)] private float extraReadingTime = 1.2f;
-    [SerializeField, Min(0f)] private float minimumReadingTime = 2.8f;
+    [SerializeField, Min(0f)] private float fadeDuration = 0.1f;
+    [SerializeField, Min(1f)] private float charactersPerSecond = 35f;
+    [SerializeField, Min(0f)] private float extraReadingTime = 0.3f;
+    [SerializeField, Min(0f)] private float minimumReadingTime = 1f;
+    [SerializeField, Min(0.1f)] private float maximumReadingTime = 5f;
 
     [Header("Ato 1 — entrada em A2")]
     [SerializeField, TextArea(2, 4)] private string a2Journalist =
@@ -110,7 +125,6 @@ public class GameplayDialogueManager : MonoBehaviour
     [SerializeField, TextArea(2, 4)] private string fourthCorpseLine3 =
         "Tenho que me apressar para não queimar junto com esse inferno.";
 
-    private readonly Queue<DialogueLine> pendingLines = new Queue<DialogueLine>();
     private readonly HashSet<string> triggeredEvents = new HashSet<string>();
     private ChunkManager chunkManager;
     private PhotoEvidenceGallery evidenceGallery;
@@ -125,7 +139,9 @@ public class GameplayDialogueManager : MonoBehaviour
     private bool firstMonkeyDetected;
     private bool firstCorpsePhotoPlayed;
     private bool firstAnimalPhotoPlayed;
-    private Coroutine queueRoutine;
+    private GameObject visibleBubble;
+    private CanvasGroup visibleBubbleGroup;
+    private Coroutine activeDialogue;
 
     private void Awake()
     {
@@ -150,6 +166,7 @@ public class GameplayDialogueManager : MonoBehaviour
     {
         chunkManager = ChunkManager.Instance;
         evidenceGallery = PhotoEvidenceGallery.Instance;
+        FindHotbar();
         BindPhotoCamera();
     }
 
@@ -161,12 +178,21 @@ public class GameplayDialogueManager : MonoBehaviour
             evidenceGallery = PhotoEvidenceGallery.Instance;
 
         BindPhotoCamera();
+        FindHotbar();
         ObserveChunkChanges();
         ObserveEnvironmentAppearances();
         ObserveEvidenceMilestone();
 
-        if (queueRoutine == null && pendingLines.Count > 0)
-            queueRoutine = StartCoroutine(PlayPendingLines());
+    }
+
+    private void LateUpdate()
+    {
+        if (visibleBubble != null)
+        {
+            RectTransform panel = visibleBubble.transform as RectTransform;
+            if (panel != null)
+                PositionAboveHotbar(panel);
+        }
     }
 
     private void BindPhotoCamera()
@@ -181,6 +207,16 @@ public class GameplayDialogueManager : MonoBehaviour
         photoCamera = player.GetComponent<PhotoEvidenceCamera>();
         if (photoCamera != null)
             photoCamera.EvidenceRegistered += OnEvidenceRegistered;
+    }
+
+    private void FindHotbar()
+    {
+        if (hotbarRect != null)
+            return;
+
+        GameObject hotbar = GameObject.Find("InventoryHotbar");
+        if (hotbar != null)
+            hotbarRect = hotbar.GetComponent<RectTransform>();
     }
 
     private void ObserveChunkChanges()
@@ -203,7 +239,7 @@ public class GameplayDialogueManager : MonoBehaviour
             lastChunkID == fiveEvidenceChunkID)
         {
             fiveEvidenceExitPlayed = true;
-            QueueEvent("five_evidence_exit", Journalist(leavingHalfEvidenceChunk));
+            TriggerEvent("five_evidence_exit", Journalist(leavingHalfEvidenceChunk));
         }
 
         lastChunkID = currentChunkID;
@@ -214,7 +250,7 @@ public class GameplayDialogueManager : MonoBehaviour
     {
         if (chunkID == "A2")
         {
-            QueueEvent("first_enter_a2", Journalist(a2Journalist), Thought(a2Thought));
+            TriggerEvent("first_enter_a2", Journalist(a2Journalist), Thought(a2Thought));
         }
     }
 
@@ -236,7 +272,7 @@ public class GameplayDialogueManager : MonoBehaviour
                     continue;
 
                 firstTreePlayed = true;
-                QueueEvent("first_hostile_tree", Journalist(firstTreeJournalist), Thought(firstTreeThought));
+                TriggerEvent("first_hostile_tree", Journalist(firstTreeJournalist), Thought(firstTreeThought));
                 break;
             }
         }
@@ -249,7 +285,7 @@ public class GameplayDialogueManager : MonoBehaviour
                     continue;
 
                 firstBatPlayed = true;
-                QueueEvent("first_bat", Thought(firstBatThought));
+                TriggerEvent("first_bat", Thought(firstBatThought));
                 break;
             }
         }
@@ -260,28 +296,36 @@ public class GameplayDialogueManager : MonoBehaviour
         if (fiveEvidenceReached || evidenceGallery == null || evidenceGallery.CollectedCount < 5)
             return;
 
-        QueueFiveEvidenceSequence();
+        List<DialogueEvent> events = new List<DialogueEvent>();
+        AddFiveEvidenceEvent(events);
+        TriggerEvents(events);
     }
 
-    private void QueueFiveEvidenceSequence()
+    private bool AddFiveEvidenceEvent(List<DialogueEvent> events)
     {
         if (fiveEvidenceReached)
-            return;
+            return false;
 
         fiveEvidenceReached = true;
         fiveEvidenceChunkID = chunkManager != null ? chunkManager.CurrentChunkID : lastChunkID;
-        QueueEvent(
+        events.Add(new DialogueEvent(
             "five_evidence",
-            Journalist(halfEvidenceLine1),
-            Journalist(halfEvidenceLine2),
-            Journalist(halfEvidenceLine3),
-            Thought(halfEvidenceLine4)
-        );
+            new[]
+            {
+                Journalist(halfEvidenceLine1),
+                Journalist(halfEvidenceLine2),
+                Journalist(halfEvidenceLine3),
+                Thought(halfEvidenceLine4)
+            }
+        ));
+        return true;
     }
 
     private void OnCorpseNotesClosed(CorpseInvestigation corpse)
     {
-        QueueCorpseStory(corpse);
+        List<DialogueEvent> events = new List<DialogueEvent>();
+        AddCorpseStoryEvents(corpse, events);
+        TriggerEvents(events);
     }
 
     private void OnEvidenceRegistered(EvidencePhotoTarget target)
@@ -289,60 +333,78 @@ public class GameplayDialogueManager : MonoBehaviour
         if (target == null)
             return;
 
+        List<DialogueEvent> events = new List<DialogueEvent>();
         CorpseInvestigation corpse = target.GetComponent<CorpseInvestigation>();
         if (corpse != null)
         {
-            QueueCorpseStory(corpse);
+            AddCorpseStoryEvents(corpse, events);
             if (!firstCorpsePhotoPlayed)
             {
                 firstCorpsePhotoPlayed = true;
-                QueueEvent("first_corpse_photo", Journalist(firstCorpsePhotoJournalist));
+                events.Add(new DialogueEvent(
+                    "first_corpse_photo",
+                    new[] { Journalist(firstCorpsePhotoJournalist) }
+                ));
             }
-
         }
         else if (target.category == EvidencePhotoTarget.EvidenceCategory.MutantAnimal &&
                  !firstAnimalPhotoPlayed)
         {
             firstAnimalPhotoPlayed = true;
-            QueueEvent("first_animal_photo", Journalist(firstAnimalPhotoJournalist));
+            events.Add(new DialogueEvent(
+                "first_animal_photo",
+                new[] { Journalist(firstAnimalPhotoJournalist) }
+            ));
         }
 
-        ObserveEvidenceMilestone();
+        if (evidenceGallery != null && evidenceGallery.CollectedCount >= 5)
+            AddFiveEvidenceEvent(events);
+
+        TriggerEvents(events);
     }
 
-    private void QueueCorpseStory(CorpseInvestigation corpse)
+    private void AddCorpseStoryEvents(CorpseInvestigation corpse, List<DialogueEvent> events)
     {
         if (corpse == null)
             return;
 
         if (corpse.storyOrder == 1)
         {
-            QueueEvent("first_corpse", Journalist(firstCorpseJournalist), Thought(firstCorpseThought));
+            events.Add(new DialogueEvent(
+                "first_corpse",
+                new[] { Journalist(firstCorpseJournalist), Thought(firstCorpseThought) }
+            ));
         }
         else if (corpse.storyOrder >= 2)
         {
-            QueueEvent("other_corpse", Thought(otherCorpseThought));
+            events.Add(new DialogueEvent("other_corpse", new[] { Thought(otherCorpseThought) }));
         }
 
         if (corpse.storyOrder == 3)
         {
-            QueueEvent("penultimate_corpse", Journalist(penultimateCorpseJournalist));
+            events.Add(new DialogueEvent(
+                "penultimate_corpse",
+                new[] { Journalist(penultimateCorpseJournalist) }
+            ));
         }
         else if (corpse.storyOrder == 4)
         {
-            QueueEvent(
+            events.Add(new DialogueEvent(
                 "fourth_corpse",
-                Journalist(fourthCorpseLine1),
-                Journalist(fourthCorpseLine2),
-                Journalist(fourthCorpseLine3)
-            );
+                new[]
+                {
+                    Journalist(fourthCorpseLine1),
+                    Journalist(fourthCorpseLine2),
+                    Journalist(fourthCorpseLine3)
+                }
+            ));
         }
     }
 
     private void OnItemCollected(ItemPickup2D.ItemType itemType)
     {
         if (itemType == ItemPickup2D.ItemType.Gun)
-            QueueEvent("revolver", Journalist(revolverJournalist));
+            TriggerEvent("revolver", Journalist(revolverJournalist));
     }
 
     private void OnMonkeyDetected(MonkeyEnemy monkey)
@@ -351,43 +413,64 @@ public class GameplayDialogueManager : MonoBehaviour
             return;
 
         firstMonkeyDetected = true;
-        QueueEvent("first_monkey", Journalist(monkeyJournalist), Thought(monkeyThought));
+        TriggerEvent("first_monkey", Journalist(monkeyJournalist), Thought(monkeyThought));
     }
 
-    private void QueueEvent(string eventID, params DialogueLine[] lines)
+    private void TriggerEvent(string eventID, params DialogueLine[] lines)
     {
-        if (string.IsNullOrEmpty(eventID) || !triggeredEvents.Add(eventID))
+        List<DialogueEvent> events = new List<DialogueEvent>
+        {
+            new DialogueEvent(eventID, lines)
+        };
+        TriggerEvents(events);
+    }
+
+    private void TriggerEvents(List<DialogueEvent> events)
+    {
+        if (events == null || events.Count == 0)
             return;
 
-        foreach (DialogueLine line in lines)
+        List<DialogueLine> linesToShow = new List<DialogueLine>();
+        foreach (DialogueEvent dialogueEvent in events)
         {
-            if (!string.IsNullOrWhiteSpace(line.Text))
-                pendingLines.Enqueue(line);
+            if (string.IsNullOrEmpty(dialogueEvent.ID) ||
+                !triggeredEvents.Add(dialogueEvent.ID) || dialogueEvent.Lines == null)
+                continue;
+
+            foreach (DialogueLine line in dialogueEvent.Lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line.Text))
+                    linesToShow.Add(line);
+            }
         }
+
+        if (linesToShow.Count == 0)
+            return;
+
+        if (activeDialogue != null)
+            StopCoroutine(activeDialogue);
+
+        activeDialogue = StartCoroutine(PlayDialogueEvent(linesToShow));
     }
 
-    private IEnumerator PlayPendingLines()
+    private IEnumerator PlayDialogueEvent(List<DialogueLine> lines)
     {
-        while (pendingLines.Count > 0)
-        {
-            DialogueLine line = pendingLines.Dequeue();
-            yield return DisplayLine(line);
-        }
+        yield return HideVisibleBubble();
 
-        HideBubbles();
-        queueRoutine = null;
+        foreach (DialogueLine line in lines)
+            yield return DisplayLine(line);
+
+        activeDialogue = null;
     }
 
     private IEnumerator DisplayLine(DialogueLine line)
     {
+        yield return HideVisibleBubble();
+
         GameObject root = line.IsThought ? thoughtBubble : speechBubble;
         CanvasGroup group = line.IsThought ? thoughtGroup : speechGroup;
         RectTransform panel = line.IsThought ? thoughtRect : speechRect;
         TextMeshProUGUI label = line.IsThought ? thoughtText : speechText;
-
-        GameObject otherRoot = line.IsThought ? speechBubble : thoughtBubble;
-        if (otherRoot != null)
-            otherRoot.SetActive(false);
 
         if (root == null || group == null || panel == null || label == null)
         {
@@ -398,16 +481,19 @@ public class GameplayDialogueManager : MonoBehaviour
         label.text = line.Text;
         ResizeBubble(panel, label, line.Text);
         root.SetActive(true);
+        visibleBubble = root;
+        visibleBubbleGroup = group;
         group.alpha = 0f;
         yield return Fade(group, 1f);
 
-        float readingTime = Mathf.Max(
+        float calculatedReadingTime = line.Text.Length / charactersPerSecond + extraReadingTime;
+        float readingTime = Mathf.Clamp(
+            calculatedReadingTime,
             minimumReadingTime,
-            line.Text.Length / charactersPerSecond + extraReadingTime
+            maximumReadingTime
         );
         yield return new WaitForSeconds(readingTime);
-        yield return Fade(group, 0f);
-        root.SetActive(false);
+        yield return HideVisibleBubble();
     }
 
     private void ResizeBubble(RectTransform panel, TextMeshProUGUI label, string text)
@@ -424,7 +510,64 @@ public class GameplayDialogueManager : MonoBehaviour
             textWidth + horizontalPadding,
             textHeight + verticalPadding
         );
-        panel.anchoredPosition = new Vector2(0f, bubbleBottomOffset);
+        PositionAboveHotbar(panel);
+    }
+
+    private void PositionAboveHotbar(RectTransform panel)
+    {
+        if (hotbarRect == null)
+            FindHotbar();
+        if (hotbarRect == null || panel.parent is not RectTransform parentRect)
+        {
+            panel.anchoredPosition = new Vector2(0f, hotbarGap + 150f);
+            return;
+        }
+
+        Canvas sourceCanvas = hotbarRect.GetComponentInParent<Canvas>();
+        Canvas targetCanvas = panel.GetComponentInParent<Canvas>();
+        Camera sourceCamera = sourceCanvas != null &&
+            sourceCanvas.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? sourceCanvas.rootCanvas.worldCamera
+                : null;
+        Camera targetCamera = targetCanvas != null &&
+            targetCanvas.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? targetCanvas.rootCanvas.worldCamera
+                : null;
+
+        Vector3[] corners = new Vector3[4];
+        hotbarRect.GetWorldCorners(corners);
+        Vector3 topCenter = (corners[1] + corners[2]) * 0.5f;
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(sourceCamera, topCenter);
+        screenPoint.y += hotbarGap;
+
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect,
+                screenPoint,
+                targetCamera,
+                out Vector2 localPoint))
+        {
+            return;
+        }
+
+        Vector2 anchor = (panel.anchorMin + panel.anchorMax) * 0.5f;
+        Vector2 anchorPoint = new Vector2(
+            Mathf.Lerp(parentRect.rect.xMin, parentRect.rect.xMax, anchor.x),
+            Mathf.Lerp(parentRect.rect.yMin, parentRect.rect.yMax, anchor.y)
+        );
+        panel.anchoredPosition = localPoint - anchorPoint;
+    }
+
+    private IEnumerator HideVisibleBubble()
+    {
+        if (visibleBubble == null)
+            yield break;
+
+        if (visibleBubbleGroup != null)
+            yield return Fade(visibleBubbleGroup, 0f);
+
+        visibleBubble.SetActive(false);
+        visibleBubble = null;
+        visibleBubbleGroup = null;
     }
 
     private IEnumerator Fade(CanvasGroup group, float targetAlpha)
@@ -454,6 +597,8 @@ public class GameplayDialogueManager : MonoBehaviour
             speechBubble.SetActive(false);
         if (thoughtBubble != null)
             thoughtBubble.SetActive(false);
+        visibleBubble = null;
+        visibleBubbleGroup = null;
     }
 
     private static DialogueLine Journalist(string text) => new DialogueLine(false, text);
@@ -466,6 +611,12 @@ public class GameplayDialogueManager : MonoBehaviour
         MonkeyEnemy.PlayerDetected -= OnMonkeyDetected;
         if (photoCamera != null)
             photoCamera.EvidenceRegistered -= OnEvidenceRegistered;
+        if (activeDialogue != null)
+        {
+            StopCoroutine(activeDialogue);
+            activeDialogue = null;
+        }
+        HideBubbles();
     }
 
     private void OnDestroy()
