@@ -2,8 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
+[RequireComponent(typeof(EvidencePhotoTarget))]
 public class ArvoreSinistra : MonoBehaviour, IDamageable
 {
+    [Header("Evidência fotográfica")]
+    [SerializeField, Min(1)] private int photoEvidenceIndex = 4;
+    [SerializeField] private string photoEvidenceName = "Árvore mutante";
+    private EvidencePhotoTarget photoEvidence;
+
     [Header("Vida")]
     public float maxHealth = 30f;
     private float currentHealth;
@@ -61,6 +67,33 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     private EnemyNametag nametag;
     private float lastAttackTime;
     private bool playerWasInSoundRange;
+
+    private void Awake()
+    {
+        if (GetComponent<EvidencePhotoTarget>() == null)
+            gameObject.AddComponent<EvidencePhotoTarget>();
+
+        ConfigurePhotoEvidence();
+    }
+
+    private void OnValidate()
+    {
+        photoEvidenceIndex = Mathf.Max(1, photoEvidenceIndex);
+        ConfigurePhotoEvidence();
+    }
+
+    private void ConfigurePhotoEvidence()
+    {
+        if (photoEvidence == null)
+            photoEvidence = GetComponent<EvidencePhotoTarget>();
+
+        if (photoEvidence == null)
+            return;
+
+        photoEvidence.category = EvidencePhotoTarget.EvidenceCategory.MutantTree;
+        photoEvidence.evidenceIndex = photoEvidenceIndex;
+        photoEvidence.evidenceName = photoEvidenceName;
+    }
 
     private void Start()
     {
