@@ -424,6 +424,9 @@ MonoBehaviour:
     - line: '|   - m_BuildTarget: Standalone'
     - line: '|     m_StaticBatching: 1'
     - line: '|     m_DynamicBatching: 0'
+    - line: '|   - m_BuildTarget: WebGL'
+    - line: '|     m_StaticBatching: 0'
+    - line: '|     m_DynamicBatching: 0'
     - line: '|   m_BuildTargetShaderSettings: []'
     - line: '|   m_BuildTargetGraphicsJobs: []'
     - line: '|   m_BuildTargetGraphicsJobMode: []'
@@ -716,6 +719,7 @@ MonoBehaviour:
     - line: '|   scriptingDefineSymbols:'
     - line: '|     Android: SENTIS_ANALYTICS_ENABLED;APP_UI_EDITOR_ONLY'
     - line: '|     Standalone: SENTIS_ANALYTICS_ENABLED;APP_UI_EDITOR_ONLY'
+    - line: '|     WebGL: SENTIS_ANALYTICS_ENABLED;APP_UI_EDITOR_ONLY'
     - line: '|   additionalCompilerArguments: {}'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
@@ -855,7 +859,7 @@ MonoBehaviour:
     - rid: 245831368251015260
       type: {class: WebGLPlatformSettings, ns: UnityEditor.WebGL, asm: UnityEditor.WebGL.Extensions}
       data:
-        m_Development: 1
+        m_Development: 0
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0
