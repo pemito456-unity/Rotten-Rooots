@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
   corpseName: "Cad\xE1ver 4 \u2014 Seguran\xE7a"
+  storyOrder: 4
   interactionRange: 1.5
   startsFinalFire: 1
   pages:

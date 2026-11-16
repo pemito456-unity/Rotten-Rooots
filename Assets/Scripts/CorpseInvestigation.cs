@@ -20,6 +20,8 @@ public class CorpseInvestigation : MonoBehaviour
 
     [Header("Investigação")]
     public string corpseName = "Cadáver";
+    [Tooltip("Ordem narrativa do cadáver: 1, 2, 3 (penúltimo) ou 4 (último).")]
+    [Range(0, 4)] public int storyOrder;
     [Min(0.1f)] public float interactionRange = 1.5f;
     [Tooltip("Ativa o incêndio final quando o jogador abre as anotações deste cadáver.")]
     public bool startsFinalFire;
@@ -156,4 +158,5 @@ public class CorpseInvestigation : MonoBehaviour
         }
         return true;
     }
+
 }

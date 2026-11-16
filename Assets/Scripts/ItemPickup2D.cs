@@ -1,8 +1,10 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ItemPickup2D : MonoBehaviour
 {
+    public static event Action<ItemType> ItemCollected;
     public enum ItemType
     {
         Ammo,
@@ -94,6 +96,8 @@ public class ItemPickup2D : MonoBehaviour
             Debug.LogWarning("Inventário cheio.");
             return;
         }
+
+        ItemCollected?.Invoke(itemType);
 
         if (InventoryUIManager.Instance != null)
         {

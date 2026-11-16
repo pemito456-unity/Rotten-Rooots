@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
   corpseName: "Cad\xE1ver 3 \u2014 Relat\xF3rio classificado"
+  storyOrder: 3
   interactionRange: 1.5
   startsFinalFire: 0
   pages:

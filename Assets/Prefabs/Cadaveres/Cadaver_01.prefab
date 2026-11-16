@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
   corpseName: "Cad\xE1ver 1"
+  storyOrder: 1
   interactionRange: 1.5
   startsFinalFire: 0
   pages:

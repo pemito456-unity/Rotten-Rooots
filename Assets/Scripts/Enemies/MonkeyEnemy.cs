@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using System;
 
 public class MonkeyEnemy : MonoBehaviour, IDamageable
 {
+    public static event Action<MonkeyEnemy> PlayerDetected;
     [Header("Vida do Inimigo")]
     public float health = 20f;
 
@@ -70,6 +72,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
         bool playerIsInAggroRange = distance <= aggroDistance;
         if (playerIsInAggroRange && !playerWasInAggroRange)
         {
+            PlayerDetected?.Invoke(this);
             if (isAggroed)
                 PlayAggroSound();
             else

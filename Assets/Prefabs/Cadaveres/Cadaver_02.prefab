@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorpseInvestigation
   corpseName: "Cad\xE1ver 2 \u2014 Ian, equipe Delta"
+  storyOrder: 2
   interactionRange: 1.5
   startsFinalFire: 0
   pages:

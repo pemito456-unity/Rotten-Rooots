@@ -11,6 +11,7 @@ using UnityEngine.Audio;
 public class PhotoEvidenceCamera : MonoBehaviour
 {
     public event Action<EvidencePhotoTarget> EvidencePhotographed;
+    public event Action<EvidencePhotoTarget> EvidenceRegistered;
     [Header("Área de reconhecimento")]
     [Min(0.1f)] public float maxPhotoDistance = 8.5f;
     [Range(1f, 120f)] public float fieldOfViewDegrees = 35f;
@@ -88,6 +89,7 @@ public class PhotoEvidenceCamera : MonoBehaviour
         EvidencePhotographed?.Invoke(target);
         if (wasNewEvidence)
         {
+            EvidenceRegistered?.Invoke(target);
             ShowNotice(
                 target.PhotoPosition,
                 $"{gallery.CollectedCount} de {gallery.EvidenceSlotCount} evidências coletadas"

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Controla o painel de anotações que já existe na cena.
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class CorpseNotePanelController : MonoBehaviour
 {
     public static CorpseNotePanelController Instance { get; private set; }
+    public static event Action<CorpseInvestigation> NotesClosed;
 
     [Header("Objetos da interface na hierarquia")]
     [SerializeField] private GameObject panelRoot;
@@ -109,6 +111,7 @@ public class CorpseNotePanelController : MonoBehaviour
         if (!IsOpen)
             return;
 
+        CorpseInvestigation closedCorpse = currentCorpse;
         panelRoot.SetActive(false);
         currentCorpse = null;
         Time.timeScale = timeScaleBeforeOpen;
@@ -119,6 +122,9 @@ public class CorpseNotePanelController : MonoBehaviour
 
         SelectGameObject(selection);
         previousSelection = null;
+
+        if (closedCorpse != null)
+            NotesClosed?.Invoke(closedCorpse);
     }
 
     private void RefreshPage()
