@@ -149,6 +149,8 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        AnimalSpeciesKillTracker.RegisterKill(AnimalSpecies.Jaguar);
+
         if (KillFeedbackManager.Instance != null)
         {
             KillFeedbackManager.Instance.TriggerFirstKillFeedback();

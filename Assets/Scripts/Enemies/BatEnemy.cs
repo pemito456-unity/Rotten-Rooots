@@ -120,6 +120,8 @@ public class BatEnemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        AnimalSpeciesKillTracker.RegisterKill(AnimalSpecies.Bat);
+
         if (KillFeedbackManager.Instance != null)
         {
             KillFeedbackManager.Instance.TriggerFirstKillFeedback();

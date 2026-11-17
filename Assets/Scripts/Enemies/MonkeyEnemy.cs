@@ -171,6 +171,8 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        AnimalSpeciesKillTracker.RegisterKill(AnimalSpecies.Monkey);
+
         if (KillFeedbackManager.Instance != null)
         {
             KillFeedbackManager.Instance.TriggerFirstKillFeedback();

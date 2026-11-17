@@ -33177,8 +33177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForestWrathManager
   maxWrath: 100
-  wrathDeathThresholdPercent: 80
+  wrathDeathThresholdPercent: 100
   wrathEndingSceneName: GameOverWrath
+  guiltEndingSceneName: GuiltEnding
   wrathLevelImage: {fileID: 7000000000000006003}
   wrathLevelSprites:
   - {fileID: 21300000, guid: ff45a8b9c172af34395177211b59a145, type: 3}
