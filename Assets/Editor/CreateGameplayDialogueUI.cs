@@ -236,14 +236,15 @@ public static class CreateGameplayDialogueUI
                 for (int x = 0; x < width; x++)
                 {
                     Vector2 point = new Vector2(x / (float)width, y / (float)height);
-                    float nearest = 1f;
+                    float nearest = float.PositiveInfinity;
                     for (int i = 0; i < centers.Length; i++)
                     {
                         Vector2 delta = (point - centers[i]) / radii[i];
                         nearest = Mathf.Min(nearest, delta.magnitude);
                     }
 
-                    float alpha = Mathf.SmoothStep(1f, 0f, (nearest - 0.94f) / 0.12f);
+                    float fade = Mathf.Clamp01((nearest - 0.94f) / 0.12f);
+                    float alpha = Mathf.SmoothStep(1f, 0f, fade);
                     pixels[y * width + x] = new Color32(255, 255, 255,
                         (byte)Mathf.RoundToInt(alpha * 255f));
                 }

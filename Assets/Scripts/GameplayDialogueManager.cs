@@ -54,6 +54,8 @@ public class GameplayDialogueManager : MonoBehaviour
     [SerializeField, Min(200f)] private float maximumBubbleWidth = 1450f;
     [SerializeField, Min(0f)] private float horizontalPadding = 64f;
     [SerializeField, Min(0f)] private float verticalPadding = 40f;
+    [SerializeField, Min(0f)] private float thoughtHorizontalPadding = 108f;
+    [SerializeField, Min(0f)] private float thoughtVerticalPadding = 74f;
     [SerializeField, Min(0f)] private float fadeDuration = 0.1f;
     [SerializeField, Min(1f)] private float charactersPerSecond = 35f;
     [SerializeField, Min(0f)] private float extraReadingTime = 0.3f;
@@ -500,6 +502,9 @@ public class GameplayDialogueManager : MonoBehaviour
 
     private void ResizeBubble(RectTransform panel, TextMeshProUGUI label, string text)
     {
+        bool isThought = label == thoughtText;
+        float bubbleHorizontalPadding = isThought ? thoughtHorizontalPadding : horizontalPadding;
+        float bubbleVerticalPadding = isThought ? thoughtVerticalPadding : verticalPadding;
         float availableTextWidth = Mathf.Max(100f, maximumBubbleWidth - horizontalPadding);
         Vector2 unconstrained = label.GetPreferredValues(text);
         float textWidth = Mathf.Min(unconstrained.x, availableTextWidth);
@@ -509,8 +514,8 @@ public class GameplayDialogueManager : MonoBehaviour
         RectTransform textRect = label.rectTransform;
         textRect.sizeDelta = new Vector2(textWidth, textHeight);
         panel.sizeDelta = new Vector2(
-            textWidth + horizontalPadding,
-            textHeight + verticalPadding
+            textWidth + bubbleHorizontalPadding,
+            textHeight + bubbleVerticalPadding
         );
         PositionAboveHotbar(panel);
     }
