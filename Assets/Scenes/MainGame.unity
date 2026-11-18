@@ -2541,6 +2541,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 8810000000000000042}
   sfxVolumeSlider: {fileID: 8810000000000000053}
   audioMixer: {fileID: 24100000, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
+  buttonClickSound: {fileID: 8300000, guid: 4d0e41c38e02506409468799fa0615c7, type: 3}
   playerInput: {fileID: 2024336250}
   gameplayActionMapName: Player
   pauseActionName: Pause

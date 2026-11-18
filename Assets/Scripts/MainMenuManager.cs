@@ -34,6 +34,9 @@ public class MainMenuManager : MonoBehaviour
     public AudioSource menuMusicSource;
     public AudioMixerGroup musicMixerGroup;
 
+    [Header("Som dos botões")]
+    public AudioClip buttonClickSound;
+
     private GameObject previousMenuSelection;
     private readonly List<AudioClip> menuPlaylist = new List<AudioClip>();
     private int nextMenuTrackIndex;
@@ -43,6 +46,21 @@ public class MainMenuManager : MonoBehaviour
     private const string MusicPreferenceKey = "RottenRoots.MusicVolume";
     private const string SfxPreferenceKey = "RottenRoots.SFXVolume";
     private const string VolumeDefaultsVersionKey = "RottenRoots.VolumeDefaults50Applied";
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void RegisterVolumeResetOnQuit()
+    {
+        Application.quitting -= ResetVolumePreferences;
+        Application.quitting += ResetVolumePreferences;
+    }
+
+    private static void ResetVolumePreferences()
+    {
+        PlayerPrefs.SetFloat(MasterPreferenceKey, 0.5f);
+        PlayerPrefs.SetFloat(MusicPreferenceKey, 0.5f);
+        PlayerPrefs.SetFloat(SfxPreferenceKey, 0.5f);
+        PlayerPrefs.Save();
+    }
 
     private void Start()
     {
@@ -56,6 +74,7 @@ public class MainMenuManager : MonoBehaviour
 
         ConfigureSettingsPanel();
         SetupMenuMusic();
+        ConfigureButtonClickSounds();
 
         if (EventSystem.current != null &&
             EventSystem.current.currentSelectedGameObject == null &&
@@ -63,6 +82,25 @@ public class MainMenuManager : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(defaultMenuSelection);
         }
+    }
+
+    private void ConfigureButtonClickSounds()
+    {
+        if (buttonClickSound == null || audioMixer == null)
+            return;
+
+        AudioMixerGroup[] groups = audioMixer.FindMatchingGroups("SFX");
+        if (groups.Length == 0)
+            return;
+
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.spatialBlend = 0f;
+        source.outputAudioMixerGroup = groups[0];
+
+        Button[] buttons = FindObjectsOfType<Button>(true);
+        foreach (Button button in buttons)
+            button.onClick.AddListener(() => source.PlayOneShot(buttonClickSound));
     }
 
     private void Update()

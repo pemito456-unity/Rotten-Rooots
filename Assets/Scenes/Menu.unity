@@ -3707,6 +3707,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2f1e6af2bf75e12438ac262889e13e7c, type: 3}
   menuMusicSource: {fileID: 8790000000000000000}
   musicMixerGroup: {fileID: 24300010, guid: 000e65af252d35e4ba299f2c0d20486f, type: 2}
+  buttonClickSound: {fileID: 8300000, guid: 4d0e41c38e02506409468799fa0615c7, type: 3}
 --- !u!4 &1569307385
 Transform:
   m_ObjectHideFlags: 0

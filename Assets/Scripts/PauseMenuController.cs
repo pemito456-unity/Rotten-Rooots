@@ -21,6 +21,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioClip buttonClickSound;
 
     [Header("Input do jogador")]
     [SerializeField] private PlayerInput playerInput;
@@ -54,6 +55,7 @@ public class PauseMenuController : MonoBehaviour
             settingsPanel.SetActive(false);
 
         ConfigureSettingsPanel();
+        ConfigureButtonClickSounds();
 
         if (playerInput == null)
             playerInput = FindObjectOfType<PlayerInput>();
@@ -61,6 +63,25 @@ public class PauseMenuController : MonoBehaviour
         photoEvidenceGallery = GetComponent<PhotoEvidenceGallery>();
         if (photoEvidenceGallery != null)
             photoEvidenceGallery.Initialize();
+    }
+
+    private void ConfigureButtonClickSounds()
+    {
+        if (buttonClickSound == null || audioMixer == null)
+            return;
+
+        AudioMixerGroup[] groups = audioMixer.FindMatchingGroups("SFX");
+        if (groups.Length == 0)
+            return;
+
+        AudioSource source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.spatialBlend = 0f;
+        source.outputAudioMixerGroup = groups[0];
+
+        Button[] buttons = FindObjectsOfType<Button>(true);
+        foreach (Button button in buttons)
+            button.onClick.AddListener(() => source.PlayOneShot(buttonClickSound));
     }
 
     // Ligue este método ao evento da ação Pause no componente Player Input.
