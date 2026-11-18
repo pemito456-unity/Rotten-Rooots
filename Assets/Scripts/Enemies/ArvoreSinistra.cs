@@ -63,7 +63,8 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private Rigidbody2D rb;
-    private Collider2D bodyCollider;
+    private Animator animator;
+    private BoxCollider2D spriteDamageArea;
     private EnemyNametag nametag;
     private float lastAttackTime;
     private bool playerWasInSoundRange;
@@ -99,7 +100,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
-        bodyCollider = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
         if (rb != null)
         {
             rb.constraints |= RigidbodyConstraints2D.FreezePositionX |
@@ -113,7 +114,10 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
             spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (spriteRenderer != null)
+        {
             originalColor = spriteRenderer.color;
+            CreateSpriteDamageArea();
+        }
 
         FindPlayer();
 
@@ -137,6 +141,8 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
 
+        UpdateSpriteDamageArea();
+
         if (playerTransform == null)
         {
             FindPlayer();
@@ -145,27 +151,40 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
         }
 
         float centerDistance = Vector2.Distance(transform.position, playerTransform.position);
-        float edgeDistance = GetDistanceFromPlayerToTree(playerTransform.position);
         UpdateProximitySound(centerDistance);
-
-        if (edgeDistance <= attackRange &&
-            Time.time >= lastAttackTime + attackCooldown &&
-            playerHealth != null)
-        {
-            playerHealth.TakeDamage(damage, transform.position);
-            lastAttackTime = Time.time;
-        }
     }
 
-    private float GetDistanceFromPlayerToTree(Vector2 playerPosition)
+    private void CreateSpriteDamageArea()
     {
-        if (spriteRenderer != null)
-            return Vector2.Distance(playerPosition, spriteRenderer.bounds.ClosestPoint(playerPosition));
+        if (spriteRenderer.sprite == null)
+            return;
 
-        if (bodyCollider != null)
-            return Vector2.Distance(playerPosition, bodyCollider.ClosestPoint(playerPosition));
+        spriteDamageArea = gameObject.AddComponent<BoxCollider2D>();
+        spriteDamageArea.isTrigger = true;
+        UpdateSpriteDamageArea();
+    }
 
-        return Vector2.Distance(playerPosition, transform.position);
+    private void UpdateSpriteDamageArea()
+    {
+        if (spriteDamageArea == null || spriteRenderer == null || spriteRenderer.sprite == null)
+            return;
+
+        Bounds spriteBounds = spriteRenderer.sprite.bounds;
+        spriteDamageArea.offset = spriteBounds.center;
+        spriteDamageArea.size = (Vector2)spriteBounds.size + Vector2.one * (attackRange * 2f);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
+        if (health == null || Time.time < lastAttackTime + attackCooldown)
+            return;
+
+        if (animator != null)
+            animator.SetTrigger("Attack");
+
+        health.TakeDamage(damage, transform.position);
+        lastAttackTime = Time.time;
     }
 
     private void UpdateProximitySound(float distanceToPlayer)
@@ -287,7 +306,5 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
