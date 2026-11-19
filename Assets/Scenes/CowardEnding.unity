@@ -578,7 +578,7 @@ MonoBehaviour:
     pauseAfter: 0.5
   - text: "Sou um covarde e n\xE3o sirvo para jornalismo investigativo."
     pauseAfter: 1
-  - text: Vou voltar a cobrir a coluna de fofocas.
+  - text: Vou voltar a cobrir as fofocas do Carlinhos Blender e da Varginha.
     pauseAfter: 0.5
   typingAudioSource: {fileID: 6000000043}
   typingSound: {fileID: 8300000, guid: 839260f30c718c941b411944bd02e4da, type: 3}
