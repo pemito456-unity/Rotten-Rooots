@@ -16,7 +16,26 @@ public class CowardEndingTrigger : MonoBehaviour
             return;
 
         isLoading = true;
+        StopPlayer(other);
         StartCoroutine(LoadEnding());
+    }
+
+    private static void StopPlayer(Collider2D playerCollider)
+    {
+        PlayerController2D controller = playerCollider.GetComponentInParent<PlayerController2D>();
+        if (controller != null)
+            controller.enabled = false;
+
+        PlayerController2DAndroid androidController = playerCollider.GetComponentInParent<PlayerController2DAndroid>();
+        if (androidController != null)
+            androidController.enabled = false;
+
+        Rigidbody2D body = playerCollider.attachedRigidbody;
+        if (body != null)
+        {
+            body.linearVelocity = Vector2.zero;
+            body.simulated = false;
+        }
     }
 
     private IEnumerator LoadEnding()
