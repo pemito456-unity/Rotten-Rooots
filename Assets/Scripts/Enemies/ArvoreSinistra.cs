@@ -23,7 +23,7 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     [Header("Ataque")]
     public float damage = 25f;
     public float attackCooldown = 1f;
-    public float attackRange = 0.45f;
+    public float attackRange = 0.25f;
 
     [Header("Ira da Floresta")]
     public float wrathOnDestroy = 15f;

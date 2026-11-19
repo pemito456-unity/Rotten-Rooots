@@ -39,6 +39,28 @@ Transform:
   - {fileID: 2617730549951642150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8760000000000000005
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870308999364150352}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b364f7ce4c346e9a97c6c94835e1aa1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &3683675527774160599
 SpriteRenderer:
   serializedVersion: 2
@@ -93,33 +115,11 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.94, y: 11.23}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &8760000000000000005
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870308999364150352}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1b364f7ce4c346e9a97c6c94835e1aa1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage:
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &4838890992092730249
 Rigidbody2D:
   serializedVersion: 5
@@ -166,7 +166,7 @@ MonoBehaviour:
   detectionRadius: 6
   damage: 25
   attackCooldown: 1
-  attackRange: 0.45
+  attackRange: 0.25
   wrathOnDestroy: 15
   isPassageBlocker: 0
   onlyRemovableByKit: 0
@@ -233,7 +233,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 7.94, y: 11.23}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 7.94, y: 11.23}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   category: 2
   evidenceIndex: 4
   evidenceName: "\xC1rvore mutante"
-  galleryImage: {fileID: 0}
+  galleryImage: {fileID: 21300000, guid: d458ef6385a6d3e4194d6e396f1d7b87, type: 3}
   photoPoint: {fileID: 0}
 --- !u!1 &1711765527316834677
 GameObject:
