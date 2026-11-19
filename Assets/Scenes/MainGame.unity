@@ -55526,7 +55526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e40a4b932944b8a503b634beac7309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhotoEvidenceCamera
-  maxPhotoDistance: 8.5
+  maxPhotoDistance: 12
   fieldOfViewDegrees: 120
   photoCooldown: 0.5
   obstructionLayers:
