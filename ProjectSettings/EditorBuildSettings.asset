@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreditsTextRoll.unity
     guid: 99b0c9d6bdf61a346b5b06f0d0e4adad
+  - enabled: 1
+    path: Assets/Scenes/CowardEnding.unity
+    guid: 68ac4bd12dad5504a9b87ad099c9d55a
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
   m_UseUCBPForAssetBundles: 0
