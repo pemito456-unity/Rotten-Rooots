@@ -13037,7 +13037,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.05
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000fb209623
@@ -13274,7 +13274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &636970072
 Transform:
   m_ObjectHideFlags: 0
@@ -22378,15 +22378,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285932984558231992, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
       propertyPath: aggroDistance
-      value: 4.5
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 5496452582861398924, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.15
+      value: 5.7
       objectReference: {fileID: 0}
     - target: {fileID: 5496452582861398924, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.29
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 5496452582861398924, guid: 4b79224cf98714a4f86d872cca08a1ce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -39637,7 +39637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1783693220
 Transform:
   m_ObjectHideFlags: 0

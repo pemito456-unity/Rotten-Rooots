@@ -29,6 +29,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
 
     private Transform playerTransform;
     private Rigidbody2D rb;
+    private Animator animator;
     private EnemyNametag nametag;
     private float maxHealth;
     private float throwTimer;
@@ -37,6 +38,7 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         nametag = GetComponent<EnemyNametag>();
         maxHealth = health;
 
@@ -124,6 +126,9 @@ public class MonkeyEnemy : MonoBehaviour, IDamageable
     private void ThrowStone()
     {
         if (stonePrefab == null || throwPoint == null || playerTransform == null) return;
+
+        if (animator != null)
+            animator.SetTrigger("Attack");
 
         Vector2 direction = ((Vector2)playerTransform.position - (Vector2)throwPoint.position).normalized;
         if (direction.sqrMagnitude < 0.01f)
