@@ -167,6 +167,8 @@ MonoBehaviour:
   damage: 25
   attackCooldown: 1
   attackRange: 0.25
+  attackWhooshSound: {fileID: 8300000, guid: 857c3f16fc72d4b49a7fa6aff5b9c537, type: 3}
+  attackImpactSound: {fileID: 8300000, guid: 34124f63e3d3fb344aff07ff4bff5ebe, type: 3}
   wrathOnDestroy: 15
   isPassageBlocker: 0
   onlyRemovableByKit: 0

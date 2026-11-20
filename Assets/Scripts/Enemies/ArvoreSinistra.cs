@@ -24,6 +24,8 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
     public float damage = 25f;
     public float attackCooldown = 1f;
     public float attackRange = 0.25f;
+    [SerializeField] private AudioClip attackWhooshSound;
+    [SerializeField] private AudioClip attackImpactSound;
 
     [Header("Ira da Floresta")]
     public float wrathOnDestroy = 15f;
@@ -183,8 +185,24 @@ public class ArvoreSinistra : MonoBehaviour, IDamageable
         if (animator != null)
             animator.SetTrigger("Attack");
 
+        PlayAttackSounds();
         health.TakeDamage(damage, transform.position);
         lastAttackTime = Time.time;
+    }
+
+    private void PlayAttackSounds()
+    {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.outputAudioMixerGroup = sfxMixerGroup;
+        if (attackWhooshSound != null)
+            audioSource.PlayOneShot(attackWhooshSound);
+        if (attackImpactSound != null)
+            audioSource.PlayOneShot(attackImpactSound);
     }
 
     private void UpdateProximitySound(float distanceToPlayer)
