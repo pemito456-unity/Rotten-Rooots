@@ -30,8 +30,8 @@ Você é um **jornalista** enviado para coletar dados e tirar fotos **antes que 
 
 | Plataforma | Entrada | Status |
 |---|---|---|
-| 🖥️ PC | Teclado e controle | Em desenvolvimento |
-| 🤖 Android | Toque na tela | Planejada |
+| 🖥️ PC | Teclado e controle | Desenvolvida |
+| 🤖 Android | Toque na tela | Desinvolvida |
 
 ## 🎮 Mecânicas principais
 
