@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class ItemPickup2D : MonoBehaviour
 {
@@ -27,8 +28,10 @@ public class ItemPickup2D : MonoBehaviour
     [Header("UI do item")]
     public GameObject promptCanvas;
     public TextMeshProUGUI promptText;
+    [SerializeField] private Sprite gamepadAIcon;
 
     private bool playerInRange;
+    private Image promptGamepadIcon;
     private static Sprite generatedKnifeSprite;
     private static Texture2D generatedKnifeTexture;
 
@@ -47,8 +50,43 @@ public class ItemPickup2D : MonoBehaviour
         if (promptCanvas != null)
             promptCanvas.SetActive(false);
 
+        SetupPromptIcon();
+        RefreshPrompt();
+    }
+
+    private void OnEnable() => InteractionPromptInput.DeviceChanged += OnInputDeviceChanged;
+
+    private void OnDisable() => InteractionPromptInput.DeviceChanged -= OnInputDeviceChanged;
+
+    private void SetupPromptIcon()
+    {
+        if (promptText == null || gamepadAIcon == null || promptText.transform.parent == null)
+            return;
+
+        GameObject iconObject = new GameObject("Gamepad A Icon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        iconObject.transform.SetParent(promptText.transform.parent, false);
+        RectTransform rect = iconObject.GetComponent<RectTransform>();
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(35f, -12f);
+        rect.sizeDelta = new Vector2(18f, 18f);
+
+        promptGamepadIcon = iconObject.GetComponent<Image>();
+        promptGamepadIcon.sprite = gamepadAIcon;
+        promptGamepadIcon.preserveAspect = true;
+        promptGamepadIcon.raycastTarget = false;
+        promptGamepadIcon.gameObject.SetActive(InteractionPromptInput.LastInputWasGamepad);
+    }
+
+    private void OnInputDeviceChanged(bool gamepad) => RefreshPrompt();
+
+    private void RefreshPrompt()
+    {
         if (promptText != null)
-            promptText.text = $"{itemName}\n[F / Y] Coletar";
+            promptText.text = $"{itemName}\n{(InteractionPromptInput.LastInputWasGamepad ? "Coletar" : "F Coletar")}";
+
+        if (promptGamepadIcon != null)
+            promptGamepadIcon.gameObject.SetActive(InteractionPromptInput.LastInputWasGamepad);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

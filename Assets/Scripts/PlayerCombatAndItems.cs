@@ -80,6 +80,7 @@ public class PlayerCombatAndItems : MonoBehaviour
     // Kit selecionado: usa o kit.
     public void OnPrimary(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (!context.performed || inventory == null)
             return;
 
@@ -126,6 +127,7 @@ public class PlayerCombatAndItems : MonoBehaviour
     // R no teclado ou B no controle recarrega a lanterna; B também fecha as notas abertas.
     public void OnReload(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (!context.performed)
             return;
 

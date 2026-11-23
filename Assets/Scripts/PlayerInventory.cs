@@ -292,60 +292,70 @@ public class PlayerInventory : MonoBehaviour
 
     public void OnNextItem(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(selectedSlotIndex + 1);
     }
 
     public void OnPreviousItem(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(selectedSlotIndex - 1);
     }
 
     public void OnSelectSlot1(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(0);
     }
 
     public void OnSelectSlot2(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(1);
     }
 
     public void OnSelectSlot3(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(2);
     }
 
     public void OnSelectSlot4(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(3);
     }
 
     public void OnSelectSlot5(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(4);
     }
 
     public void OnSelectSlot6(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(5);
     }
 
     public void OnSelectSlot7(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(6);
     }
 
     public void OnSelectSlot8(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (context.performed)
             SelectSlot(7);
     }
@@ -366,6 +376,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void OnDropItem(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (!context.performed)
             return;
 

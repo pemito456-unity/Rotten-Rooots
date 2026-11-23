@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Permite abrir e ler as anotações do cadáver.
@@ -30,6 +31,7 @@ public class CorpseInvestigation : MonoBehaviour
     [Header("Aviso de interação (hierarquia do prefab)")]
     [SerializeField] private GameObject promptCanvas;
     [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private Sprite gamepadAIcon;
 
     [Header("Foto de evidência")]
     public EvidencePhotoTarget photoEvidence;
@@ -37,6 +39,7 @@ public class CorpseInvestigation : MonoBehaviour
     private static readonly List<CorpseInvestigation> activeCorpses =
         new List<CorpseInvestigation>();
     private Transform playerTransform;
+    private Image promptGamepadIcon;
 
     private void Awake()
     {
@@ -51,8 +54,8 @@ public class CorpseInvestigation : MonoBehaviour
 
         if (promptCanvas != null)
             promptCanvas.SetActive(false);
-        if (promptText != null)
-            promptText.text = $"{corpseName}\n[F / Y] Examinar";
+        SetupPromptIcon();
+        RefreshPrompt();
 
         FindPlayer();
     }
@@ -61,13 +64,46 @@ public class CorpseInvestigation : MonoBehaviour
     {
         if (!activeCorpses.Contains(this))
             activeCorpses.Add(this);
+        InteractionPromptInput.DeviceChanged += OnInputDeviceChanged;
     }
 
     private void OnDisable()
     {
         activeCorpses.Remove(this);
+        InteractionPromptInput.DeviceChanged -= OnInputDeviceChanged;
         if (promptCanvas != null)
             promptCanvas.SetActive(false);
+    }
+
+    private void SetupPromptIcon()
+    {
+        if (promptText == null || gamepadAIcon == null || promptText.transform.parent == null)
+            return;
+
+        GameObject iconObject = new GameObject("Gamepad A Icon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        iconObject.transform.SetParent(promptText.transform.parent, false);
+        RectTransform rect = iconObject.GetComponent<RectTransform>();
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(35f, -12f);
+        rect.sizeDelta = new Vector2(18f, 18f);
+
+        promptGamepadIcon = iconObject.GetComponent<Image>();
+        promptGamepadIcon.sprite = gamepadAIcon;
+        promptGamepadIcon.preserveAspect = true;
+        promptGamepadIcon.raycastTarget = false;
+        promptGamepadIcon.gameObject.SetActive(InteractionPromptInput.LastInputWasGamepad);
+    }
+
+    private void OnInputDeviceChanged(bool gamepad) => RefreshPrompt();
+
+    private void RefreshPrompt()
+    {
+        if (promptText != null)
+            promptText.text = $"{corpseName}\n{(InteractionPromptInput.LastInputWasGamepad ? "Examinar" : "F Examinar")}";
+
+        if (promptGamepadIcon != null)
+            promptGamepadIcon.gameObject.SetActive(InteractionPromptInput.LastInputWasGamepad);
     }
 
     private void Update()

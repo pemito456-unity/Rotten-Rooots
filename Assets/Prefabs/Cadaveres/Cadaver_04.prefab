@@ -203,6 +203,7 @@ MonoBehaviour:
       por esse caminho com quem seja l\xE1 que tenha sobrevivido. Que Deus me ajude."
   promptCanvas: {fileID: 9000000000000000400}
   promptText: {fileID: 9000000000000000423}
+  gamepadAIcon: {fileID: 21300000, guid: 8a7d64b18b76a5f4cb07cfa4f827b971, type: 3}
   photoEvidence: {fileID: 11400000}
 --- !u!1 &9000000000000000400
 GameObject:

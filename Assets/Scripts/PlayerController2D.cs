@@ -25,6 +25,7 @@ public class PlayerController2D : MonoBehaviour
     // Conecte à ação Move no PlayerInput.
     public void OnMove(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         Vector2 input = context.ReadValue<Vector2>();
 
         // Mantém apenas o eixo predominante para bloquear diagonais.
@@ -42,6 +43,7 @@ public class PlayerController2D : MonoBehaviour
     // Conecte à ação Interact no PlayerInput.
     public void OnInteract(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         if (!context.performed)
             return;
 
@@ -68,6 +70,7 @@ public class PlayerController2D : MonoBehaviour
     // Opcional: só será usado se houver uma ação Run no Input Actions.
     public void OnRun(InputAction.CallbackContext context)
     {
+        InteractionPromptInput.Register(context);
         isRunning = context.ReadValueAsButton();
     }
 
