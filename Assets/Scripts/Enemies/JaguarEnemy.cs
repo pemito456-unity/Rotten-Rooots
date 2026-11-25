@@ -29,6 +29,7 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private float lastAttackTime;
     private EnemyNametag nametag;
+    private Animator animator;
     private bool playerWasInSoundRange;
 
     private void Start()
@@ -36,6 +37,7 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
         maxHealth = health; // Guarda a vida total inicial
         rb = GetComponent<Rigidbody2D>();
         nametag = GetComponent<EnemyNametag>();
+        animator = GetComponent<Animator>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -112,6 +114,7 @@ public class JaguarEnemy : MonoBehaviour, IDamageable
         {
             if (playerHealth != null)
             {
+                if (animator != null) animator.SetTrigger("Attack");
                 playerHealth.TakeDamage(damage, transform.position);
                 lastAttackTime = Time.time;
             }
