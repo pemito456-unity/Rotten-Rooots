@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: cd4f9871bc9428e47914a1a343bd31e4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4788380676256706968
+    second: "Texto Configura\xE7\xF5es Menu_0"
+  - first:
+      213: -8143713862578277476
+    second: "Texto Configura\xE7\xF5es Menu_1"
+  - first:
+      213: 2728237272425366397
+    second: "Texto Configura\xE7\xF5es Menu_2"
+  - first:
+      213: -3212785371233188898
+    second: "Texto Configura\xE7\xF5es Menu_3"
+  - first:
+      213: 6000646353341099694
+    second: "Texto Configura\xE7\xF5es Menu_4"
+  - first:
+      213: -5334155206827365678
+    second: "Texto Configura\xE7\xF5es Menu_5"
+  - first:
+      213: -2768491504595029719
+    second: "Texto Configura\xE7\xF5es Menu_6"
+  - first:
+      213: 5734845765365506954
+    second: "Texto Configura\xE7\xF5es Menu_7"
+  - first:
+      213: -1269023873942867739
+    second: "Texto Configura\xE7\xF5es Menu_8"
+  - first:
+      213: 4352212620422312903
+    second: "Texto Configura\xE7\xF5es Menu_9"
+  - first:
+      213: 2583177172516905084
+    second: "Texto Configura\xE7\xF5es Menu_10"
+  - first:
+      213: 7597059699774396851
+    second: "Texto Configura\xE7\xF5es Menu_11"
+  - first:
+      213: -7960957476057849144
+    second: "Texto Configura\xE7\xF5es Menu_12"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_0"
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 8
+        width: 89
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89130a9eadeb37240800000000000000
+      internalID: 4788380676256706968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_1"
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 23
+        width: 69
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93f894a367bbfe80800000000000000
+      internalID: -8143713862578277476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_2"
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 21
+        width: 66
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7305ed2855acd520800000000000000
+      internalID: 2728237272425366397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_3"
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 19
+        width: 60
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed303181ab4e963d0800000000000000
+      internalID: -3212785371233188898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_4"
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 24
+        width: 25
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaea3a9c014964350800000000000000
+      internalID: 6000646353341099694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_5"
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 44
+        width: 68
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2da2148d91649f5b0800000000000000
+      internalID: -5334155206827365678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_6"
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 46
+        width: 63
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9213de805a75499d0800000000000000
+      internalID: -2768491504595029719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_7"
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 35
+        width: 54
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83a34ec6d3469f40800000000000000
+      internalID: 5734845765365506954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_8"
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 38
+        width: 60
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0352e9285836ee0800000000000000
+      internalID: -1269023873942867739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_9"
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 22
+        width: 65
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c37e3bb15a266c30800000000000000
+      internalID: 4352212620422312903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_10"
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 31
+        width: 63
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c70a4cfb3f949d320800000000000000
+      internalID: 2583177172516905084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_11"
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 21
+        width: 53
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b91d76cb8d2e6960800000000000000
+      internalID: 7597059699774396851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Texto Configura\xE7\xF5es Menu_12"
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 21
+        width: 59
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c2e49fba5ff48190800000000000000
+      internalID: -7960957476057849144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Texto Configura\xE7\xF5es Menu_0": 4788380676256706968
+      "Texto Configura\xE7\xF5es Menu_1": -8143713862578277476
+      "Texto Configura\xE7\xF5es Menu_10": 2583177172516905084
+      "Texto Configura\xE7\xF5es Menu_11": 7597059699774396851
+      "Texto Configura\xE7\xF5es Menu_12": -7960957476057849144
+      "Texto Configura\xE7\xF5es Menu_2": 2728237272425366397
+      "Texto Configura\xE7\xF5es Menu_3": -3212785371233188898
+      "Texto Configura\xE7\xF5es Menu_4": 6000646353341099694
+      "Texto Configura\xE7\xF5es Menu_5": -5334155206827365678
+      "Texto Configura\xE7\xF5es Menu_6": -2768491504595029719
+      "Texto Configura\xE7\xF5es Menu_7": 5734845765365506954
+      "Texto Configura\xE7\xF5es Menu_8": -1269023873942867739
+      "Texto Configura\xE7\xF5es Menu_9": 4352212620422312903
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
