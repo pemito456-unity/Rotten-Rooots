@@ -240,9 +240,6 @@ public class PlayerInventory : MonoBehaviour
                 return true;
             }
 
-            if (slots.Count >= maxSlots)
-                return false;
-
             InventorySlotData newPistolSlot = new InventorySlotData
             {
                 itemName = name,
@@ -253,7 +250,20 @@ public class PlayerInventory : MonoBehaviour
                 ammoCount = pendingPistolAmmo + Mathf.Max(0, carriedAmmo)
             };
 
-            slots.Add(newPistolSlot);
+            bool addedPistol;
+            if (slots.Count < maxSlots)
+            {
+                slots.Add(newPistolSlot);
+                addedPistol = true;
+            }
+            else
+            {
+                addedPistol = ReplaceSelectedSlot(newPistolSlot);
+            }
+
+            if (!addedPistol)
+                return false;
+
             pendingPistolAmmo = 0;
             UpdateGunState();
             RefreshInventoryUI();
@@ -272,9 +282,6 @@ public class PlayerInventory : MonoBehaviour
             return true;
         }
 
-        if (slots.Count >= maxSlots)
-            return false;
-
         InventorySlotData newSlot = new InventorySlotData
         {
             itemName = name,
@@ -284,10 +291,65 @@ public class PlayerInventory : MonoBehaviour
             isFlashlight = false
         };
 
-        slots.Add(newSlot);
+        bool added;
+        if (slots.Count < maxSlots)
+        {
+            slots.Add(newSlot);
+            added = true;
+        }
+        else
+        {
+            added = ReplaceSelectedSlot(newSlot);
+        }
+
+        if (!added)
+            return false;
+
         UpdateGunState();
         RefreshInventoryUI();
         return true;
+    }
+
+    private bool ReplaceSelectedSlot(InventorySlotData newSlot)
+    {
+        if (slots == null || slots.Count == 0)
+            return false;
+
+        selectedSlotIndex = Mathf.Clamp(selectedSlotIndex, 0, slots.Count - 1);
+        int firstSlot = selectedSlotIndex;
+
+        for (int offset = 0; offset < slots.Count; offset++)
+        {
+            int slotIndex = (firstSlot + offset) % slots.Count;
+            InventorySlotData oldSlot = slots[slotIndex];
+
+            if (oldSlot.isFlashlight || oldSlot.isCamera)
+                continue;
+
+            GameObject pickupPrefab = GetPickupPrefab(oldSlot.type);
+            if (pickupPrefab == null || pickupPrefab.GetComponent<ItemPickup2D>() == null)
+                continue;
+
+            Vector3 dropPosition = transform.position +
+                (Vector3)(GetDropDirection() * dropDistance);
+            GameObject droppedObject = Instantiate(pickupPrefab, dropPosition, Quaternion.identity);
+            ItemPickup2D droppedPickup = droppedObject.GetComponent<ItemPickup2D>();
+
+            droppedPickup.itemName = oldSlot.itemName;
+            droppedPickup.itemIcon = oldSlot.icon;
+            droppedPickup.itemType = oldSlot.type;
+            droppedPickup.amount = oldSlot.amount;
+            droppedPickup.carriedAmmo = oldSlot.type == ItemPickup2D.ItemType.Gun
+                ? oldSlot.ammoCount
+                : 0;
+
+            slots[slotIndex] = newSlot;
+            selectedSlotIndex = slotIndex;
+            return true;
+        }
+
+        Debug.LogWarning("Não há um slot substituível com prefab de descarte configurado.");
+        return false;
     }
 
     public void OnNextItem(InputAction.CallbackContext context)
